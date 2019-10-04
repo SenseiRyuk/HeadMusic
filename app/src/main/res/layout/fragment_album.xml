@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.if26.AlbumFragment">
+    tools:context="com.example.if26new.AlbumFragment">
 
     <ScrollView
     android:layout_width="match_parent"

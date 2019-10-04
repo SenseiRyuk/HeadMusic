@@ -3,6 +3,9 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+    sourceSets {
+        main.java.srcDirs += 'src/main/java/com.example.if26new/'
+    }
     defaultConfig {
         applicationId "com.example.if26new"
         minSdkVersion 28

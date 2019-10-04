@@ -329,7 +329,7 @@ public class listening extends AppCompatActivity {
 
        //Read The TXT File for the lyrics ....
         //Name IN ROW IN minuscule
-        InputStream inputStream = getResources().openRawResource(R.betternowpostmalonelyrics);
+        InputStream inputStream = getResources().openRawResource(R.raw.betternowpostmalonelyrics);
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int i;
         try {
