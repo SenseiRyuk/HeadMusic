@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/homeButtonBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/homeselector"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/newButtonBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/newselector"
+        android:title="NEWS"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/profileButtonBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/profileselector"
+        android:title="PROFILE"
+        app:showAsAction="ifRoom" />
+</menu>
