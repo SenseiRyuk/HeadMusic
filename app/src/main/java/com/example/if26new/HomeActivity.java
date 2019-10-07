@@ -26,6 +26,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private boolean isOnClickHome;
     private TextView musicTitle;
     private Fragment mainFragment;
+    int sertPas;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
