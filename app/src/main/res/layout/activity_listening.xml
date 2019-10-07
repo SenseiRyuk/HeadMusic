@@ -19,18 +19,16 @@
         android:id="@+id/videoView"
         android:layout_width="342dp"
         android:layout_height="239dp"
-        android:layout_marginStart="29dp"
         android:layout_marginTop="75dp"
-        android:layout_marginEnd="35dp"
         android:layout_marginBottom="53dp"
         android:clickable="true"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.478"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.133" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
@@ -44,10 +42,25 @@
         android:text="Post Malone - Better Now"
         android:textColor="#FFFFFF"
         android:textSize="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="0.077" />
+
+    <ImageView
+        android:id="@+id/imageAlbum"
+        android:layout_width="340dp"
+        android:layout_height="340dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginBottom="7dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -121,6 +134,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="8dp"
         android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:srcCompat="@drawable/addplaylist" />
@@ -131,6 +145,7 @@
         android:layout_height="68dp"
         android:layout_marginTop="8dp"
         android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:srcCompat="@drawable/likenoclick" />
@@ -139,32 +154,19 @@
         android:id="@+id/textView2"
         android:layout_width="378dp"
         android:layout_height="41dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="17dp"
         android:gravity="center"
+        android:singleLine="true"
         android:text="Beerbongs and Bentleys"
         android:textColor="#FFFFFF"
-        android:singleLine="true"
         android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.057" />
 
-    <ImageView
-        android:id="@+id/imageAlbum"
-        android:layout_width="340dp"
-        android:layout_height="340dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="7dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="1.0"/>
-        <!--app:srcCompat="@drawable/hazy"
+    <!--app:srcCompat="@drawable/hazy"
         android:scaleType="fitXY"
         android:adjustViewBounds="true" -->
 
@@ -200,6 +202,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="104dp"
         android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/addPlaylistButton"
         app:layout_constraintStart_toEndOf="@+id/likeButton"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
@@ -209,15 +212,15 @@
         android:id="@+id/lyricsText"
         android:layout_width="340dp"
         android:layout_height="340dp"
-        android:layout_marginStart="29dp"
-        android:layout_marginEnd="30dp"
         android:text="Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. "
         android:textColor="#FFFFFF"
         android:textSize="20dp"
         android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/imageAlbum"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

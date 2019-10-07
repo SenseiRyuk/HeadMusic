@@ -27,12 +27,12 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_main, container, false);
-        test = result.findViewById(R.id.switchUserButton);
+        /*test = result.findViewById(R.id.switchUserButton);
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
             }
-        });
+        });*/
         return result;
 
     }
