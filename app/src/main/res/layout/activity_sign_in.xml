@@ -5,170 +5,171 @@
     android:id="@+id/mainSignLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.if26new.SignInActivity"
-    android:background="@drawable/gradientbackground">
+    android:background="@drawable/gradientbackground"
+    tools:context="com.example.if26new.SignInActivity">
 
     <TextView
         android:id="@+id/mailAddressSignIn"
-        android:textColor="#FFFFFF"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="221dp"
-        android:layout_marginEnd="163dp"
-        android:layout_marginBottom="8dp"
         android:text="Enter your mail address"
-        app:layout_constraintBottom_toTopOf="@+id/fieldForMailAddressSignIn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.286"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.341" />
 
     <EditText
         android:id="@+id/fieldForMailAddressSignIn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="86dp"
-        android:ems="10"
-        android:textColor="#FFFFFF"
         android:backgroundTint="@android:color/white"
+        android:ems="10"
         android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mailAddressSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/mailAddressSignIn"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/usernameSingIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="182dp"
-        android:layout_marginBottom="8dp"
-        android:textColor="#FFFFFF"
         android:text="Enter your username"
-        app:layout_constraintBottom_toTopOf="@+id/fieldForUsernameSignIn"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldForMailAddressSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/fieldForMailAddressSignIn"
+        app:layout_constraintVertical_bias="0.071" />
 
     <EditText
         android:id="@+id/fieldForUsernameSignIn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="86dp"
-        android:ems="10"
-        android:textColor="#FFFFFF"
         android:backgroundTint="@android:color/white"
+        android:ems="10"
         android:inputType="textEmailAddress"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernameSingIn" />
+        app:layout_constraintTop_toBottomOf="@+id/usernameSingIn"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/passwordSignIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="182dp"
         android:text="Enter your password"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.266"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldForUsernameSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/fieldForUsernameSignIn"
+        app:layout_constraintVertical_bias="0.092" />
 
     <EditText
         android:id="@+id/fieldForPasswordSignIn"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="86dp"
-        android:ems="10"
-        android:textColor="#FFFFFF"
         android:backgroundTint="@android:color/white"
+        android:ems="10"
         android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordSignIn"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="291dp"
         android:layout_height="291dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginEnd="60dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/fieldForMailAddressSignIn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/textReEntrerPswrd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="81dp"
         android:layout_marginTop="24dp"
         android:text="confirm your password"
         android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.284"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldForPasswordSignIn" />
+        app:layout_constraintTop_toBottomOf="@+id/fieldForPasswordSignIn"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/fieldForConfirmPassword"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="86dp"
-        android:ems="10"
-        android:textColor="#FFFFFF"
         android:backgroundTint="@android:color/white"
+        android:ems="10"
         android:inputType="textPassword"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.465"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textReEntrerPswrd" />
+        app:layout_constraintTop_toBottomOf="@+id/textReEntrerPswrd"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/confirm"
         android:layout_width="53dp"
         android:layout_height="53dp"
-        android:layout_marginStart="126dp"
         android:layout_marginTop="16dp"
-        app:srcCompat="@drawable/confirm"
+        android:background="#20335E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/delete"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
-        android:background="#20335E"
- />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/confirm" />
 
     <ImageButton
         android:id="@+id/delete"
         android:layout_width="53dp"
         android:layout_height="53dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="126dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
         android:background="#20335E"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.642"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/delete"></ImageButton>
 
     <ImageButton
         android:id="@+id/returnLogMenu"
         android:layout_width="72dp"
         android:layout_height="61dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
         android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.026"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/returnmenu" ></ImageButton>
+        app:layout_constraintTop_toTopOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.038"
+        app:srcCompat="@drawable/returnmenu"></ImageButton>
 </androidx.constraintlayout.widget.ConstraintLayout>
