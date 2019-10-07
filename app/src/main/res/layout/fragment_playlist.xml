@@ -13,7 +13,6 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/hazy"
             android:id="@+id/playlistUser"/>
     </ScrollView>
 </FrameLayout>
