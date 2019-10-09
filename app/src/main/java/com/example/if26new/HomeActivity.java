@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private ImageButton previousSong;
     private ImageButton nextSong;
     private ImageButton pausePlay;
+    private SearchView search;
     private BottomNavigationView bottomNavigationView;
     private boolean isOnClickHome;
     private TextView musicTitle;
@@ -33,7 +35,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         setContentView(R.layout.activity_home);
         musicTitle=findViewById(R.id.musicTitle);
         isOnClickHome=false;
-        loadFragment(new MainFragment());
+        search=findViewById(R.id.searchView);
+        search.clearFocus();
         bottomNavigationView=findViewById(R.id.bottonView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
@@ -45,6 +48,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
                 startActivity(listenActivity);
             }
         });
+        loadFragment(new MainFragment());
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

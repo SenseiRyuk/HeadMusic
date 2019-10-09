@@ -37,9 +37,9 @@ public class PlaylistFragment extends Fragment {
 
         //Retrieve all the playlist in data base
         TableLayout table = view.findViewById(R.id.playlistUser);
-        TableLayout.LayoutParams tl=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
+        TableLayout.LayoutParams tl=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT,1f);
         TableRow row;
-        for (int i=0;i<=12;i++){
+        for (int i=0;i<=7;i++){
             row=new TableRow(getActivity());
             row.setGravity(Gravity.CENTER);
             ImageButton myButton= new ImageButton(getActivity());
@@ -47,8 +47,8 @@ public class PlaylistFragment extends Fragment {
             myButton.setImageResource(R.drawable.iconforplaylist);
             TextView myText = new TextView(getActivity());
             //Set the TEXT OF THE PLAYLIST
-            myText.setTextColor(Color.parseColor("#1C376E"));
             myText.setText("    Playlist n°" +(i+1) + " ("+(i+20)+" songs)");
+            myText.setTextColor(Color.WHITE);
             myText.setTextSize(20);
             myText.setGravity(Gravity.CENTER_HORIZONTAL);
             row.addView(myButton);

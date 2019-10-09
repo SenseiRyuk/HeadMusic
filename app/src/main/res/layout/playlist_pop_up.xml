@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="350dp"
     android:layout_height="350dp"
-    android:background="#282834"
+    android:background="@drawable/gradientbackground"
     android:layout_gravity="center">
 
     <Space
