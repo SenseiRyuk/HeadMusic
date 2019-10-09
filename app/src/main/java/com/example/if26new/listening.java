@@ -28,9 +28,6 @@ import java.util.concurrent.TimeUnit;
 
 public class listening extends AppCompatActivity {
 
-    private ImageButton home;
-    private ImageButton news;
-    private ImageButton profile;
     private ImageButton like;
     private ImageButton previousMusic;
     private ImageButton nextMusic;
@@ -362,7 +359,7 @@ public class listening extends AppCompatActivity {
             myButton.setImageResource(R.drawable.iconforplaylist);
             final TextView myText = new TextView(this);
             //Set the TEXT OF THE PLAYLIST
-            myText.setTextColor(Color.parseColor("#1C376E"));
+            myText.setTextColor(Color.parseColor("#FFFFFF"));
             myText.setText("    Playlist n°" +(i+1) + " ("+(i+20)+" songs)");
             myText.setTextSize(20);
             myText.setGravity(Gravity.CENTER_HORIZONTAL);
