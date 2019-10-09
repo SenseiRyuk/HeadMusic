@@ -13,34 +13,47 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
-            android:id="@+id/layout"
-            android:layout_height="match_parent"
-            android:scrollbars="horizontal|vertical"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dip"
-            android:scrollbarStyle="outsideInset"
-            android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/linearLayout7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalView"
-                android:layout_height="wrap_content"
-                android:scrollbars="horizontal|vertical"
-                android:layout_width="match_parent"
-                android:layout_marginTop="5dip"
-                android:fillViewport="true">
+        <LinearLayout
+            android:id="@+id/linearLayout6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
 
-                <TableLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tlGridTable" >
+        <TextView
+            android:id="@+id/newAlbumsID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New albums" />
 
-                    <TableRow
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-                </TableLayout>
-            </HorizontalScrollView>
-        </ScrollView>
+        <LinearLayout
+            android:id="@+id/linearLayout8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <TextView
+            android:id="@+id/TopWorldID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOP World" />
+
+        <TextView
+            android:id="@+id/nearestConcertsID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nearest concerts" />
+
+        <TextView
+            android:id="@+id/myRecentPlaylistID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="My recent playlists" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
