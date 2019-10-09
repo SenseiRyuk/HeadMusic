@@ -11,49 +11,182 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/linearLayout7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <TextView
-            android:id="@+id/newAlbumsID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New albums" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
-
-        <TextView
-            android:id="@+id/TopWorldID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TOP World" />
-
-        <TextView
-            android:id="@+id/nearestConcertsID"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nearest concerts" />
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <TextView
             android:id="@+id/myRecentPlaylistID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="My recent playlists" />
+            android:text="My recent playlists"
+            android:scrollbars="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/hScrollmyRecentPlaylistID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <HorizontalScrollView
+            android:id="@+id/hScrollmyRecentPlaylistID"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/nearestConcertsID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/myRecentPlaylistID">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutplaylistID"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"/>
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/nearestConcertsID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nearest concerts"
+            app:layout_constraintBottom_toTopOf="@+id/hScrollNearestConcertsID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hScrollmyRecentPlaylistID" />
+
+        <HorizontalScrollView
+            android:id="@+id/hScrollNearestConcertsID"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/newAlbumsID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.592"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/nearestConcertsID">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutConcertsID"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/newAlbumsID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New albums"
+            app:layout_constraintBottom_toTopOf="@+id/hScrollNewAlbumsID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hScrollNearestConcertsID" />
+
+        <HorizontalScrollView
+            android:id="@+id/hScrollNewAlbumsID"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/TopWorldID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newAlbumsID">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutAlbumsID"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+
+        <TextView
+            android:id="@+id/TopWorldID"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TOP World"
+            app:layout_constraintBottom_toTopOf="@+id/secondTopArtist"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hScrollNewAlbumsID" />
+
+        <ImageButton
+            android:id="@+id/thirdRankID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@android:drawable/btn_dialog"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/secondRankID"
+            app:layout_constraintTop_toBottomOf="@+id/thirdTopArtistID" />
+
+        <ImageButton
+            android:id="@+id/firstRankID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_btn_speak_now"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/secondRankID"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/firstTopArtistsID" />
+
+        <ImageButton
+            android:id="@+id/firstTopArtistsID"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="2dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/firstRankID"
+            app:layout_constraintEnd_toStartOf="@+id/secondTopArtist"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TopWorldID"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageButton
+            android:id="@+id/secondTopArtist"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/secondRankID"
+            app:layout_constraintEnd_toStartOf="@+id/thirdTopArtistID"
+            app:layout_constraintStart_toEndOf="@+id/firstTopArtistsID"
+            app:layout_constraintTop_toBottomOf="@+id/TopWorldID"
+            tools:src="@tools:sample/avatars" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout9"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TopWorldID">
+
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/secondRankID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:layout_weight="1"
+            android:src="@android:drawable/btn_star"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/thirdRankID"
+            app:layout_constraintStart_toEndOf="@+id/firstRankID"
+            app:layout_constraintTop_toBottomOf="@+id/secondTopArtist"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/thirdTopArtistID"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/thirdRankID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/secondTopArtist"
+            app:layout_constraintTop_toBottomOf="@+id/TopWorldID"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
