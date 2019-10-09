@@ -11,14 +11,14 @@
         android:layout_height="35dp" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20dp"
-        android:textStyle="bold"
+        android:text="Add to playlist"
         android:textColor="#FFFFFF"
-        android:text="Add to playlist" />
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <Space
         android:layout_width="match_parent"
