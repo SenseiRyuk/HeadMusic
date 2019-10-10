@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -23,6 +24,7 @@ public class UserFragment extends Fragment {
 
     private TabLayout onglet;
     private ViewPager viewPagerForFragments;
+    private ImageView mImageView;
     private FragmentActivity myContext;
     private PageAdaptaterForUser pageAdaptaterForUser;
 
@@ -40,6 +42,10 @@ public class UserFragment extends Fragment {
         onglet=view.findViewById(R.id.tabLayout);
         viewPagerForFragments=view.findViewById(R.id.viewPagerUser);
         viewPagerForFragments.setOffscreenPageLimit(2);
+        mImageView = view.findViewById(R.id.imageView);
+        mImageView.setImageResource(R.drawable.hazy1);
+        mImageView.setAdjustViewBounds(false);
+        mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         //FragmentManager fragmentManager=myContext.getSupportFragmentManager();
         viewPagerForFragments.setAdapter(pageAdaptaterForUser);
         //viewPagerForFragments.addOnPageChangeListener(view);
