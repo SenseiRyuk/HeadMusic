@@ -5,77 +5,66 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientbackground"
-    tools:context=".PlaylistView">
+    tools:context=".Album_view">
 
     <SearchView
         android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginBottom="14dp"
         android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/playlistImageInPlaylistView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toTopOf="parent">
 
     </SearchView>
 
-    <ImageView
-        android:id="@+id/playlistImageInPlaylistView"
-        android:layout_width="225dp"
-        android:layout_height="225dp"
-        android:layout_marginTop="64dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/hazy" />
-
     <TextView
-        android:id="@+id/playlistNameInPlaylistView"
+        android:id="@+id/albumNameInAlbumView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="147dp"
         android:singleLine="true"
-        android:text="Nom de la playlist"
+        android:text="Nom de l'album"
         android:textSize="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playlistImageInPlaylistView"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/AlbumImageInAlbumView" />
 
     <TextView
-        android:id="@+id/titleInPlaylistView"
+        android:id="@+id/titleInAlbumView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="23dp"
         android:singleLine="true"
         android:text="Titles"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/playlistImageInPlaylistView" />
+        app:layout_constraintTop_toBottomOf="@+id/albumNameInAlbumView" />
 
     <ScrollView
-        android:id="@+id/scrollView2"
+        android:id="@+id/scrollViewAlbum"
         android:layout_width="match_parent"
         android:layout_height="375dp"
-        android:layout_marginTop="18dp"
         android:clipToPadding="false"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleInPlaylistView"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintStart_toStartOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearForPlaylistView"
+            android:id="@+id/linearForAlbumView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/AlbumImageInAlbumView"
+        android:layout_width="225dp"
+        android:layout_height="225dp"
+        android:layout_marginTop="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        app:srcCompat="@drawable/hazy_cosmos" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

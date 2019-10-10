@@ -5,18 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.Space;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
-public class PlaylistView extends AppCompatActivity {
-
+public class Album_view extends AppCompatActivity {
 
     private TextView songName;
     private TextView artistName;
@@ -25,8 +19,8 @@ public class PlaylistView extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_playlist_view);
-        linearLayout = findViewById(R.id.linearForPlaylistView);
+        setContentView(R.layout.activity_album_view);
+        linearLayout = findViewById(R.id.linearForAlbumView);
         ViewGroup.MarginLayoutParams paramsSingle = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsSingle.setMargins(50,25,0,0);
         ViewGroup.MarginLayoutParams paramsArtist = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
@@ -63,7 +57,7 @@ public class PlaylistView extends AppCompatActivity {
         }
     }
     public void goToListeningViewOfTheSong(){
-        Intent signInActivity = new Intent(PlaylistView.this, listening.class);
+        Intent signInActivity = new Intent(Album_view.this, listening.class);
         startActivity(signInActivity);
     }
 }
