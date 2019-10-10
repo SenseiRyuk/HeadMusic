@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -21,10 +23,11 @@ import androidx.fragment.app.Fragment;
  */
 public class PlaylistFragment extends Fragment {
 
-    private TableLayout table;
-    private TableRow row;
     private ImageButton imageButtonPlaylist;
-    private  TextView playlistTitle;
+    private TextView playlistTitle;
+    private LinearLayout linearLayout;
+    private LinearLayout dynamique;
+
     public static PlaylistFragment newInstance() {
         return (new PlaylistFragment());
     }
@@ -40,27 +43,35 @@ public class PlaylistFragment extends Fragment {
         View view;
         view=inflater.inflate(R.layout.fragment_playlist, container, false);
 
-        //Retrieve all the playlist in data base
-        table = view.findViewById(R.id.playlistUser);
-        TableLayout.LayoutParams tl=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT,1f);
+        linearLayout = view.findViewById(R.id.linearForPlaylistUser);
+        ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsImageButton.setMargins(50,25,0,25);
+        ViewGroup.MarginLayoutParams paramsPlaylistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsPlaylistName.setMargins(50,25,0,25);
+        for (int i = 0; i <= 10; i++) {
+            dynamique = new LinearLayout(getActivity());
+            dynamique.setOrientation(LinearLayout.VERTICAL);
 
-        for (int i=0;i<=7;i++){
-            row=new TableRow(getActivity());
-            row.setGravity(Gravity.CENTER);
-            imageButtonPlaylist=new ImageButton(getActivity());
-            imageButtonPlaylist.setBackground(null);
-            imageButtonPlaylist.setImageResource(R.drawable.iconforplaylist);
+            //imageButtonPlaylist=new ImageButton(getActivity());
+            //imageButtonPlaylist.setBackground(null);
+            //imageButtonPlaylist.setImageResource(R.drawable.hazy);
+            //imageButtonPlaylist.setMaxWidth();
             playlistTitle=new TextView(getActivity());
-            playlistTitle.setText("    Playlist n°" +(i+1) + " ("+(i+20)+" songs)");
+            playlistTitle.setText("Playlist");
             playlistTitle.setTextColor(Color.WHITE);
             playlistTitle.setTextSize(20);
             playlistTitle.setSingleLine(true);
-            playlistTitle.setGravity(Gravity.CENTER_HORIZONTAL);
-            row.addView(imageButtonPlaylist);
-            row.addView(playlistTitle);
-            table.addView(row,tl);
-            //table.addView(myText,tl);
-            //IT'S HERE WE WILL SET THE ON CLICK ON THE BUTTON AND THE TEXT TO GO TO THE VIEW PLAYLIST
+
+            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
+            dynamique.addView(playlistTitle,paramsPlaylistName);
+            linearLayout.addView(dynamique);
+            /*imageButtonPlaylist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent signInActivity = new Intent(getActivity(), PlaylistView.class);
+                    startActivity(signInActivity);
+                }
+            });*/
             playlistTitle.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

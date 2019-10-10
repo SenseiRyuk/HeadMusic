@@ -62,7 +62,7 @@
             app:layout_constraintVertical_bias="0.275" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/createNewPlaylist"
             android:layout_width="125dp"
             android:layout_height="25dp"
             android:layout_marginTop="3dp"
