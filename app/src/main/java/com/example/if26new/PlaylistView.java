@@ -9,6 +9,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TableLayout;
@@ -22,10 +23,17 @@ public class PlaylistView extends AppCompatActivity {
     private TextView artistName;
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
+    private ImageView mImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_view);
+
+        mImageView = findViewById(R.id.playlistImageInPlaylistView);
+        mImageView.setImageResource(R.drawable.hazy1);
+        mImageView.setAdjustViewBounds(false);
+        mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
         linearLayout = findViewById(R.id.linearForPlaylistView);
         ViewGroup.MarginLayoutParams paramsSingle = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsSingle.setMargins(50,25,0,0);

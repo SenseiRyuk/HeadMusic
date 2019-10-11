@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,11 +17,18 @@ public class Album_view extends AppCompatActivity {
     private TextView artistName;
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
+    private ImageView mImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
         linearLayout = findViewById(R.id.linearForAlbumView);
+
+        mImageView = findViewById(R.id.AlbumImageInAlbumView);
+        mImageView.setImageResource(R.drawable.hazy_cosmos);
+        mImageView.setAdjustViewBounds(true);
+        mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
         ViewGroup.MarginLayoutParams paramsSingle = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsSingle.setMargins(50,25,0,0);
         ViewGroup.MarginLayoutParams paramsArtist = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
