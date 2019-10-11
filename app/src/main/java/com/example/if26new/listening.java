@@ -151,11 +151,9 @@ public class listening extends AppCompatActivity {
         lyricsText=findViewById(R.id.lyricsText);
 
         //Set photo Music Artist
-        //Bitmap resized = Bitmap.createScaledBitmap(mybitmap, 340, 340, true);
-        photoAlbum.setImageResource(R.drawable.hazy);
+        photoAlbum.setImageResource(R.drawable.hazy1);
+        photoAlbum.setAdjustViewBounds(false);
         photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-        photoAlbum.setAdjustViewBounds(true);
-
 
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
         //For the Video

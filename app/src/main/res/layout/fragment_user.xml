@@ -53,7 +53,7 @@
             android:id="@+id/imageView"
             android:layout_width="175dp"
             android:layout_height="175dp"
-            android:src="@drawable/hazy"
+            android:src="@drawable/hazy1"
             app:layout_constraintBottom_toTopOf="@+id/tabLayout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.502"
