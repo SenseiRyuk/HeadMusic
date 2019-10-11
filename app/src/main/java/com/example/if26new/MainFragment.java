@@ -1,6 +1,7 @@
 package com.example.if26new;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -11,8 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
@@ -22,7 +21,7 @@ import androidx.fragment.app.Fragment;
  * A simple {@link Fragment} subclass.
  */
 public class MainFragment extends Fragment {
-
+    //la
     private ImageButton mImageButton1Artist;
     private ImageButton mImageButton2Artist;
     private ImageButton mImageButton3Artist;
@@ -32,15 +31,15 @@ public class MainFragment extends Fragment {
     private LinearLayout mLinearLayout1;
     private LinearLayout mLinearLayout2;
     private LinearLayout mLinearLayout3;
-    private ImageButton[] mImageButtonsPlaylists;
-    private ImageButton[] mImageButtonsConcerts;
-    private ImageButton[] mImageButtonsAlbums;
-    private LinearLayout[] mLinearLayoutsPlaylists;
-    private LinearLayout[] mLinearLayoutsAlbums;
-    private LinearLayout[] mLinearLayoutsConcerts;
-    private TextView[] mTextViewsPlaylists;
-    private TextView[] mTextViewsAlbums;
-    private TextView[] mTextViewsConcerts;
+    private ImageButton mImageButtonsPlaylists;
+    private Button mImageButtonsConcerts;
+    private ImageButton mImageButtonsAlbums;
+    private LinearLayout mLinearLayoutsPlaylists;
+    private LinearLayout mLinearLayoutsAlbums;
+    private LinearLayout mLinearLayoutsConcerts;
+    private TextView mTextViewsPlaylists;
+    private TextView mTextViewsAlbums;
+    private TextView mTextViewsConcerts;
 
 
     public MainFragment() {
@@ -52,15 +51,6 @@ public class MainFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mImageButtonsPlaylists = new ImageButton[10];
-        mLinearLayoutsPlaylists = new LinearLayout[10];
-        mTextViewsPlaylists = new TextView[10];
-        mImageButtonsConcerts = new ImageButton[10];
-        mLinearLayoutsConcerts = new LinearLayout[10];
-        mTextViewsConcerts = new TextView[10];
-        mImageButtonsAlbums = new ImageButton[10];
-        mLinearLayoutsAlbums= new LinearLayout[10];
-        mTextViewsAlbums = new TextView[10];
         View result = inflater.inflate(R.layout.fragment_main, container, false);
 
         mLinearLayout1 = result.findViewById(R.id.linearLayoutplaylistID);
@@ -76,9 +66,10 @@ public class MainFragment extends Fragment {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(50, 50, 50, 50);
+        lp.setMargins(20, 50, 20, 50);
         android.view.ViewGroup.LayoutParams params2 = mImageButton1Artist.getLayoutParams();
         params2.height=500;
+
 
 
         mImageButton1Artist.setBackground(null);
@@ -103,66 +94,82 @@ public class MainFragment extends Fragment {
 
         for (int i=0;i<10;i++) {
             //PARTIE PLAYLIST
-            mLinearLayoutsPlaylists[i] = new LinearLayout(getActivity());
-            mLinearLayout1.addView(mLinearLayoutsPlaylists[i]);
-            mLinearLayoutsPlaylists[i].setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsPlaylists[i] = new ImageButton(getActivity());
-            mLinearLayoutsPlaylists[i].addView(mImageButtonsPlaylists[i]);
-            mImageButtonsPlaylists[i].setBackground(null);
-            mImageButtonsPlaylists[i].setImageResource(R.drawable.iconforplaylist);
-            android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
-            params.height=500;
-            params.width=500;
-            mImageButtonsPlaylists[i].setLayoutParams(params);
-            mImageButtonsPlaylists[i].setAdjustViewBounds(true);
-            mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            mTextViewsPlaylists[i] = new TextView(getActivity());
-            mTextViewsPlaylists[i].setText("Playlist " + i);
-            mTextViewsPlaylists[i].setTextColor(Color.WHITE);
-            mLinearLayoutsPlaylists[i].addView(mTextViewsPlaylists[i]);
-            mLinearLayoutsPlaylists[i].setLayoutParams(lp);
-            mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayoutsPlaylists = new LinearLayout(getActivity());
+            mLinearLayout1.addView(mLinearLayoutsPlaylists);
+            mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
+            mImageButtonsPlaylists = new ImageButton(getActivity());
+            mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists);
+            mImageButtonsPlaylists.setBackground(null);
+            mImageButtonsPlaylists.setImageResource(R.drawable.iconforplaylist);
+            mImageButtonsPlaylists.setAdjustViewBounds(true);
+            android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists.getLayoutParams();
+            params.height=450;
+            params.width=450;
+            mImageButtonsPlaylists.setLayoutParams(params);
+            mImageButtonsPlaylists.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mTextViewsPlaylists = new TextView(getActivity());
+            mTextViewsPlaylists.setText("Playlist " + i);
+            mTextViewsPlaylists.setTextColor(Color.WHITE);
+            mLinearLayoutsPlaylists.addView(mTextViewsPlaylists);
+            mLinearLayoutsPlaylists.setLayoutParams(lp);
+            mTextViewsPlaylists.setGravity(Gravity.CENTER_HORIZONTAL);
 
             //PARTIE CONCERTS
-            mLinearLayoutsConcerts[i] = new LinearLayout(getActivity());
-            mLinearLayout2.addView(mLinearLayoutsConcerts[i]);
-            mLinearLayoutsConcerts[i].setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsConcerts[i] = new ImageButton(getActivity());
-            mLinearLayoutsConcerts[i].addView(mImageButtonsConcerts[i]);
-            mImageButtonsConcerts[i].setBackground(null);
-            mImageButtonsConcerts[i].setImageResource(R.drawable.concertstade);
-            mImageButtonsConcerts[i].setLayoutParams(params);
-            mImageButtonsConcerts[i].setAdjustViewBounds(true);
-            mImageButtonsConcerts[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            mTextViewsConcerts[i] = new TextView(getActivity());
-            mTextViewsConcerts[i].setText("Concert " + i);
-            mTextViewsConcerts[i].setTextColor(Color.WHITE);
-            mLinearLayoutsConcerts[i].addView(mTextViewsConcerts[i]);
-            mLinearLayoutsConcerts[i].setLayoutParams(lp);
-            mTextViewsConcerts[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayoutsConcerts = new LinearLayout(getActivity());
+            mLinearLayout2.addView(mLinearLayoutsConcerts);
+            mLinearLayoutsConcerts.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            lp1.setMargins(25, 50, 25, 50);
+            mImageButtonsConcerts = new Button(getActivity());
+            mLinearLayoutsConcerts.addView(mImageButtonsConcerts);
+            mImageButtonsConcerts.setBackgroundResource(R.drawable.concertstade);
+            android.view.ViewGroup.LayoutParams params1 = mImageButtonsConcerts.getLayoutParams();
+            params1.height=440;
+            params1.width=440;
+            mImageButtonsConcerts.setLayoutParams(params1);
+            mImageButtonsConcerts.setText("Artiste\n-\nVille");
+            mImageButtonsConcerts.setTextColor(Color.BLACK);
+            /*mTextViewsConcerts = new TextView(getActivity());
+            mTextViewsConcerts.setText("Concert " + i);
+            mTextViewsConcerts.setTextColor(Color.WHITE);
+            mLinearLayoutsConcerts.addView(mTextViewsConcerts);
+            mTextViewsConcerts.setGravity(Gravity.CENTER_HORIZONTAL);*/
+            mLinearLayoutsConcerts.setLayoutParams(lp1);
+
 
             //PARTIE ALBUM
-            mLinearLayoutsAlbums[i] = new LinearLayout(getActivity());
-            mLinearLayout3.addView(mLinearLayoutsAlbums[i]);
-            mLinearLayoutsAlbums[i].setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsAlbums[i] = new ImageButton(getActivity());
-            mLinearLayoutsAlbums[i].addView(mImageButtonsAlbums[i]);
-            mImageButtonsAlbums[i].setImageResource(R.drawable.postmalonealb);
-            mImageButtonsAlbums[i].setBackground(null);
-            mImageButtonsAlbums[i].setLayoutParams(params);
-            mImageButtonsAlbums[i].setAdjustViewBounds(true);
-            mImageButtonsAlbums[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            mTextViewsAlbums[i] = new TextView(getActivity());
-            mTextViewsAlbums[i].setText("Album " + i+" ");
-            mTextViewsAlbums[i].setTextColor(Color.WHITE);
-            mLinearLayoutsAlbums[i].addView(mTextViewsAlbums[i]);
-            mLinearLayoutsAlbums[i].setLayoutParams(lp);
-            mTextViewsAlbums[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayoutsAlbums = new LinearLayout(getActivity());
+            mLinearLayout3.addView(mLinearLayoutsAlbums);
+            mLinearLayoutsAlbums.setOrientation(LinearLayout.VERTICAL);
+            mImageButtonsAlbums = new ImageButton(getActivity());
+            mLinearLayoutsAlbums.addView(mImageButtonsAlbums);
+            mImageButtonsAlbums.setImageResource(R.drawable.postmalonealb);
+            mImageButtonsAlbums.setBackgroundColor(Color.BLACK);
+            android.view.ViewGroup.LayoutParams params3 = mImageButtonsAlbums.getLayoutParams();
+            params3.height=450;
+            params3.width=450;
+            mImageButtonsAlbums.setLayoutParams(params3);
+            mImageButtonsAlbums.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mImageButtonsAlbums.setAdjustViewBounds(true);
+            mTextViewsAlbums = new TextView(getActivity());
+            mTextViewsAlbums.setText("Album " + i+" ");
+            mTextViewsAlbums.setTextColor(Color.WHITE);
+            mLinearLayoutsAlbums.addView(mTextViewsAlbums);
+            mLinearLayoutsAlbums.setLayoutParams(lp);
+            mTextViewsAlbums.setGravity(Gravity.CENTER_HORIZONTAL);
 
+            mImageButton1Artist.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent ArtistActivity = new Intent(getActivity(),ActivityArtist.class);
+                    startActivity(ArtistActivity);
+                }
+            });
         }
         return result;
 
     }
+
 
 
     public void updateDesignWhenUserClickedBottomView(String request) {

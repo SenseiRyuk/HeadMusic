@@ -56,7 +56,7 @@ public class UserFragment extends Fragment {
         viewPagerForFragments.setOffscreenPageLimit(2);
         mImageView = view.findViewById(R.id.imageView);
         mImageView.setImageResource(R.drawable.hazy1);
-        mImageView.setAdjustViewBounds(false);
+        mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         //FragmentManager fragmentManager=myContext.getSupportFragmentManager();
         viewPagerForFragments.setAdapter(pageAdaptaterForUser);

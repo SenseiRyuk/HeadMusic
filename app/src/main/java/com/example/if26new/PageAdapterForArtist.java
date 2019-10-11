@@ -4,10 +4,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-public class PageAdaptaterForUser extends FragmentPagerAdapter {
-    //Default Constructor
-    public PageAdaptaterForUser(FragmentManager mgr) {
-        super(mgr);
+public class PageAdapterForArtist extends FragmentPagerAdapter {
+    public PageAdapterForArtist(FragmentManager fm) {
+        super(fm);
     }
     @Override
     public int getCount() {
@@ -31,11 +30,11 @@ public class PageAdaptaterForUser extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0: //Page number 1
-                return "Albums";
+                return "My Playlists";
             case 1: //Page number 2
-                return "Titles";
+                return "Artists";
             case 2: //Page number 3
-                return "Bio";
+                return "Albums";
             default:
                 return null;
         }
