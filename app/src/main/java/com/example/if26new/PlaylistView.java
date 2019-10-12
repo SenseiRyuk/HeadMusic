@@ -30,6 +30,10 @@ public class PlaylistView extends AppCompatActivity {
         setContentView(R.layout.activity_playlist_view);
 
         mImageView = findViewById(R.id.playlistImageInPlaylistView);
+        android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
+        params.height=700;
+        params.width=700;
+        mImageView.setLayoutParams(params);
         mImageView.setImageResource(R.drawable.hazy1);
         mImageView.setAdjustViewBounds(false);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);

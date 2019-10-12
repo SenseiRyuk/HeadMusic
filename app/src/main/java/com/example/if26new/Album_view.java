@@ -25,6 +25,10 @@ public class Album_view extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearForAlbumView);
 
         mImageView = findViewById(R.id.AlbumImageInAlbumView);
+        android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
+        params.height=700;
+        params.width=700;
+        mImageView.setLayoutParams(params);
         mImageView.setImageResource(R.drawable.hazy_cosmos);
         mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);

@@ -26,6 +26,7 @@ public class AlbumFragment extends Fragment {
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
     private TextView AlbumName;
+    private ImageButton imageButtonAlbum;
     public static AlbumFragment newInstance() {
         return (new AlbumFragment());
     }
@@ -43,17 +44,25 @@ public class AlbumFragment extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearForAlbum);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsImageButton.setMargins(50,25,0,25);
+        paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsAlbumName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsAlbumName.setMargins(50,25,0,25);
+        paramsAlbumName.setMargins(10,60,0,0);
         for (int i = 0; i <= 10; i++) {
             dynamique = new LinearLayout(getActivity());
-            dynamique.setOrientation(LinearLayout.VERTICAL);
+            dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            //imageButtonPlaylist=new ImageButton(getActivity());
-            //imageButtonPlaylist.setBackground(null);
-            //imageButtonPlaylist.setImageResource(R.drawable.hazy);
-            //imageButtonPlaylist.setMaxWidth();
+            imageButtonAlbum=new ImageButton(getActivity());
+            dynamique.addView(imageButtonAlbum,paramsImageButton);
+            imageButtonAlbum.setBackground(null);
+            imageButtonAlbum.setImageResource(R.drawable.hazy1);
+            android.view.ViewGroup.LayoutParams params = imageButtonAlbum.getLayoutParams();
+            params.height=200;
+            params.width=200;
+            imageButtonAlbum.setLayoutParams(params);
+            imageButtonAlbum.setAdjustViewBounds(true);
+            imageButtonAlbum.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonAlbum.requestLayout();
+
             AlbumName=new TextView(getActivity());
             AlbumName.setText("Album");
             AlbumName.setTextColor(Color.WHITE);

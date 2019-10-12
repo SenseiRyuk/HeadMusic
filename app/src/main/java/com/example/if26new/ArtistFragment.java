@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -28,6 +29,7 @@ public class ArtistFragment extends Fragment {
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
     private TextView ArtistName;
+    private ImageButton imageButtonArtist;
     public ArtistFragment() {
         // Required empty public constructor
     }
@@ -44,17 +46,25 @@ public class ArtistFragment extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearForArtist);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsImageButton.setMargins(50,25,0,25);
+        paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsArtistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsArtistName.setMargins(50,25,0,25);
+        paramsArtistName.setMargins(10,60,0,0);
         for (int i = 0; i <= 10; i++) {
             dynamique = new LinearLayout(getActivity());
-            dynamique.setOrientation(LinearLayout.VERTICAL);
+            dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            //imageButtonPlaylist=new ImageButton(getActivity());
-            //imageButtonPlaylist.setBackground(null);
-            //imageButtonPlaylist.setImageResource(R.drawable.hazy);
-            //imageButtonPlaylist.setMaxWidth();
+            imageButtonArtist=new ImageButton(getActivity());
+            dynamique.addView(imageButtonArtist,paramsImageButton);
+            imageButtonArtist.setBackground(null);
+            imageButtonArtist.setImageResource(R.drawable.hazy1);
+            android.view.ViewGroup.LayoutParams params = imageButtonArtist.getLayoutParams();
+            params.height=200;
+            params.width=200;
+            imageButtonArtist.setLayoutParams(params);
+            imageButtonArtist.setAdjustViewBounds(true);
+            imageButtonArtist.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonArtist.requestLayout();
+
             ArtistName=new TextView(getActivity());
             ArtistName.setText("Artist");
             ArtistName.setTextColor(Color.WHITE);

@@ -48,27 +48,12 @@
         app:srcCompat="@drawable/postmalone" />
 
     <TextView
-        android:id="@+id/followTxtID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Follow"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageArtistID"
-        app:layout_constraintVertical_bias="0.835" />
-
-    <TextView
         android:id="@+id/nameArtistID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nom de l'artiste"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/followTxtID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageArtistID" />
@@ -90,10 +75,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toEndOf="@+id/followTxtID"
         app:layout_constraintTop_toBottomOf="@+id/nameArtistID"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintVertical_bias="0.722"
         app:srcCompat="@drawable/ic_followwhite" />
 
     <androidx.viewpager.widget.ViewPager
@@ -103,5 +88,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/followTxtID"
+        android:layout_width="114dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/roundbutton"
+        android:text="Follow"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameArtistID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

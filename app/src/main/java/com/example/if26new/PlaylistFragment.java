@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,24 +47,31 @@ public class PlaylistFragment extends Fragment {
 
         linearLayout = view.findViewById(R.id.linearForPlaylistUser);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsImageButton.setMargins(50,25,0,25);
+        paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsPlaylistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsPlaylistName.setMargins(50,25,0,25);
+        paramsPlaylistName.setMargins(10,60,0,0);
         for (int i = 0; i <= 10; i++) {
             dynamique = new LinearLayout(getActivity());
-            dynamique.setOrientation(LinearLayout.VERTICAL);
+            dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            //imageButtonPlaylist=new ImageButton(getActivity());
-            //imageButtonPlaylist.setBackground(null);
-            //imageButtonPlaylist.setImageResource(R.drawable.hazy);
-            //imageButtonPlaylist.setMaxWidth();
+            imageButtonPlaylist=new ImageButton(getActivity());
+            dynamique.addView(imageButtonPlaylist,paramsImageButton);
+            imageButtonPlaylist.setBackground(null);
+            imageButtonPlaylist.setImageResource(R.drawable.hazy_cosmos);
+            android.view.ViewGroup.LayoutParams params = imageButtonPlaylist.getLayoutParams();
+            params.height=200;
+            params.width=200;
+            imageButtonPlaylist.setLayoutParams(params);
+            imageButtonPlaylist.setAdjustViewBounds(true);
+            imageButtonPlaylist.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonPlaylist.requestLayout();
+
             playlistTitle=new TextView(getActivity());
             playlistTitle.setText("Playlist");
             playlistTitle.setTextColor(Color.WHITE);
             playlistTitle.setTextSize(20);
             playlistTitle.setSingleLine(true);
 
-            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
             dynamique.addView(playlistTitle,paramsPlaylistName);
             linearLayout.addView(dynamique);
             /*imageButtonPlaylist.setOnClickListener(new View.OnClickListener() {
