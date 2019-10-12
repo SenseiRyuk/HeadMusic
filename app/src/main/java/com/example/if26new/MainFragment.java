@@ -100,7 +100,7 @@ public class MainFragment extends Fragment {
             mImageButtonsPlaylists = new ImageButton(getActivity());
             mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists);
             mImageButtonsPlaylists.setBackground(null);
-            mImageButtonsPlaylists.setImageResource(R.drawable.iconforplaylist);
+            mImageButtonsPlaylists.setImageResource(R.drawable.hazy1);
             mImageButtonsPlaylists.setAdjustViewBounds(true);
             android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists.getLayoutParams();
             params.height=450;
