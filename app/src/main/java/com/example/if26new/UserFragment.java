@@ -112,7 +112,7 @@ public class UserFragment extends Fragment {
             buttonWithImage.setLayoutParams(params);
             buttonWithImage.setBackground(null);
             if (i==2){
-                buttonWithImage.setImageResource(R.drawable.hazy_cosmos);
+               // buttonWithImage.setImageResource(R.drawable.hazy_cosmos);
             }else{
                 buttonWithImage.setImageResource(R.drawable.hazy1);
             }

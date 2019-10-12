@@ -161,8 +161,16 @@ public class MainFragment extends Fragment {
             mImageButton1Artist.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent ArtistActivity = new Intent(getActivity(),ActivityArtist.class);
-                    startActivity(ArtistActivity);
+                    Intent artistActivity = new Intent(getActivity(),ActivityArtist.class);
+                    startActivity(artistActivity);
+                }
+            });
+
+            mImageButtonsConcerts.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent concertActivity = new Intent(getActivity(), com.example.if26new.ConcertActivity.class);
+                    startActivity(concertActivity);
                 }
             });
         }

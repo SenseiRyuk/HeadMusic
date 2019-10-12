@@ -1,16 +1,16 @@
 package com.example.if26new;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager.widget.ViewPager;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
-import com.google.android.material.tabs.TabItem;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager.widget.ViewPager;
+
 import com.google.android.material.tabs.TabLayout;
 
 public class ActivityArtist extends AppCompatActivity {
@@ -21,9 +21,6 @@ public class ActivityArtist extends AppCompatActivity {
     private TabLayout mTableLayout;
     private ViewPager mViewPager;
     private PageAdapterForArtist mPageAdapterForArtist;
-
-
-
 
 
     @Override
@@ -41,9 +38,10 @@ public class ActivityArtist extends AppCompatActivity {
         imageArtist.setAdjustViewBounds(true);
         imageArtist.setScaleType(ImageView.ScaleType.FIT_CENTER);
         followBtn.setBackground(null);
-        mViewPager.setAdapter(mPageAdapterForArtist);
+
+        setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
-        mTableLayout.setTabMode(TabLayout.MODE_FIXED);
+
 
         followBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +56,14 @@ public class ActivityArtist extends AppCompatActivity {
 
     }
 
+
+  private void setViewPager(ViewPager viewPager) {
+      PageAdapterForArtist adapter = new PageAdapterForArtist(getSupportFragmentManager());
+      adapter.addFragment(new fragment_album(), "Album");
+      adapter.addFragment(new TitlesFragment(),"Titles");
+      adapter.addFragment(new fragment_bio(), "Bio");
+      viewPager.setAdapter(adapter);
+  }
 
 
 }
