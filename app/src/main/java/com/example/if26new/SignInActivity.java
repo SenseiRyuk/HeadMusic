@@ -47,6 +47,7 @@ public class SignInActivity extends AppCompatActivity {
                     int isValid=controler.testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
                     switch (isValid) {
                         case 2:
+
                             Intent mainLayout = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainLayout);
                             break;
