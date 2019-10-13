@@ -12,7 +12,7 @@ public class PlaylistModel {
     @PrimaryKey
     private int id;
     private int userID;
-    private String[] titles;
+    private String titles;
 
     public int getId() {
         return id;
@@ -30,11 +30,11 @@ public class PlaylistModel {
         this.userID = userID;
     }
 
-    public String[] getTitles() {
+    public String getTitles() {
         return titles;
     }
 
-    public void setTitles(String[] titles) {
+    public void setTitles(String titles) {
         this.titles = titles;
     }
 }

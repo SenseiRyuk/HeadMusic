@@ -14,4 +14,7 @@ public interface UserDao {
 
     @Query("SELECT * FROM UserModel WHERE username = :userId")
     LiveData<UserModel> getUser(long userId);
+
+    @Query("SELECT * FROM UserModel")
+    public UserModel[] loadAllUsers();
 }

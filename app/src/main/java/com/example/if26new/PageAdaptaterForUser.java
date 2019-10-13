@@ -31,11 +31,11 @@ public class PageAdaptaterForUser extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0: //Page number 1
-                return "Albums";
+                return "Playlist";
             case 1: //Page number 2
-                return "Titles";
+                return "Artist";
             case 2: //Page number 3
-                return "Bio";
+                return "Album";
             default:
                 return null;
         }

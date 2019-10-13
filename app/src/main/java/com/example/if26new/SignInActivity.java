@@ -21,6 +21,8 @@ public class SignInActivity extends AppCompatActivity {
     private ImageButton delete;
     private ImageButton returnMainMenu;
     private EditText confirmPassword;
+    private SaveMyMusicDatabase db;
+    private UserModel userModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class SignInActivity extends AppCompatActivity {
         username=findViewById(R.id.fieldForUsernameSignIn);
         mailAddress=findViewById(R.id.fieldForMailAddressSignIn);
         confirm=findViewById(R.id.confirm);
+        db=SaveMyMusicDatabase.getInstance(this);
+
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +52,8 @@ public class SignInActivity extends AppCompatActivity {
                     switch (isValid) {
                         case 2:
 
+                            userModel=new UserModel(2,username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
+                            db.userDao().createUser(userModel);
                             Intent mainLayout = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainLayout);
                             break;

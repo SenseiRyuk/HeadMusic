@@ -10,14 +10,10 @@ public class UserModel {
     private String mailAdress;
     private String username;
     private String password;
-   //private ArrayList<ArrayList<String>> playlist=new ArrayList();
-    /*ArrayList<String> musics=new ArrayList();
-        musics.add("This is my pen");
-        musics.add("This is my book ");
-        musics.add("This seifjava2's Program !");
-        playlist.add(0,l);*/
-    
-    public UserModel(String username,String pswrd, String mailAdress){
+
+    public UserModel(){}
+    public UserModel(int id,String username,String pswrd, String mailAdress){
+        this.id=id;
         this.mailAdress=mailAdress;
         this.username=username;
         this.password=pswrd;
@@ -27,11 +23,9 @@ public class UserModel {
     public String getMailAdress() {
         return mailAdress;
     }
-
     public void setMailAdress(String mailAdress) {
         this.mailAdress = mailAdress;
     }
-
     public String getUserName(){
         return this.username;
     }
@@ -41,11 +35,15 @@ public class UserModel {
     public String getUsername() {
         return username;
     }
-
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
     public void setUsername(String username) {
         this.username = username;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }

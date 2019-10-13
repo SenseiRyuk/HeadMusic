@@ -34,7 +34,6 @@ public class PlaylistFragment extends Fragment {
         return (new PlaylistFragment());
     }
 
-
     public PlaylistFragment() {
         // Required empty public constructor
     }
@@ -57,7 +56,7 @@ public class PlaylistFragment extends Fragment {
             imageButtonPlaylist=new ImageButton(getActivity());
             dynamique.addView(imageButtonPlaylist,paramsImageButton);
             imageButtonPlaylist.setBackground(null);
-            //imageButtonPlaylist.setImageResource(R.drawable.hazy_cosmos);
+            imageButtonPlaylist.setImageResource(R.drawable.hazy_cosmos);
             android.view.ViewGroup.LayoutParams params = imageButtonPlaylist.getLayoutParams();
             params.height=200;
             params.width=200;

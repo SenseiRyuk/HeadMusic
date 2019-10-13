@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.LiveData;
 
 import java.util.Map;
 
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button connexion;
     private Button signIN;
     private TextView InformationLog;
+    private SaveMyMusicDatabase db;
     Toast errormMssage;
     /*private MainActivity()
     {}
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
 
+        db=SaveMyMusicDatabase.getInstance(this);
         final ControlerLayouts controler = ControlerLayouts.getInstance();
 
         firstLayout = findViewById(R.id.fristLayout);
@@ -74,6 +77,21 @@ public class MainActivity extends AppCompatActivity {
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+               /* LiveData<UserModel> userTest1=db.userDao().getUser(1);
+                if (userTest1 == null) {
+                    System.out.println("usertest1 NULLLLLL");
+                }else{
+                    System.out.println("UserTEst1 NOOOOOOOOOOOON NUUUUULLLL");
+                }
+                LiveData<UserModel> userTest2=db.userDao().getUser(2);
+                System.out.println("test du compte par défaut \n "+userTest1.);
+                System.out.println("test du compte créer\n"+userTest2.getValue().getPassword());*/
+
+               UserModel[] toto= db.userDao().loadAllUsers();
+                System.out.println("test du compte par défaut \n "+toto[0].getPassword());
+                System.out.println("test du compte créer\n"+toto[1].getPassword());
+
                 if (username.getText().toString().isEmpty()){
                     username.setError("Please enter a mail address");
                 }
@@ -102,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
                         toast.show();
                     }
                 }
+
                 //Juste pour pas a avoir retaper à chaque fois
                 Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
                 startActivity(homeActivity);

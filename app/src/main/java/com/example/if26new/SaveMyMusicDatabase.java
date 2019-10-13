@@ -26,9 +26,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
             synchronized (SaveMyMusicDatabase.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            SaveMyMusicDatabase.class, "MyDatabase.db")
-                            .addCallback(prepopulateDatabase())
-                            .build();
+                            SaveMyMusicDatabase.class, "MyDatabase.db").allowMainThreadQueries().addCallback(prepopulateDatabase()).build();
                 }
             }
         }
@@ -43,10 +41,11 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
 
                 ContentValues contentValues = new ContentValues();
                 contentValues.put("id", 1);
-                contentValues.put("username", "Philippe");
-                contentValues.put("urlPicture", "https://oc-user.imgix.net/users/avatars/15175844164713_frame_523.jpg?auto=compress,format&q=80&h=100&dpr=2");
+                contentValues.put("mailAdress", "root@gmail.com");
+                contentValues.put("username", "root");
+                contentValues.put("password", "root");
 
-                db.insert("User", OnConflictStrategy.IGNORE, contentValues);
+                db.insert("UserModel", OnConflictStrategy.IGNORE, contentValues);
             }
         };
     }
