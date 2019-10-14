@@ -43,12 +43,16 @@ public class listening extends AppCompatActivity {
     private TextView totalDurationText;
     private TextView currentDurationText;
     private TextView lyricsText;
+    private TextView single;
+    private TextView album;
     private Handler threadHandler = new Handler();
     private boolean weWantUpdate=true;
     private UpdateSeekBarThread updateSeekBarThread;
     private int currentPosition;
     private boolean isVideoPlayingWhenLyricsOn=false;
     private Dialog playlistDialog;
+    private String songName;
+    private String artistName;
 
 
     // Find ID corresponding to the name of the resource (in the directory raw).
@@ -149,6 +153,8 @@ public class listening extends AppCompatActivity {
         currentDurationText=findViewById(R.id.currentDuration);
         lyrics=findViewById(R.id.lyricsButton);
         lyricsText=findViewById(R.id.lyricsText);
+        single=findViewById(R.id.ArtistIDinListening);
+        album=findViewById(R.id.AlbumIDinListening);
 
         //Set photo Music Artist
         photoAlbum.setImageResource(R.drawable.hazy1);
@@ -156,6 +162,15 @@ public class listening extends AppCompatActivity {
         photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
 
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
+
+        //Retrieve the name of the song and the name of the artist
+        songName=getIntent().getExtras().getString("SONG_NAME");
+        artistName=getIntent().getExtras().getString("ARTIST_NAME");
+        single.setText(songName);
+        album.setText(artistName);
+
+        //WE WILL USE SONG NAME AND ALBUM NAME FOR LAUNCH MP3 AND MP4 ANC LYRICS
+
         //For the Video
         try {
             // ID of video file.

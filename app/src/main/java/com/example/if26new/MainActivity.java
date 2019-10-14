@@ -20,8 +20,6 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-
-
     private ImageButton settings;
     private ConstraintLayout firstLayout;
     private EditText password;
@@ -29,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private Button connexion;
     private Button signIN;
     private SaveMyMusicDatabase db;
-
-    public void changeBackgroundColor(String color) {
-        if (color.equals("Black")) {
-            firstLayout.setBackgroundColor(Color.WHITE);
-        } else if (color.equals("White")) {
-            firstLayout.setBackgroundColor(Color.BLACK);
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                         toast.show();
                     }
                 }
-
                 //Juste pour pas a avoir retaper à chaque fois
                 //Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
                 //startActivity(homeActivity);
