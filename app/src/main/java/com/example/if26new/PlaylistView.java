@@ -2,6 +2,7 @@ package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -34,7 +35,10 @@ public class PlaylistView extends AppCompatActivity {
         params.height=700;
         params.width=700;
         mImageView.setLayoutParams(params);
-        mImageView.setImageResource(R.drawable.hazy1);
+        //Exemple pour récupérer l'image ressource suivant un string (le nom de la photo de la playlist --> rap
+        Context context=mImageView.getContext();
+        int id=context.getResources().getIdentifier("rap","drawable",context.getPackageName());
+        mImageView.setImageResource(id);
         mImageView.setAdjustViewBounds(false);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 

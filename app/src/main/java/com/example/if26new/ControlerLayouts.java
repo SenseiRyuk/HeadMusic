@@ -7,7 +7,6 @@ public class ControlerLayouts{
     private ControlerLayouts()
     {}
     private static ControlerLayouts INSTANCE = new ControlerLayouts();
-    private SaveMyMusicDatabase db;
 
     public static ControlerLayouts getInstance()
     {

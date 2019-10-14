@@ -100,7 +100,7 @@ public class UserFragment extends Fragment {
         linearLayout=chooseImageSong.findViewById(R.id.linearForPopUp);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(0,25,0,25);
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i < 16; i++) {
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.VERTICAL);
 
@@ -111,16 +111,60 @@ public class UserFragment extends Fragment {
             params.width=700;
             buttonWithImage.setLayoutParams(params);
             buttonWithImage.setBackground(null);
-            if (i==2){
-               // buttonWithImage.setImageResource(R.drawable.hazy_cosmos);
-            }else{
-                buttonWithImage.setImageResource(R.drawable.hazy1);
+
+            switch (i){
+                case 0:
+                    buttonWithImage.setImageResource(R.drawable.rap);
+                    break;
+                case 1:
+                    buttonWithImage.setImageResource(R.drawable.rap2);
+                    break;
+                case 2:
+                    buttonWithImage.setImageResource(R.drawable.rap3);
+                    break;
+                case 3:
+                    buttonWithImage.setImageResource(R.drawable.rap4);
+                    break;
+                case 4:
+                    buttonWithImage.setImageResource(R.drawable.rock);
+                    break;
+                case 5:
+                    buttonWithImage.setImageResource(R.drawable.rock2);
+                    break;
+                case 6:
+                    buttonWithImage.setImageResource(R.drawable.rock3);
+                    break;
+                case 7:
+                    buttonWithImage.setImageResource(R.drawable.rock4);
+                    break;
+                case 8:
+                    buttonWithImage.setImageResource(R.drawable.soul);
+                    break;
+                case 9:
+                    buttonWithImage.setImageResource(R.drawable.soul2);
+                    break;
+                case 10:
+                    buttonWithImage.setImageResource(R.drawable.jazz);
+                    break;
+                case 11:
+                    buttonWithImage.setImageResource(R.drawable.jazz2);
+                    break;
+                case 12:
+                    buttonWithImage.setImageResource(R.drawable.jazz3);
+                    break;
+                case 13:
+                    buttonWithImage.setImageResource(R.drawable.electro);
+                     break;
+                case 14:
+                    buttonWithImage.setImageResource(R.drawable.electro2);
+                    break;
+                case 15:
+                    buttonWithImage.setImageResource(R.drawable.electro3);
+                    break;
             }
             buttonWithImage.setAdjustViewBounds(true);
             buttonWithImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
             //dynamique.addView(imageButtonPlaylist,paramsImageButton);
-
-
             linearLayout.addView(dynamique);
             buttonWithImage.setOnClickListener(new View.OnClickListener() {
                 @Override
