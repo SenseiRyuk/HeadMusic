@@ -81,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
                 }if ((username.getText().toString().isEmpty()==false)&& (password.getText().toString().isEmpty()==false)){
                     boolean isRegisterUser=false;
                     final ControlerLayouts controler=ControlerLayouts.getInstance();
-                    Map<String, UserModel> ListOfUsers=controler.getRegisterUsers();
-                    for(Map.Entry<String, UserModel> entry : ListOfUsers.entrySet()){
-                        System.out.println(entry.getKey() + "  /  " + entry.getValue().getPassword() + "  /  " + entry.getValue().getUserName());
-                        System.out.println(password.getText() + "  /  " + username.getText());
-                        if ((password.getText().toString().equals(entry.getValue().getPassword())) && ((username.getText().toString().equals(entry.getValue().getUserName())) || (username.getText().toString().equals(entry.getKey())))){
+                    UserModel []allUsers=db.userDao().loadAllUsers();
+                    for(int i=0;i<allUsers.length;i++){
+
+                        if ((password.getText().toString().equals(allUsers[i].getPassword().toString())) && ((username.getText().toString().equals(allUsers[i].getUsername().toString()) || (username.getText().toString().equals(allUsers[i].getMailAdress()))))){
                             isRegisterUser=true;
                             Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
                             startActivity(homeActivity);
@@ -98,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 //Juste pour pas a avoir retaper à chaque fois
-                Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
-                startActivity(homeActivity);
+                //Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+                //startActivity(homeActivity);
             }
         });
         signIN=findViewById(R.id.singIn);

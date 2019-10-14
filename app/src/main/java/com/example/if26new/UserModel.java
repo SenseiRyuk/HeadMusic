@@ -26,9 +26,6 @@ public class UserModel {
     public void setMailAdress(String mailAdress) {
         this.mailAdress = mailAdress;
     }
-    public String getUserName(){
-        return this.username;
-    }
     public String getPassword(){
         return this.password;
     }
