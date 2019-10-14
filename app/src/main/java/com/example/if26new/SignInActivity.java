@@ -10,6 +10,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.Map;
+
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -48,11 +50,10 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(confirmPassword.getText().toString().equals(password.getText().toString())){
-                    int isValid=controler.testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
+                    int isValid=testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
                     switch (isValid) {
                         case 2:
-
-                            userModel=new UserModel(2,username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
+                            userModel=new UserModel(db.userDao().loadAllUsers().length+1,username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
                             db.userDao().createUser(userModel);
                             Intent mainLayout = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainLayout);
@@ -104,5 +105,50 @@ public class SignInActivity extends AppCompatActivity {
                 startActivity(mainLayout);
             }
         });
+    }
+
+
+    public int testMailAddressAndPassword(String mailAddress, String password, String username){
+        UserModel[] allUsers=db.userDao().loadAllUsers();
+        int isMail = 0;
+        int isPassword = 0;
+        if (username.isEmpty()){
+            return 7;
+        }else {
+            int pos = mailAddress.indexOf('@');
+            if (pos == -1) {
+                isMail = isMail + 2;
+            } else {
+                //On va venir tester si l'addresse mail n'est pas déjà utiliser par un compte
+                boolean enter = false;
+                for (int i=0;i<allUsers.length;i++) {
+                    if (allUsers[i].getMailAdress().toString().equals(mailAddress)){
+                        enter = true;
+                        isMail = 6;
+                    }
+                }
+                if (enter == false) {
+                    isMail++;
+                }
+            }
+            boolean isNum = false;
+            for (int num = 0; num <= 9; num++) {
+                String stringNum = Integer.toString(num);
+                if (password.indexOf(stringNum) != -1) {
+                    isNum = true;
+                }
+            }
+            if (isNum == false) {
+                isPassword = isPassword + 3;
+            } else {
+                isPassword++;
+                //on va le passer à notre base de donnée
+            }
+            if (isMail == 6) {
+                return isMail;
+            } else {
+                return isMail + isPassword;
+            }
+        }
     }
 }

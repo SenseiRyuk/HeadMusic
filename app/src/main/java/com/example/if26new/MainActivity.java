@@ -28,19 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText username;
     private Button connexion;
     private Button signIN;
-    private TextView InformationLog;
     private SaveMyMusicDatabase db;
-    Toast errormMssage;
-    /*private MainActivity()
-    {}
-    private static MainActivity INSTANCE = new MainActivity();
-
-    public static MainActivity getInstance()
-    {   if (INSTANCE == null)
-    {   INSTANCE = new MainActivity();
-    }
-        return INSTANCE;
-    }*/
 
     public void changeBackgroundColor(String color) {
         if (color.equals("Black")) {
@@ -77,21 +65,10 @@ public class MainActivity extends AppCompatActivity {
         connexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-               /* LiveData<UserModel> userTest1=db.userDao().getUser(1);
-                if (userTest1 == null) {
-                    System.out.println("usertest1 NULLLLLL");
-                }else{
-                    System.out.println("UserTEst1 NOOOOOOOOOOOON NUUUUULLLL");
+                UserModel[] toto= db.userDao().loadAllUsers();
+                for (int i=0;i<toto.length;i++){
+                    System.out.println("passwor et mail address du compte  \n "+toto[i].getPassword()+" "+toto[i].getMailAdress());
                 }
-                LiveData<UserModel> userTest2=db.userDao().getUser(2);
-                System.out.println("test du compte par défaut \n "+userTest1.);
-                System.out.println("test du compte créer\n"+userTest2.getValue().getPassword());*/
-
-               UserModel[] toto= db.userDao().loadAllUsers();
-                System.out.println("test du compte par défaut \n "+toto[0].getPassword());
-                System.out.println("test du compte créer\n"+toto[1].getPassword());
-
                 if (username.getText().toString().isEmpty()){
                     username.setError("Please enter a mail address");
                 }
@@ -115,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     if (isRegisterUser==false){
-                        InformationLog=findViewById(R.id.informationAccount);
                         Toast toast = Toast.makeText(getApplicationContext(), "Your Account doesn't exist", Toast.LENGTH_SHORT);
                         toast.show();
                     }
