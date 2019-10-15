@@ -1,5 +1,6 @@
 package com.example.if26new;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,14 +14,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 
-public class ActivityArtist extends AppCompatActivity {
+public class ActivityArtist extends AppCompatActivity{
 
     private ImageButton followBtn;
     private ImageView imageArtist;
     private TextView followTxt;
     private TabLayout mTableLayout;
     private ViewPager mViewPager;
-    private PageAdapterForArtist mPageAdapterForArtist;
+    private TextView artistName;
 
 
     @Override
@@ -31,39 +32,47 @@ public class ActivityArtist extends AppCompatActivity {
         followBtn = findViewById(R.id.followArtistBtnID);
         followTxt = findViewById(R.id.followTxtID);
         mTableLayout = findViewById(R.id.tableLayoutArtistID);
-        imageArtist = findViewById(R.id.imageArtistID);
         mViewPager = findViewById(R.id.viewPagerArtistID);
 
-        //imageArtist.setImageResource();
-        imageArtist.setAdjustViewBounds(true);
-        imageArtist.setScaleType(ImageView.ScaleType.FIT_CENTER);
         followBtn.setBackground(null);
-
         setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
-
 
         followBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(followBtn.getDrawable().equals(R.drawable.ic_followwhite)){
+                if (followBtn.getDrawable().equals(R.drawable.ic_followwhite)) {
                     followBtn.setImageResource(R.drawable.ic_followgreen);
-                } else if(followBtn.getDrawable().equals(R.drawable.ic_followgreen)){
+                } else if (followBtn.getDrawable().equals(R.drawable.ic_followgreen)) {
                     followBtn.setImageResource(R.drawable.ic_followwhite);
                 }
             }
         });
+        setImageArtist(getIntent().getExtras().getInt("ARTIST_IMAGE_ID"));
+        setArtistName(getIntent().getExtras().getString("ARTIST_NAME"));
 
     }
+    public void setImageArtist(int id){
+        imageArtist = findViewById(R.id.imageArtistID);
+        imageArtist.setAdjustViewBounds(true);
+        android.view.ViewGroup.LayoutParams params = imageArtist.getLayoutParams();
+        params.height=650;
+        params.width=650;
+        imageArtist.setLayoutParams(params);
+        imageArtist.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        imageArtist.setImageResource(id);
+    }
 
-
-  private void setViewPager(ViewPager viewPager) {
-      PageAdapterForArtist adapter = new PageAdapterForArtist(getSupportFragmentManager());
-      adapter.addFragment(new fragment_album(), "Album");
-      adapter.addFragment(new TitlesFragment(),"Titles");
-      adapter.addFragment(new fragment_bio(), "Bio");
-      viewPager.setAdapter(adapter);
-  }
-
+    public void setArtistName(String name){
+        artistName=findViewById(R.id.nameArtistID);
+        artistName.setText(name);
+    }
+    private void setViewPager(ViewPager viewPager) {
+        PageAdapterForArtist adapter = new PageAdapterForArtist(getSupportFragmentManager());
+        adapter.addFragment(new fragment_album(), "Album");
+        adapter.addFragment(new TitlesFragment(), "Titles");
+        adapter.addFragment(new fragment_bio(), "Bio");
+        viewPager.setAdapter(adapter);
+    }
 
 }

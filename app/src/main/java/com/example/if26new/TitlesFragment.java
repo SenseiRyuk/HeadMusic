@@ -15,11 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class TitlesFragment extends Fragment {
+public class TitlesFragment extends Fragment implements View.OnClickListener {
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
-    private TextView AlbumName;
-    private ImageButton imageButtonAlbum;
+    private TextView[] songName;
+    private TextView[] artistName;
+
+    private int sizeMusicArtist;
 
     public TitlesFragment() {
     }
@@ -34,51 +36,54 @@ public class TitlesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view = inflater.inflate(R.layout.fragment_titles, container, false);
+
+        sizeMusicArtist=10;
+        songName=new TextView[sizeMusicArtist];
+        artistName=new TextView[sizeMusicArtist];
+
         linearLayout = view.findViewById(R.id.linearForFragmentTitleID);
-        ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsImageButton.setMargins(40, 0, 0, 0);
-        ViewGroup.MarginLayoutParams paramsAlbumName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
-        paramsAlbumName.setMargins(10, 60, 0, 0);
-        for (int i = 0; i <= 10; i++) {
+        ViewGroup.MarginLayoutParams paramsSingle = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsSingle.setMargins(50,25,0,0);
+        ViewGroup.MarginLayoutParams paramsArtist = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsArtist.setMargins(50,0,0,25);
+        for (int i = 0; i <sizeMusicArtist; i++) {
             dynamique = new LinearLayout(getActivity());
-            dynamique.setOrientation(LinearLayout.HORIZONTAL);
-
-            imageButtonAlbum = new ImageButton(getActivity());
-            dynamique.addView(imageButtonAlbum, paramsImageButton);
-            imageButtonAlbum.setBackground(null);
-            imageButtonAlbum.setImageResource(R.drawable.playlistadd);
-            android.view.ViewGroup.LayoutParams params = imageButtonAlbum.getLayoutParams();
-            params.height = 200;
-            params.width = 200;
-            imageButtonAlbum.setLayoutParams(params);
-            imageButtonAlbum.setAdjustViewBounds(true);
-            imageButtonAlbum.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonAlbum.requestLayout();
-
-            AlbumName = new TextView(getActivity());
-            AlbumName.setText("Single");
-            AlbumName.setTextColor(Color.WHITE);
-            AlbumName.setTextSize(20);
-            AlbumName.setSingleLine(true);
-
-            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
-            dynamique.addView(AlbumName, paramsAlbumName);
+            dynamique.setOrientation(LinearLayout.VERTICAL);
+            artistName[i] = new TextView(getContext());
+            songName[i] = new TextView(getContext());
+            songName[i].setText("Royal Bacon");
+            songName[i].setTextColor(Color.WHITE);
+            songName[i].setTextSize(20);
+            songName[i].setSingleLine(true);
+            songName[i].setOnClickListener(this);
+            artistName[i].setText("Vald - Ce monde est cruel");
+            artistName[i].setTextColor(Color.WHITE);
+            artistName[i].setTextSize(10);
+            artistName[i].setSingleLine(true);
+            artistName[i].setOnClickListener(this);
+            dynamique.addView(songName[i],paramsSingle);
+            dynamique.addView(artistName[i],paramsArtist);
             linearLayout.addView(dynamique);
-            /*imageButtonPlaylist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent signInActivity = new Intent(getActivity(), PlaylistView.class);
-                    startActivity(signInActivity);
-                }
-            });*/
-            AlbumName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent listeningActivity = new Intent(getActivity(), listening.class);
-                    startActivity(listeningActivity);
-                }
-            });
         }
         return view;
+    }
+    public void onClick(View v){
+        for (int i=0;i<sizeMusicArtist;i++){
+            if (v.equals(songName[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("SONG_NAME",songName[i].getText().toString());
+                bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                Intent playListActivity = new Intent(getContext(), listening.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }else if (v.equals(artistName[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("SONG_NAME",songName[i].getText().toString());
+                bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                Intent playListActivity = new Intent(getContext(), listening.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }
+        }
     }
 }

@@ -33,13 +33,7 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_view);
         //Set ImagePlaylist
-        setImagePlaylistFromTheDataBase();
-
-
-        //retrieve number of song in the playlist
-        sizePlaylistMusic=10;
-        songName=new TextView[sizePlaylistMusic];
-        artistName=new TextView[sizePlaylistMusic];
+        setImagePlaylistFromTheDataBase(getIntent().getExtras().getInt("PLAYLIST_IMAGE_ID"));
 
         //Retrieve PlayListName
         playlistNameFromFragment=getIntent().getExtras().getString("PLAYLIST_NAME");
@@ -49,20 +43,26 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
         //USE DATA BASE TO RETRIEVE ALL SONG FOR THIS PLAYLIST
         getAllSongFromTheDataBase();
     }
-    public void setImagePlaylistFromTheDataBase(){
+    public void setImagePlaylistFromTheDataBase(int idImage){
+        System.out.println("valeur de l'id " + idImage);
         mImageView = findViewById(R.id.playlistImageInPlaylistView);
         android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
-        params.height=700;
-        params.width=700;
+        params.height=650;
+        params.width=650;
         mImageView.setLayoutParams(params);
-        //Exemple pour récupérer l'image ressource suivant un string (le nom de la photo de la playlist --> rap
-        Context context=mImageView.getContext();
-        int id=context.getResources().getIdentifier("rap","drawable",context.getPackageName());
-        mImageView.setImageResource(id);
+        mImageView.setImageResource(idImage);
         mImageView.setAdjustViewBounds(false);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
     public void getAllSongFromTheDataBase(){
+
+        //DDB--> retrieve all the song in the dataBase and put them into an Array, Then retrieve in the for loop bellow each song name and artist name
+        //retrieve number of song in the playlist
+        sizePlaylistMusic=10;
+        songName=new TextView[sizePlaylistMusic];
+        artistName=new TextView[sizePlaylistMusic];
+
+
         linearLayout = findViewById(R.id.linearForPlaylistView);
         ViewGroup.MarginLayoutParams paramsSingle = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsSingle.setMargins(50,25,0,0);

@@ -100,7 +100,7 @@ public class UserFragment extends Fragment {
         linearLayout=chooseImageSong.findViewById(R.id.linearForPopUp);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(0,25,0,25);
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < 18; i++) {
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.VERTICAL);
 
@@ -138,28 +138,34 @@ public class UserFragment extends Fragment {
                     buttonWithImage.setImageResource(R.drawable.rock4);
                     break;
                 case 8:
-                    buttonWithImage.setImageResource(R.drawable.soul);
+                    buttonWithImage.setImageResource(R.drawable.rock5);
                     break;
                 case 9:
-                    buttonWithImage.setImageResource(R.drawable.soul2);
+                    buttonWithImage.setImageResource(R.drawable.reggae);
                     break;
                 case 10:
-                    buttonWithImage.setImageResource(R.drawable.jazz);
+                    buttonWithImage.setImageResource(R.drawable.reggae2);
                     break;
                 case 11:
-                    buttonWithImage.setImageResource(R.drawable.jazz2);
+                    buttonWithImage.setImageResource(R.drawable.jazz);
                     break;
                 case 12:
-                    buttonWithImage.setImageResource(R.drawable.jazz3);
+                    buttonWithImage.setImageResource(R.drawable.jazz2);
                     break;
                 case 13:
+                    buttonWithImage.setImageResource(R.drawable.jazz3);
+                    break;
+                case 14:
                     buttonWithImage.setImageResource(R.drawable.electro);
                      break;
-                case 14:
+                case 15:
                     buttonWithImage.setImageResource(R.drawable.electro2);
                     break;
-                case 15:
+                case 16:
                     buttonWithImage.setImageResource(R.drawable.electro3);
+                    break;
+                case 17:
+                    buttonWithImage.setImageResource(R.drawable.pop);
                     break;
             }
             buttonWithImage.setAdjustViewBounds(true);

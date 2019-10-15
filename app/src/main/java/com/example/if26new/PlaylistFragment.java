@@ -32,7 +32,6 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
     private View view;
-    private int counter;
     private Context context;
     private int idImagePlaylist;
     private int sizePlaylist;
@@ -49,7 +48,6 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_playlist, container, false);
-        counter=0;
         getAndDisplayAllPlaylistFromTheDataBase();
         return view;
     }
@@ -68,33 +66,42 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
         //here we retrieve all the imageName for each Playlist
         imageButtonPlaylist=new ImageButton[sizePlaylist];
 
-        for (counter=0; counter<10; counter++){
+        for (int i=0; i<sizePlaylist; i++){
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            imageButtonPlaylist[counter]=new ImageButton(getActivity());
-            dynamique.addView(imageButtonPlaylist[counter],paramsImageButton);
-            imageButtonPlaylist[counter].setBackground(null);
-            context=imageButtonPlaylist[counter].getContext();
+            //context=imageButtonPlaylist[i].getContext();
             //Ici au lieu de rap on ira chercher le nom de l'image qui se trouvera dans notre base de donnée
-            idImagePlaylist=context.getResources().getIdentifier("rap","drawable",context.getPackageName());
-            imageButtonPlaylist[counter].setImageResource(idImagePlaylist);
-            android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[counter].getLayoutParams();
+            //idImagePlaylist=context.getResources().getIdentifier("rap","drawable",context.getPackageName());
+
+            imageButtonPlaylist[i]=new ImageButton(getActivity());
+            dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
+            imageButtonPlaylist[i].setBackground(null);
+            int r=-700014;
+            if (i==1){
+                imageButtonPlaylist[i].setImageResource(R.drawable.rap);
+                imageButtonPlaylist[i].setTag(R.drawable.rap);
+            }else{
+                imageButtonPlaylist[i].setImageResource(R.drawable.rap2);
+                imageButtonPlaylist[i].setTag(R.drawable.rap2);
+            }
+            android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();
             params.height=200;
             params.width=200;
-            imageButtonPlaylist[counter].setLayoutParams(params);
-            imageButtonPlaylist[counter].setAdjustViewBounds(true);
-            imageButtonPlaylist[counter].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonPlaylist[counter].requestLayout();
+            imageButtonPlaylist[i].setLayoutParams(params);
+            imageButtonPlaylist[i].setAdjustViewBounds(true);
+            imageButtonPlaylist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonPlaylist[i].requestLayout();
+            imageButtonPlaylist[i].setOnClickListener(this);
 
-            playlistTitle[counter]=new TextView(getActivity());
-            playlistTitle[counter].setText("Playlist "+counter);
-            playlistTitle[counter].setTextColor(Color.WHITE);
-            playlistTitle[counter].setTextSize(20);
-            playlistTitle[counter].setSingleLine(true);
-            playlistTitle[counter].setOnClickListener(this);
+            playlistTitle[i]=new TextView(getActivity());
+            playlistTitle[i].setText("Playlist "+i);
+            playlistTitle[i].setTextColor(Color.WHITE);
+            playlistTitle[i].setTextSize(20);
+            playlistTitle[i].setSingleLine(true);
+            playlistTitle[i].setOnClickListener(this);
 
-            dynamique.addView(playlistTitle[counter],paramsPlaylistName);
+            dynamique.addView(playlistTitle[i],paramsPlaylistName);
             linearLayout.addView(dynamique);
         }
 
@@ -104,12 +111,14 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
             if (v.equals(playlistTitle[i])){
                 Bundle bundle=new Bundle();
                 bundle.putString("PLAYLIST_NAME",playlistTitle[i].getText().toString());
+                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) imageButtonPlaylist[i].getTag());
                 Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(imageButtonPlaylist[i])){
                 Bundle bundle=new Bundle();
                 bundle.putString("PLAYLIST_NAME",playlistTitle[i].getText().toString());
+                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) imageButtonPlaylist[i].getTag());
                 Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

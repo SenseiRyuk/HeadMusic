@@ -15,12 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class fragment_album extends Fragment {
+public class fragment_album extends Fragment implements View.OnClickListener {
 
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
-    private TextView AlbumName;
-    private ImageButton imageButtonAlbum;
+    private TextView[] albumName;
+    private ImageButton[] imageButtonAlbum;
+    private int sizeAlbums;
     public fragment_album() {
     }
 
@@ -34,53 +35,64 @@ public class fragment_album extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view=inflater.inflate(R.layout.fragment_album_artist, container, false);
+
+
+        sizeAlbums=10;
+        imageButtonAlbum=new ImageButton[sizeAlbums];
+        albumName=new TextView[sizeAlbums];
         linearLayout = view.findViewById(R.id.linearForAlbumFragmentArtistID);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsAlbumName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsAlbumName.setMargins(10,60,0,0);
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i < sizeAlbums; i++) {
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            imageButtonAlbum=new ImageButton(getActivity());
-            dynamique.addView(imageButtonAlbum,paramsImageButton);
-            imageButtonAlbum.setBackground(null);
-            imageButtonAlbum.setImageResource(R.drawable.hazy1);
-            android.view.ViewGroup.LayoutParams params = imageButtonAlbum.getLayoutParams();
+            imageButtonAlbum[i]=new ImageButton(getActivity());
+            dynamique.addView(imageButtonAlbum[i],paramsImageButton);
+            imageButtonAlbum[i].setBackground(null);
+            imageButtonAlbum[i].setImageResource(R.drawable.rap4);
+            imageButtonAlbum[i].setTag(R.drawable.rap4);
+            android.view.ViewGroup.LayoutParams params = imageButtonAlbum[i].getLayoutParams();
             params.height=200;
             params.width=200;
-            imageButtonAlbum.setLayoutParams(params);
-            imageButtonAlbum.setAdjustViewBounds(true);
-            imageButtonAlbum.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonAlbum.requestLayout();
+            imageButtonAlbum[i].setLayoutParams(params);
+            imageButtonAlbum[i].setAdjustViewBounds(true);
+            imageButtonAlbum[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonAlbum[i].requestLayout();
+            imageButtonAlbum[i].setOnClickListener(this);
 
-            AlbumName=new TextView(getActivity());
-            AlbumName.setText("Album");
-            AlbumName.setTextColor(Color.WHITE);
-            AlbumName.setTextSize(20);
-            AlbumName.setSingleLine(true);
+            albumName[i]=new TextView(getActivity());
+            albumName[i].setText("Album " +i);
+            albumName[i].setTextColor(Color.WHITE);
+            albumName[i].setTextSize(20);
+            albumName[i].setSingleLine(true);
+            albumName[i].setOnClickListener(this);
 
-            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
-            dynamique.addView(AlbumName,paramsAlbumName);
+            dynamique.addView(albumName[i],paramsAlbumName);
             linearLayout.addView(dynamique);
-            /*imageButtonPlaylist.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent signInActivity = new Intent(getActivity(), PlaylistView.class);
-                    startActivity(signInActivity);
-                }
-            });*/
-            AlbumName.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent AlbumActivity = new Intent(getActivity(), Album_view.class);
-                    startActivity(AlbumActivity);
-                }
-            });
         }
-
         return view;
+    }
+    public void onClick(View v){
+        for (int i=0;i<sizeAlbums;i++){
+            if (v.equals(albumName[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("ALBUM_NAME",albumName[i].getText().toString());
+                bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                Intent playListActivity = new Intent(getActivity(), Album_view.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }else if (v.equals(imageButtonAlbum[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("ALBUM_NAME",albumName[i].getText().toString());
+                bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                Intent playListActivity = new Intent(getActivity(), Album_view.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }
+        }
     }
 }
 

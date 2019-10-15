@@ -11,6 +11,9 @@
         android:id="@+id/mapView"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
         android:apiKey="AIzaSyDAykEAt9NiRQjNnk-kFPQfI4jZYQxg0vM"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -119,10 +122,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/mapView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.048"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6"
-        app:layout_constraintVertical_bias="0.504" />
+        app:layout_constraintVertical_bias="0.314" />
 
     <SearchView
         android:id="@+id/searchView2"
@@ -155,8 +158,22 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/mapView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintHorizontal_bias="0.054"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView9"
-        app:layout_constraintVertical_bias="0.29" />
+        app:layout_constraintVertical_bias="0.215" />
+
+    <Button
+        android:id="@+id/buttonFocusMap"
+        android:layout_width="119dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="22dp"
+        android:background="@drawable/roundbutton"
+        android:text="Focus"
+        app:layout_constraintBottom_toTopOf="@+id/mapView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocationConcertID"
+        app:layout_constraintVertical_bias="1.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

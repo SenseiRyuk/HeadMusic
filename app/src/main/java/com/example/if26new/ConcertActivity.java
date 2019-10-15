@@ -6,6 +6,8 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -25,6 +27,8 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView mTextViewLocation;
     private TextView mTextViewArtist;
     private GoogleMap map;
+    private Button focusBtn;
+    private LatLng city;
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
 
     @Override
@@ -37,6 +41,21 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         mTextViewDate = findViewById(R.id.txtDateConcertID);
         mTextViewLocation = findViewById(R.id.txtLocationConcertID);
         mTextViewArtist = findViewById(R.id.txtArtistConcertID);
+        focusBtn=findViewById(R.id.buttonFocusMap);
+        focusBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (focusBtn.getText().equals("Focus")){
+                    float zoomLevel = 16.0f;
+                    map.moveCamera((CameraUpdateFactory.newLatLngZoom(city,zoomLevel)));
+                    focusBtn.setText("UnFocus");
+                }else if (focusBtn.getText().equals("UnFocus")){
+                    float zoomLevel = 3.0f;
+                    map.moveCamera((CameraUpdateFactory.newLatLngZoom(city,zoomLevel)));
+                    focusBtn.setText("Focus");
+                }
+            }
+        });
 
         mTextViewArtist.setText("Post Malone");
         mTextViewLocation.setText("Capital one Arena, Washington DC");
@@ -109,9 +128,10 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
-        LatLng washington = new LatLng(38.8981251,-77.0208804);
-        map.addMarker(new MarkerOptions().position(washington));
-        map.moveCamera(CameraUpdateFactory.newLatLng(washington));
+        city = new LatLng(38.8981251,-77.0208804);
+        map.addMarker(new MarkerOptions().position(city));
+        float zoomLevel = 3.0f;
+        map.moveCamera((CameraUpdateFactory.newLatLngZoom(city,zoomLevel)));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
