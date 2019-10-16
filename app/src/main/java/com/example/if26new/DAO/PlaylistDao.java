@@ -1,4 +1,4 @@
-package com.example.if26new;
+package com.example.if26new.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -6,13 +6,15 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.example.if26new.Model.PlaylistModel;
+
 import java.util.List;
 
 @Dao
 public interface PlaylistDao {
 
     @Query("SELECT * FROM PlaylistModel WHERE userID = :userId")
-    LiveData<List<PlaylistModel>> getPlaylist(int userId);
+    List<PlaylistModel> getPlaylist(int userId);
 
     @Insert
     long insertPlaylist(PlaylistModel playlist);

@@ -40,6 +40,7 @@ public class MainFragment extends Fragment {
     private TextView mTextViewsPlaylists;
     private TextView mTextViewsAlbums;
     private TextView mTextViewsConcerts;
+    private SaveMyMusicDatabase db;
 
 
     public MainFragment() {
@@ -52,6 +53,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View result = inflater.inflate(R.layout.fragment_main, container, false);
+        db=SaveMyMusicDatabase.getInstance(getActivity());
 
         mLinearLayout1 = result.findViewById(R.id.linearLayoutplaylistID);
         mLinearLayout2 = result.findViewById(R.id.linearLayoutConcertsID);
@@ -73,15 +75,15 @@ public class MainFragment extends Fragment {
 
 
         mImageButton1Artist.setBackground(null);
-        mImageButton1Artist.setImageResource(R.drawable.postmalone);
+        mImageButton1Artist.setImageResource(db.mArtistDao().getTop(1).getImage());
         mImageButton1Artist.setLayoutParams(params2);
         mImageButton1Artist.setAdjustViewBounds(true);
         mImageButton2Artist.setBackground(null);
-        mImageButton2Artist.setImageResource(R.drawable.arianagrande);
+        mImageButton2Artist.setImageResource(db.mArtistDao().getTop(2).getImage());
         mImageButton2Artist.setLayoutParams(params2);
         mImageButton2Artist.setAdjustViewBounds(true);
         mImageButton3Artist.setBackground(null);
-        mImageButton3Artist.setImageResource(R.drawable.vegedream);
+        mImageButton3Artist.setImageResource(db.mArtistDao().getTop(3).getImage());
         mImageButton3Artist.setLayoutParams(params2);
         mImageButton3Artist.setAdjustViewBounds(true);
         mImageButton3Artist.setScaleType(ImageView.ScaleType.FIT_CENTER);

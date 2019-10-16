@@ -1,4 +1,4 @@
-package com.example.if26new;
+package com.example.if26new.Model;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
