@@ -16,7 +16,7 @@ import android.os.Bundle;
                 childColumns = "artistId")
 })
 
-public class SingleModel extends AppCompatActivity {
+public class SingleModel {
     @PrimaryKey
     private int id;
     private int albumId;
@@ -24,7 +24,14 @@ public class SingleModel extends AppCompatActivity {
     private String titleSingle;
     private boolean isNew;
 
-
+    public SingleModel(){};
+    public SingleModel(int id, int albumId, int artistId, String titleSingle, boolean isNew) {
+        this.id = id;
+        this.albumId = albumId;
+        this.artistId = artistId;
+        this.titleSingle = titleSingle;
+        this.isNew = isNew;
+    }
 
     public int getId() {
         return id;

@@ -3,6 +3,7 @@ package com.example.if26new.DAO;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,9 +15,15 @@ import java.util.List;
 public interface ConcertDao {
 
     @Query("SELECT * FROM ConcertModel WHERE artistId = :artistId")
-    List<ConcertModel> getConcertFromArtist(int artistId);
+    ConcertModel[] getConcertFromArtist(int artistId);
 
-    @Insert
+    @Query("SELECT * FROM ConcertModel WHERE isNew = :isNew")
+    ConcertModel[] getConcertFromNew(boolean isNew);
+
+    @Query("SELECT * FROM ConcertModel")
+    ConcertModel[] getAllConcert();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertConcert(ConcertModel concert);
 
     @Update

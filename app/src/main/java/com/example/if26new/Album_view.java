@@ -26,7 +26,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_album_view);
 
         setImageAlbum(getIntent().getExtras().getInt("ALBUM_IMAGE_ID"));
-        setAlbumMusic(getIntent().getExtras().getString("ALBUM_NAME")); //Use dataBase
+        setAlbumMusic(getIntent().getExtras().getString("ALBUM_ID")); //Use dataBase
         setAlbumName(getIntent().getExtras().getString("ALBUM_NAME"));
     }
     public void setImageAlbum(int idImage){

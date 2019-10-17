@@ -1,6 +1,7 @@
 package com.example.if26new.Model;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -10,20 +11,32 @@ import android.os.Bundle;
 @Entity(foreignKeys = {
         @ForeignKey(entity = UserModel.class,
                 parentColumns = "id",
-                childColumns = "userID"),
+                childColumns = "userId"),
         @ForeignKey(entity = ArtistModel.class,
                 parentColumns = "id",
                 childColumns = "artistId")
         })
 
-public class AlbumModel extends AppCompatActivity {
+public class AlbumModel{
     @PrimaryKey
     private int id;
+    @ColumnInfo(name = "userId")
     private int userId;
+    @ColumnInfo(name = "artistId")
     private int artistId;
     private String titleAlbum;
-    private boolean isNew;
+    private int isNew;
+    private int image;
 
+public AlbumModel(){}
+    public AlbumModel(int id, int userId, int artistId, String titleAlbum, int isNew, int image) {
+        this.id = id;
+        this.userId = userId;
+        this.artistId = artistId;
+        this.titleAlbum = titleAlbum;
+        this.isNew = isNew;
+        this.image = image;
+    }
 
     public int getId() {
         return id;
@@ -53,15 +66,23 @@ public class AlbumModel extends AppCompatActivity {
         return titleAlbum;
     }
 
-    public void setTitleAlbum(String title) {
-        this.titleAlbum = title;
+    public void setTitleAlbum(String titleAlbum) {
+        this.titleAlbum = titleAlbum;
     }
 
-    public boolean isNew() {
+    public int getIsNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
-        isNew = aNew;
+    public void setIsNew(int isNew) {
+        this.isNew = isNew;
+    }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int image) {
+        this.image = image;
     }
 }

@@ -29,11 +29,25 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private GoogleMap map;
     private Button focusBtn;
     private LatLng city;
+    private String artistName;
+    private String date;
+    private String location;
+    private String locationCity;
+    private double locationLat;
+    private double locationLgn;
+    private String titleConcert;
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        artistName=getIntent().getStringExtra("ARTIST_NAME");
+        date=getIntent().getStringExtra("DATE");
+        location=getIntent().getStringExtra("LOCATION");
+        locationCity=getIntent().getStringExtra("LOCATION_CITY");
+        locationLat=getIntent().getDoubleExtra("LOCATION_LAT",0);
+        locationLgn=getIntent().getDoubleExtra("LOCATION_LGN",0);
+        titleConcert=getIntent().getStringExtra("TITLE_CONCERT");
         setContentView(R.layout.activity_concert);
 
         mMapView = findViewById(R.id.mapView);
@@ -57,10 +71,10 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
             }
         });
 
-        mTextViewArtist.setText("Post Malone");
-        mTextViewLocation.setText("Capital one Arena, Washington DC");
-        mTextViewDate.setText("10/12/2019");
-        mTextViewTitle.setText("Runaway Tour");
+        mTextViewArtist.setText(artistName);
+        mTextViewLocation.setText(location+", "+locationCity);
+        mTextViewDate.setText(date);
+        mTextViewTitle.setText(titleConcert);
 
         initGoogleMap(savedInstanceState);
     }
@@ -128,7 +142,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map=googleMap;
-        city = new LatLng(38.8981251,-77.0208804);
+        city = new LatLng(locationLat,locationLgn);
         map.addMarker(new MarkerOptions().position(city));
         float zoomLevel = 3.0f;
         map.moveCamera((CameraUpdateFactory.newLatLngZoom(city,zoomLevel)));

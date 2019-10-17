@@ -22,6 +22,7 @@ public class ActivityArtist extends AppCompatActivity{
     private TabLayout mTableLayout;
     private ViewPager mViewPager;
     private TextView artistName;
+    private String txtBio;
 
 
     @Override
@@ -50,6 +51,7 @@ public class ActivityArtist extends AppCompatActivity{
         });
         setImageArtist(getIntent().getExtras().getInt("ARTIST_IMAGE_ID"));
         setArtistName(getIntent().getExtras().getString("ARTIST_NAME"));
+        txtBio=getIntent().getExtras().getString("ARTIST_BIO");
 
     }
     public void setImageArtist(int id){

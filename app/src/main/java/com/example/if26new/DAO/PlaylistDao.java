@@ -3,6 +3,7 @@ package com.example.if26new.DAO;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public interface PlaylistDao {
 
     @Query("SELECT * FROM PlaylistModel WHERE userID = :userId")
-    List<PlaylistModel> getPlaylist(int userId);
+    PlaylistModel[] getPlaylist(int userId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertPlaylist(PlaylistModel playlist);
 
     @Update

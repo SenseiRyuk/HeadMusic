@@ -18,5 +18,5 @@ public interface UserDao {
     UserModel getUser(long userId);
 
     @Query("SELECT * FROM UserModel")
-    public UserModel[] loadAllUsers();
+    UserModel[] loadAllUsers();
 }

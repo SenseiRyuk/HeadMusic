@@ -3,6 +3,7 @@ package com.example.if26new.DAO;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,12 +14,12 @@ import java.util.List;
 @Dao
 public interface SingleDao {
     @Query("SELECT * FROM SingleModel WHERE albumId = :albumId")
-    List<SingleModel> getSingleFromAlbum(int albumId);
+    SingleModel[] getSingleFromAlbum(int albumId);
 
     @Query("SELECT * FROM SingleModel WHERE artistId = :artistId")
-    List<SingleModel> getSingleFromArtist(int artistId);
+    SingleModel[] getSingleFromArtist(int artistId);
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertSingle(SingleModel single);
 
     @Update

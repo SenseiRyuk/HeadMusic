@@ -3,6 +3,7 @@ package com.example.if26new.DAO;
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -14,13 +15,19 @@ import java.util.List;
 @Dao
 public interface AlbumDao {
 
-    @Query("SELECT * FROM AlbumModel WHERE userID = :userId")
-    List<AlbumModel> getAlbumFromUser(int userId);
+    @Query("SELECT * FROM AlbumModel WHERE userId = :userId")
+    AlbumModel[] getAlbumFromUser(int userId);
 
     @Query("SELECT * FROM AlbumModel WHERE artistId = :artistId")
-    List<AlbumModel> getAlbumFromArtist(int artistId);
+    AlbumModel[] getAlbumFromArtist(int artistId);
 
-    @Insert
+    @Query("SELECT * FROM AlbumModel")
+    AlbumModel[] getAllAlbum();
+
+    @Query("SELECT * FROM AlbumModel WHERE isNew = 1")
+    AlbumModel[] getAlbumFromNew();
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertAlbum(AlbumModel album);
 
     @Update

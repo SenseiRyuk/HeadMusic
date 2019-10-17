@@ -12,17 +12,30 @@ import android.os.Bundle;
                 parentColumns = "id",
                 childColumns = "artistId"))
 
-public class ConcertModel extends AppCompatActivity {
+public class ConcertModel{
     @PrimaryKey
     private int id;
     private int artistId;
     private String date;
     private String location;
+    private String locationCity;
     private double locationLat;
     private double locationLgn;
     private String titleConcert;
-    private boolean isNew;
+    private Boolean isNew;
 
+    public ConcertModel(){}
+    public ConcertModel(int id, int artistId, String date, String location, String locationCity, double locationLat, double locationLgn, String titleConcert, Boolean isNew) {
+        this.id = id;
+        this.artistId = artistId;
+        this.date = date;
+        this.location = location;
+        this.locationCity = locationCity;
+        this.locationLat = locationLat;
+        this.locationLgn = locationLgn;
+        this.titleConcert = titleConcert;
+        this.isNew = isNew;
+    }
 
     public int getId() {
         return id;
@@ -56,6 +69,14 @@ public class ConcertModel extends AppCompatActivity {
         this.location = location;
     }
 
+    public String getLocationCity() {
+        return locationCity;
+    }
+
+    public void setLocationCity(String locationCity) {
+        this.locationCity = locationCity;
+    }
+
     public double getLocationLat() {
         return locationLat;
     }
@@ -80,11 +101,11 @@ public class ConcertModel extends AppCompatActivity {
         this.titleConcert = titleConcert;
     }
 
-    public boolean isNew() {
+    public Boolean isNew() {
         return isNew;
     }
 
-    public void setNew(boolean aNew) {
+    public void setNew(Boolean aNew) {
         isNew = aNew;
     }
 }

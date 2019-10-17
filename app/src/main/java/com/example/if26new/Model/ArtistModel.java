@@ -10,9 +10,9 @@ import android.os.Bundle;
 @Entity(foreignKeys =
         @ForeignKey(entity = UserModel.class,
                 parentColumns = "id",
-                childColumns = "userID"))
+                childColumns = "userId"))
 
-public class ArtistModel extends AppCompatActivity {
+public class ArtistModel {
     @PrimaryKey
     private int id;
     private int userId;
@@ -20,6 +20,16 @@ public class ArtistModel extends AppCompatActivity {
     private int topArtist;
     private int bio;
     private int image;
+
+public ArtistModel(){}
+    public ArtistModel(int id, int userId, String name, int topArtist, int bio, int image) {
+        this.id = id;
+        this.userId = userId;
+        this.name = name;
+        this.topArtist = topArtist;
+        this.bio = bio;
+        this.image = image;
+    }
 
     public int getId() {
         return id;
