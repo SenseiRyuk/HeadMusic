@@ -7,6 +7,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.UserModel;
 
 import java.util.List;
 
@@ -24,4 +25,7 @@ public interface PlaylistDao {
 
     @Query("DELETE FROM PlaylistModel WHERE id = :playlistId")
     int deletePlaylist(int playlistId);
+
+    @Query("SELECT * FROM PlaylistModel")
+    public PlaylistModel[] loadAllPlaylist();
 }

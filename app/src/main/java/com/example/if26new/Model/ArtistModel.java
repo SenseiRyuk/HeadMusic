@@ -10,7 +10,7 @@ import android.os.Bundle;
 @Entity(foreignKeys =
         @ForeignKey(entity = UserModel.class,
                 parentColumns = "id",
-                childColumns = "userID"))
+                childColumns = "userId"))
 
 public class ArtistModel extends AppCompatActivity {
     @PrimaryKey
