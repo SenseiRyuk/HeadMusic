@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -26,6 +27,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private TextView mTextViewDate;
     private TextView mTextViewLocation;
     private TextView mTextViewArtist;
+    private ImageView mImageViewArtist;
     private GoogleMap map;
     private Button focusBtn;
     private LatLng city;
@@ -36,6 +38,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private double locationLat;
     private double locationLgn;
     private String titleConcert;
+    private int artistImage;
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
 
     @Override
@@ -48,6 +51,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         locationLat=getIntent().getDoubleExtra("LOCATION_LAT",0);
         locationLgn=getIntent().getDoubleExtra("LOCATION_LGN",0);
         titleConcert=getIntent().getStringExtra("TITLE_CONCERT");
+        artistImage=getIntent().getIntExtra("ARTIST_IMAGE_ID",0);
         setContentView(R.layout.activity_concert);
 
         mMapView = findViewById(R.id.mapView);
@@ -55,6 +59,12 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         mTextViewDate = findViewById(R.id.txtDateConcertID);
         mTextViewLocation = findViewById(R.id.txtLocationConcertID);
         mTextViewArtist = findViewById(R.id.txtArtistConcertID);
+        mImageViewArtist = findViewById(R.id.imageViewArtistImage);
+        mImageViewArtist.setImageResource(artistImage);
+        android.view.ViewGroup.LayoutParams params3 = mImageViewArtist.getLayoutParams();
+        params3.height=450;
+        params3.width=450;
+        mImageViewArtist.setLayoutParams(params3);
         focusBtn=findViewById(R.id.buttonFocusMap);
         focusBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -147,8 +147,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             params1.height = 440;
             params1.width = 440;
             mImageButtonsConcerts[i].setLayoutParams(params1);
-           mImageButtonsConcerts[i].setText(db.mArtistDao().getArtistFromId(db.mConcertDao().getAllConcert()[i].getArtistId()).getName() + "\n-\n" + db.mConcertDao().getAllConcert()[i].getLocationCity());
-
+            mImageButtonsConcerts[i].setText(db.mArtistDao().getArtistFromId(db.mConcertDao().getAllConcert()[i].getArtistId()).getName() + "\n-\n" + db.mConcertDao().getAllConcert()[i].getLocationCity());
+            mImageButtonsConcerts[i].setOnClickListener(this);
             mImageButtonsConcerts[i].setTextColor(Color.BLACK);
             mLinearLayoutsConcerts.setLayoutParams(lp1);
 
@@ -170,9 +170,11 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mImageButtonsAlbums[i].setLayoutParams(params3);
             mImageButtonsAlbums[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
             mImageButtonsAlbums[i].setAdjustViewBounds(true);
+            mImageButtonsAlbums[i].setOnClickListener(this);
             mTextViewsAlbums[i] = new TextView(getActivity());
             mTextViewsAlbums[i].setText(db.mArtistDao().getArtistFromId(db.mAlbumDao().getAllAlbum()[i].getArtistId()).getName()+" -\n "+db.mAlbumDao().getAllAlbum()[i].getTitleAlbum());
             mTextViewsAlbums[i].setTextColor(Color.WHITE);
+            mTextViewsAlbums[i].setOnClickListener(this);
             mLinearLayoutsAlbums.addView(mTextViewsAlbums[i]);
             mLinearLayoutsAlbums.setLayoutParams(lp);
             mTextViewsAlbums[i].setGravity(Gravity.CENTER_HORIZONTAL);
@@ -228,6 +230,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 bundle.putDouble("LOCATION_LAT", db.mConcertDao().getAllConcert()[i].getLocationLat());
                 bundle.putDouble("LOCATION_LGN",db.mConcertDao().getAllConcert()[i].getLocationLgn());
                 bundle.putString("TITLE_CONCERT",db.mConcertDao().getAllConcert()[i].getTitleConcert());
+                bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromId(db.mConcertDao().getAllConcert()[i].getArtistId()).getImage());
                 Intent concertActivity = new Intent(getActivity(), ConcertActivity.class);
                 concertActivity.putExtras(bundle);
                 startActivity(concertActivity);

@@ -11,14 +11,14 @@ childColumns = "userId"))
 public class PlaylistModel {
     @PrimaryKey
     private int id;
-    private int userID;
+    private int userId;
     private String titles;
     private int imageButton;
 
     public PlaylistModel(){}
-    public PlaylistModel(int id, int userID,String title, int imageButton){
+    public PlaylistModel(int id, int userId,String title, int imageButton){
         this.id=id;
-        this.userID=userID;
+        this.userId=userId;
         this.titles=title;
         this.imageButton=imageButton;
     }
@@ -31,12 +31,12 @@ public class PlaylistModel {
         this.id = id;
     }
 
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUserID(int userID) {
-        this.userID = userID;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public String getTitles() {
