@@ -1,9 +1,7 @@
 package com.example.if26new.Model;
 
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = @ForeignKey(entity=UserModel.class,
@@ -13,16 +11,16 @@ childColumns = "userId"))
 public class PlaylistModel {
     @PrimaryKey
     private int id;
-    @ColumnInfo(name = "userId")
-    private int userId;
+    private int userID;
     private String titles;
-
+    private int imageButton;
 
     public PlaylistModel(){}
-    public PlaylistModel(int id, int userId, String titles) {
-        this.id = id;
-        this.userId = userId;
-        this.titles = titles;
+    public PlaylistModel(int id, int userID,String title, int imageButton){
+        this.id=id;
+        this.userID=userID;
+        this.titles=title;
+        this.imageButton=imageButton;
     }
 
     public int getId() {
@@ -33,12 +31,12 @@ public class PlaylistModel {
         this.id = id;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getUserID() {
+        return userID;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getTitles() {
@@ -47,5 +45,13 @@ public class PlaylistModel {
 
     public void setTitles(String titles) {
         this.titles = titles;
+    }
+
+    public int getImageButton() {
+        return imageButton;
+    }
+
+    public void setImageButton(int imageButton) {
+        imageButton = imageButton;
     }
 }
