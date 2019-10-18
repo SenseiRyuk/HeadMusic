@@ -37,7 +37,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
     private Context context;
     private int idImagePlaylist;
     private int sizePlaylist;
-    SaveMyMusicDatabase db;
+    private SaveMyMusicDatabase db;
 
     public static PlaylistFragment newInstance() {
         return (new PlaylistFragment());
@@ -76,8 +76,8 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
             dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
             imageButtonPlaylist[i].setBackground(null);
 
-            int id = allPlaylist[i].getImageButton();
-            System.out.println("VOICI LA VALEUR DE L'ID DE LA BASE DE DONNER " + id);
+            int id = allPlaylist[i].getImage();
+            System.out.println("VALEUUUUUR" + id);
             imageButtonPlaylist[i].setImageResource(id);
             imageButtonPlaylist[i].setTag(id);
             android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();

@@ -3,6 +3,7 @@ package com.example.if26new;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -21,16 +22,19 @@ import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.room.OnConflictStrategy;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.UserModel;
 import com.google.android.material.tabs.TabLayout;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment implements View.OnClickListener {
 
     private TabLayout onglet;
     private ViewPager viewPagerForFragments;
@@ -46,9 +50,10 @@ public class UserFragment extends Fragment {
     private LinearLayout linearLayout;
     private View view;
     private LinearLayout dynamique;
-    private ImageButton buttonWithImage;
+    private ImageButton[] buttonWithImage;
     private String text;
-
+    private SaveMyMusicDatabase db;
+    private PlaylistModel playlistToInsert;
 
     public UserFragment() {
         // Required empty public constructor
@@ -75,6 +80,7 @@ public class UserFragment extends Fragment {
         //Design purpose. Tabs have the same width
         onglet.setTabMode(TabLayout.MODE_FIXED);
 
+        db=SaveMyMusicDatabase.getInstance(getActivity());
 
         newplaylistDialog=new Dialog(getActivity());
         chooseImageSong=new Dialog(getActivity());
@@ -100,89 +106,102 @@ public class UserFragment extends Fragment {
         linearLayout=chooseImageSong.findViewById(R.id.linearForPopUp);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(0,25,0,25);
+        buttonWithImage=new ImageButton[18];
         for (int i = 0; i < 18; i++) {
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.VERTICAL);
 
-            buttonWithImage=new ImageButton(getActivity());
-            dynamique.addView(buttonWithImage,paramsImageButton);
-            android.view.ViewGroup.LayoutParams params = buttonWithImage.getLayoutParams();
+            buttonWithImage[i]=new ImageButton(getActivity());
+            dynamique.addView(buttonWithImage[i],paramsImageButton);
+            android.view.ViewGroup.LayoutParams params = buttonWithImage[i].getLayoutParams();
             params.height=700;
             params.width=700;
-            buttonWithImage.setLayoutParams(params);
-            buttonWithImage.setBackground(null);
-
+            buttonWithImage[i].setLayoutParams(params);
+            buttonWithImage[i].setBackground(null);
             switch (i){
                 case 0:
-                    buttonWithImage.setImageResource(R.drawable.rap);
+                    buttonWithImage[i].setImageResource(R.drawable.rap);
+                    buttonWithImage[i].setTag(R.drawable.rap);
                     break;
                 case 1:
-                    buttonWithImage.setImageResource(R.drawable.rap2);
+                    buttonWithImage[i].setImageResource(R.drawable.rap2);
+                    buttonWithImage[i].setTag(R.drawable.rap2);
                     break;
                 case 2:
-                    buttonWithImage.setImageResource(R.drawable.rap3);
+                    buttonWithImage[i].setImageResource(R.drawable.rap3);
+                    buttonWithImage[i].setTag(R.drawable.rap3);
                     break;
                 case 3:
-                    buttonWithImage.setImageResource(R.drawable.rap4);
+                    buttonWithImage[i].setImageResource(R.drawable.rap4);
+                    buttonWithImage[i].setTag(R.drawable.rap4);
                     break;
                 case 4:
-                    buttonWithImage.setImageResource(R.drawable.rock);
+                    buttonWithImage[i].setImageResource(R.drawable.rock);
+                    buttonWithImage[i].setTag(R.drawable.rock);
                     break;
                 case 5:
-                    buttonWithImage.setImageResource(R.drawable.rock2);
+                    buttonWithImage[i].setImageResource(R.drawable.rock2);
+                    buttonWithImage[i].setTag(R.drawable.rock2);
                     break;
                 case 6:
-                    buttonWithImage.setImageResource(R.drawable.rock3);
+                    buttonWithImage[i].setImageResource(R.drawable.rock3);
+                    buttonWithImage[i].setTag(R.drawable.rock3);
                     break;
                 case 7:
-                    buttonWithImage.setImageResource(R.drawable.rock4);
+                    buttonWithImage[i].setImageResource(R.drawable.rock4);
+                    buttonWithImage[i].setTag(R.drawable.rock4);
                     break;
                 case 8:
-                    buttonWithImage.setImageResource(R.drawable.rock5);
+                    buttonWithImage[i].setImageResource(R.drawable.rock5);
+                    buttonWithImage[i].setTag(R.drawable.rock5);
                     break;
                 case 9:
-                    buttonWithImage.setImageResource(R.drawable.reggae);
+                    buttonWithImage[i].setImageResource(R.drawable.reggae);
+                    buttonWithImage[i].setTag(R.drawable.reggae);
                     break;
                 case 10:
-                    buttonWithImage.setImageResource(R.drawable.reggae2);
+                    buttonWithImage[i].setImageResource(R.drawable.reggae2);
+                    buttonWithImage[i].setTag(R.drawable.reggae2);
                     break;
                 case 11:
-                    buttonWithImage.setImageResource(R.drawable.jazz);
+                    buttonWithImage[i].setImageResource(R.drawable.jazz);
+                    buttonWithImage[i].setTag(R.drawable.jazz);
                     break;
                 case 12:
-                    buttonWithImage.setImageResource(R.drawable.jazz2);
+                    buttonWithImage[i].setImageResource(R.drawable.jazz2);
+                    buttonWithImage[i].setTag(R.drawable.jazz2);
                     break;
                 case 13:
-                    buttonWithImage.setImageResource(R.drawable.jazz3);
+                    buttonWithImage[i].setImageResource(R.drawable.jazz3);
+                    buttonWithImage[i].setTag(R.drawable.jazz3);
                     break;
                 case 14:
-                    buttonWithImage.setImageResource(R.drawable.electro);
-                     break;
+                    buttonWithImage[i].setImageResource(R.drawable.electro);
+                    buttonWithImage[i].setTag(R.drawable.electro);
+                    break;
                 case 15:
-                    buttonWithImage.setImageResource(R.drawable.electro2);
+                    buttonWithImage[i].setImageResource(R.drawable.electro2);
+                    buttonWithImage[i].setTag(R.drawable.electro2);
                     break;
                 case 16:
-                    buttonWithImage.setImageResource(R.drawable.electro3);
+                    buttonWithImage[i].setImageResource(R.drawable.electro3);
+                    buttonWithImage[i].setTag(R.drawable.electro3);
                     break;
                 case 17:
-                    buttonWithImage.setImageResource(R.drawable.pop);
+                    buttonWithImage[i].setImageResource(R.drawable.pop);
+                    buttonWithImage[i].setTag(R.drawable.pop);
                     break;
             }
-            buttonWithImage.setAdjustViewBounds(true);
-            buttonWithImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            buttonWithImage[i].setAdjustViewBounds(true);
+            buttonWithImage[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            buttonWithImage[i].setOnClickListener(this);
             //dynamique.addView(imageButtonPlaylist,paramsImageButton);
             linearLayout.addView(dynamique);
-            buttonWithImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    chooseImageSong.dismiss();
-                    registerPlaylist();
-                }
-            });
         }
         chooseImageSong.show();
     }
     public void showPopup(){
+
         newplaylistDialog.setContentView(R.layout.add_playlist_pop_up);
 
         validate=newplaylistDialog.findViewById(R.id.validateNewPlaylist);
@@ -208,17 +227,28 @@ public class UserFragment extends Fragment {
         });
 
         fieldPlaylist=newplaylistDialog.findViewById(R.id.fielForNewPlaylist);
-
         newplaylistDialog.show();
     }
     public void unShowPopup(){
         newplaylistDialog.dismiss();
     }
-    public void registerPlaylist(){
+    public void registerPlaylist(int tag){
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist created", Toast.LENGTH_SHORT);
         toast.show();
+        UserModel user[]=db.userDao().loadAllUsers();
+        playlistToInsert=new PlaylistModel(user[0].getId(),text,tag);
+        db.mPlaylistDao().insertPlaylist(playlistToInsert);
+        //Pour refresh la vue
+        viewPagerForFragments.setAdapter(pageAdaptaterForUser);
         //storage in data base the text value here
         //stockage the image name in the data base
-
+    }
+    public void onClick(View v){
+        for (int i=0;i<18;i++){
+            if (v.equals(buttonWithImage[i])) {
+                chooseImageSong.dismiss();
+                registerPlaylist((Integer) buttonWithImage[i].getTag());
+            }
+        }
     }
 }

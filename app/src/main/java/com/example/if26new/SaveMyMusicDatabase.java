@@ -31,6 +31,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
     // --- SINGLETON ---
     private static volatile SaveMyMusicDatabase INSTANCE;
 
+    SaveMyMusicDatabase db;
     // --- DAO ---
     public abstract PlaylistDao mPlaylistDao();
     public abstract UserDao userDao();
@@ -60,7 +61,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
 
                 //USER
                 ContentValues contentValues = new ContentValues();
-                contentValues.put("id", 1);
+                //contentValues.put("id", 1);
                 contentValues.put("mailAdress", "root@gmail.com");
                 contentValues.put("username", "root");
                 contentValues.put("password", "root");
@@ -69,10 +70,10 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.clear();
 
                 //PLAYLIST
-                contentValues.put("id",1);
+                //contentValues.put("id",1);
                 contentValues.put("userID",0);
                 contentValues.put("titles","Favorite");
-                contentValues.put("imageButton",R.drawable.like);
+                contentValues.put("image",R.drawable.like);
                 db.insert("PlaylistModel",OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
                 //ALBUM
@@ -281,6 +282,15 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
             }
         };
     }
+    /*public void InsertPlaylist(int id, String title,int image){
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("id",db.mPlaylistDao().loadAllPlaylist().length+1);
+        contentValues.put("userID",0);
+        contentValues.put("titles",text);
+        contentValues.put("image",(Integer)buttonWithImage.getTag());
+        db.insert("PlaylistModel",OnConflictStrategy.IGNORE, contentValues);
+        contentValues.clear();
+    }*/
 }
 
 

@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
                     final ControlerLayouts controler=ControlerLayouts.getInstance();
                     UserModel []allUsers=db.userDao().loadAllUsers();
                     for(int i=0;i<allUsers.length;i++){
-
                         if ((password.getText().toString().equals(allUsers[i].getPassword().toString())) && ((username.getText().toString().equals(allUsers[i].getUsername().toString()) || (username.getText().toString().equals(allUsers[i].getMailAdress()))))){
                             isRegisterUser=true;
                             Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);

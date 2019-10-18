@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.if26new.Model.ArtistModel;
+import com.example.if26new.Model.PlaylistModel;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +34,8 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
     private TextView[] ArtistName;
     private ImageButton[] imageButtonArtist;
     private int sizeArtists;
+    private SaveMyMusicDatabase db;
+    private View view;
     public ArtistFragment() {
         // Required empty public constructor
     }
@@ -40,17 +45,21 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view;
         view=inflater.inflate(R.layout.fragment_artist, container, false);
-
         //Retrieve all the playlist in data base
+        getAndDisplayAllArtistsFromTheDataBase();
+        return view;
+    }
+    public void getAndDisplayAllArtistsFromTheDataBase(){
         linearLayout = view.findViewById(R.id.linearForArtist);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsArtistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsArtistName.setMargins(10,60,0,0);
 
-        sizeArtists=10;
+        db=SaveMyMusicDatabase.getInstance(getActivity());
+        ArtistModel[] allArtist = db.mArtistDao().getAllArtist();
+        sizeArtists=allArtist.length;
         ArtistName=new TextView[sizeArtists];
         imageButtonArtist=new ImageButton[sizeArtists];
         for (int i = 0; i <sizeArtists; i++) {
@@ -60,7 +69,6 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
             imageButtonArtist[i]=new ImageButton(getActivity());
             dynamique.addView(imageButtonArtist[i],paramsImageButton);
             imageButtonArtist[i].setBackground(null);
-
             if (i==1){
                 imageButtonArtist[i].setImageResource(R.drawable.jazz);
                 imageButtonArtist[i].setTag(R.drawable.jazz);
@@ -87,7 +95,6 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
             dynamique.addView(ArtistName[i],paramsArtistName);
             linearLayout.addView(dynamique);
         }
-        return view;
     }
     public void onClick(View v){
         for (int i=0;i<sizeArtists;i++){

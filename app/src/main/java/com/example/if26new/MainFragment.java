@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.if26new.Model.PlaylistModel;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -110,7 +112,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mImageButton3Rank.setBackground(null);
         mImageButton3Rank.setImageResource(R.drawable.ic_third);
 
-        for (int i=0;i<10;i++) {
+        int sizePlaylist = db.mPlaylistDao().loadAllPlaylist().length;
+        PlaylistModel playlsit[]=db.mPlaylistDao().loadAllPlaylist();
+        for (int i=0;i<sizePlaylist;i++) {
             //PARTIE PLAYLIST
             mLinearLayoutsPlaylists = new LinearLayout(getActivity());
             mLinearLayout1.addView(mLinearLayoutsPlaylists);
@@ -118,7 +122,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mImageButtonsPlaylists = new ImageButton(getActivity());
             mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists);
             mImageButtonsPlaylists.setBackground(null);
-            mImageButtonsPlaylists.setImageResource(R.drawable.hazy1);
+            mImageButtonsPlaylists.setImageResource(playlsit[i].getImage());
             mImageButtonsPlaylists.setAdjustViewBounds(true);
             android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists.getLayoutParams();
             params.height = 450;
@@ -126,7 +130,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mImageButtonsPlaylists.setLayoutParams(params);
             mImageButtonsPlaylists.setScaleType(ImageView.ScaleType.FIT_CENTER);
             mTextViewsPlaylists = new TextView(getActivity());
-            mTextViewsPlaylists.setText("Playlist " + i);
+            mTextViewsPlaylists.setText(playlsit[i].getTitles());
             mTextViewsPlaylists.setTextColor(Color.WHITE);
             mLinearLayoutsPlaylists.addView(mTextViewsPlaylists);
             mLinearLayoutsPlaylists.setLayoutParams(lp);
