@@ -53,7 +53,7 @@ public class SignInActivity extends AppCompatActivity {
                     int isValid=testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
                     switch (isValid) {
                         case 2:
-                            userModel=new UserModel(db.userDao().loadAllUsers().length+1,username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
+                            userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
                             db.userDao().createUser(userModel);
                             Intent mainLayout = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainLayout);

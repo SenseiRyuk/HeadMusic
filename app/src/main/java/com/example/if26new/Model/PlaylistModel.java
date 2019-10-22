@@ -4,23 +4,20 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity=UserModel.class,
-parentColumns = "id",
-childColumns = "userId"))
+@Entity(foreignKeys = @ForeignKey(entity=UserModel.class, parentColumns = "id", childColumns = "userId", onDelete = ForeignKey.CASCADE))
 
 public class PlaylistModel {
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
     private int userId;
     private String titles;
-    private int imageButton;
+    private int image;
 
     public PlaylistModel(){}
-    public PlaylistModel(int id, int userId,String title, int imageButton){
-        this.id=id;
+    public PlaylistModel(int userId,String title, int imageButton){
         this.userId=userId;
         this.titles=title;
-        this.imageButton=imageButton;
+        this.image=imageButton;
     }
 
     public int getId() {
@@ -47,11 +44,11 @@ public class PlaylistModel {
         this.titles = titles;
     }
 
-    public int getImageButton() {
-        return imageButton;
+    public int getImage() {
+        return image;
     }
 
-    public void setImageButton(int imageButton) {
-        imageButton = imageButton;
+    public void setImage(int imageButton) {
+        image = imageButton;
     }
 }

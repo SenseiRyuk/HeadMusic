@@ -38,6 +38,7 @@ public AlbumModel(){}
         this.image = image;
     }
 
+
     public int getId() {
         return id;
     }

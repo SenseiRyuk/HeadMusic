@@ -5,15 +5,14 @@ import androidx.room.PrimaryKey;
 
 @Entity
 public class UserModel {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     private int id;
     private String mailAdress;
     private String username;
     private String password;
 
     public UserModel(){}
-    public UserModel(int id,String username,String pswrd, String mailAdress){
-        this.id=id;
+    public UserModel(String username,String pswrd, String mailAdress){
         this.mailAdress=mailAdress;
         this.username=username;
         this.password=pswrd;

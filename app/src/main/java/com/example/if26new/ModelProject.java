@@ -15,7 +15,7 @@ public class ModelProject {
         if (users.containsKey(mailAdress)){
             System.out.println("!!!!!!!! CETTE ADDRESS MAIL EST DEJA UTILISER !!!!!!!!!!!!!!");
         }else{
-            users.put(mailAdress,new UserModel(5,username,password,mailAdress));
+            //users.put(mailAdress,new UserModel(username,password,mailAdress));
         }
     }
     public Map<String, UserModel> getRegisterUsers(){
