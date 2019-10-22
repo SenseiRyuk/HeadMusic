@@ -50,6 +50,7 @@ public class fragment_album extends Fragment implements View.OnClickListener {
         ViewGroup.MarginLayoutParams paramsAlbumName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsAlbumName.setMargins(10,60,0,0);
         if(sizeAlbums==0){
+            albumName=new TextView[1];
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
             albumName[0]=new TextView(getActivity());
