@@ -42,11 +42,12 @@ public class ActivityArtist extends AppCompatActivity{
         followBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (followBtn.getDrawable().equals(R.drawable.ic_followwhite)) {
+                if (followBtn.getDrawable().getConstantState().equals(getDrawable(R.drawable.ic_followwhite).getConstantState())) {
                     followBtn.setImageResource(R.drawable.ic_followgreen);
-                } else if (followBtn.getDrawable().equals(R.drawable.ic_followgreen)) {
+                } else if (followBtn.getDrawable().getConstantState().equals(getDrawable(R.drawable.ic_followgreen).getConstantState())) {
                     followBtn.setImageResource(R.drawable.ic_followwhite);
                 }
+
             }
         });
         setImageArtist(getIntent().getExtras().getInt("ARTIST_IMAGE_ID"));
