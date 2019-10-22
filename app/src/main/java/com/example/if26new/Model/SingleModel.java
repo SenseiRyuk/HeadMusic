@@ -23,14 +23,19 @@ public class SingleModel {
     private int artistId;
     private String titleSingle;
     private boolean isNew;
+    private int music;
+    private int video;
 
     public SingleModel(){};
-    public SingleModel(int id, int albumId, int artistId, String titleSingle, boolean isNew) {
+
+    public SingleModel(int id, int albumId, int artistId, String titleSingle, boolean isNew, int music, int video) {
         this.id = id;
         this.albumId = albumId;
         this.artistId = artistId;
         this.titleSingle = titleSingle;
         this.isNew = isNew;
+        this.music = music;
+        this.video = video;
     }
 
     public int getId() {
@@ -71,5 +76,21 @@ public class SingleModel {
 
     public void setNew(boolean aNew) {
         isNew = aNew;
+    }
+
+    public int getMusic() {
+        return music;
+    }
+
+    public void setMusic(int music) {
+        this.music = music;
+    }
+
+    public int getVideo() {
+        return video;
+    }
+
+    public void setVideo(int video) {
+        this.video = video;
     }
 }

@@ -24,8 +24,14 @@ public interface AlbumDao {
     @Query("SELECT * FROM AlbumModel")
     AlbumModel[] getAllAlbum();
 
+    @Query("SELECT * FROM AlbumModel WHERE titleAlbum =:title")
+    AlbumModel getAlbumFromName(String title);
+
     @Query("SELECT * FROM AlbumModel WHERE isNew = 1")
     AlbumModel[] getAlbumFromNew();
+
+    @Query("SELECT * FROM AlbumModel WHERE id =:id")
+    AlbumModel[] getAlbumFromId(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertAlbum(AlbumModel album);

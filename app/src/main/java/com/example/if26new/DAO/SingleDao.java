@@ -19,6 +19,12 @@ public interface SingleDao {
     @Query("SELECT * FROM SingleModel WHERE artistId = :artistId")
     SingleModel[] getSingleFromArtist(int artistId);
 
+    @Query("SELECT * FROM SingleModel WHERE isNew = :isNew")
+    SingleModel[] getSingleFromNew(boolean isNew);
+
+    @Query("SELECT * FROM SingleModel WHERE titleSingle = :name")
+    SingleModel getSingleFromName(String name);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertSingle(SingleModel single);
 

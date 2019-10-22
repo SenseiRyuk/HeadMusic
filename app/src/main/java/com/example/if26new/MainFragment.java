@@ -185,6 +185,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getTop(1).getImage());
                     bundle.putString("ARTIST_NAME",db.mArtistDao().getTop(1).getName());
+                    bundle.putInt("ARTIST_BIO",db.mArtistDao().getTop(1).getBio());
                     Intent artistActivity = new Intent(getActivity(),ActivityArtist.class);
                     artistActivity.putExtras(bundle);
                     startActivity(artistActivity);
@@ -196,6 +197,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getTop(2).getImage());
                     bundle.putString("ARTIST_NAME",db.mArtistDao().getTop(2).getName());
+                    bundle.putInt("ARTIST_BIO",db.mArtistDao().getTop(2).getBio());
                     Intent artistActivity = new Intent(getActivity(),ActivityArtist.class);
                     artistActivity.putExtras(bundle);
                     startActivity(artistActivity);
@@ -207,6 +209,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                     Bundle bundle = new Bundle();
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getTop(3).getImage());
                     bundle.putString("ARTIST_NAME",db.mArtistDao().getTop(3).getName());
+                    bundle.putInt("ARTIST_BIO",db.mArtistDao().getTop(3).getBio());
                     Intent artistActivity = new Intent(getActivity(),ActivityArtist.class);
                     artistActivity.putExtras(bundle);
                     startActivity(artistActivity);

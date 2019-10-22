@@ -20,6 +20,8 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
     private LinearLayout dynamique;
     private TextView[] songName;
     private TextView[] artistName;
+    private SaveMyMusicDatabase db;
+    private String nameArtist;
 
     private int sizeMusicArtist;
 
@@ -36,8 +38,10 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
         view = inflater.inflate(R.layout.fragment_titles, container, false);
+        db=SaveMyMusicDatabase.getInstance(getActivity());
+        nameArtist=getActivity().getIntent().getStringExtra("ARTIST_NAME");
 
-        sizeMusicArtist=10;
+        sizeMusicArtist=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(nameArtist).getId()).length;
         songName=new TextView[sizeMusicArtist];
         artistName=new TextView[sizeMusicArtist];
 
@@ -51,12 +55,12 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
             dynamique.setOrientation(LinearLayout.VERTICAL);
             artistName[i] = new TextView(getContext());
             songName[i] = new TextView(getContext());
-            songName[i].setText("Royal Bacon");
+            songName[i].setText(db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(nameArtist).getId())[i].getTitleSingle());
             songName[i].setTextColor(Color.WHITE);
             songName[i].setTextSize(20);
             songName[i].setSingleLine(true);
             songName[i].setOnClickListener(this);
-            artistName[i].setText("Vald - Ce monde est cruel");
+            artistName[i].setText(db.mArtistDao().getArtistFromName(nameArtist).getName());
             artistName[i].setTextColor(Color.WHITE);
             artistName[i].setTextSize(10);
             artistName[i].setSingleLine(true);

@@ -20,14 +20,24 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
     private LinearLayout dynamique;
     private ImageView mImageView;
     private int sizeSongInAlbum;
+    private String nameArtist;
+    private int imageAlbum;
+    private int idAlbum;
+    private String nameAlbum;
+    private SaveMyMusicDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
+        db=SaveMyMusicDatabase.getInstance(this);
+        imageAlbum=getIntent().getExtras().getInt("ALBUM_IMAGE_ID");
+        setImageAlbum(imageAlbum);
+        idAlbum=getIntent().getExtras().getInt("ALBUM_ID");
+        setAlbumMusic(idAlbum); //Use dataBase
+        nameAlbum=getIntent().getExtras().getString("ALBUM_NAME");
+        setAlbumName(nameAlbum);
+        nameArtist=getIntent().getStringExtra("ARTIST_NAME");
 
-        setImageAlbum(getIntent().getExtras().getInt("ALBUM_IMAGE_ID"));
-        setAlbumMusic(getIntent().getExtras().getString("ALBUM_ID")); //Use dataBase
-        setAlbumName(getIntent().getExtras().getString("ALBUM_NAME"));
     }
     public void setImageAlbum(int idImage){
         mImageView = findViewById(R.id.AlbumImageInAlbumView);
@@ -39,9 +49,9 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
-    public void setAlbumMusic(String AlbumName){
+    public void setAlbumMusic(int albumId){
         //BDD --> Grace a la base de donnée on va venir chercher notre album(les singles, ainsi que sa taille) dans la base de donnée grâce à son nom passer en paramètre
-        sizeSongInAlbum=10;
+        sizeSongInAlbum=db.mSingleDao().getSingleFromAlbum(albumId).length;
         artistName=new TextView[sizeSongInAlbum];
         songName=new TextView[sizeSongInAlbum];
 
@@ -55,12 +65,12 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
             dynamique.setOrientation(LinearLayout.VERTICAL);
             artistName[i] = new TextView(this);
             songName[i] = new TextView(this);
-            songName[i].setText("Universer");
+            songName[i].setText(db.mSingleDao().getSingleFromAlbum(albumId)[i].getTitleSingle());
             songName[i].setTextColor(Color.WHITE);
             songName[i].setTextSize(20);
             songName[i].setSingleLine(true);
             songName[i].setOnClickListener(this);
-            artistName[i].setText("Hazy - centrifuge");
+            artistName[i].setText(nameArtist);
             artistName[i].setTextColor(Color.WHITE);
             artistName[i].setTextSize(10);
             artistName[i].setSingleLine(true);
@@ -78,15 +88,15 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         for (int i=0;i<sizeSongInAlbum;i++){
             if (v.equals(songName[i])){
                 Bundle bundle=new Bundle();
-                bundle.putString("SONG_NAME",songName[i].getText().toString());
-                bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
+                bundle.putString("ARTIST_NAME",nameArtist);
                 Intent playListActivity = new Intent(Album_view.this, listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(artistName[i])){
                 Bundle bundle=new Bundle();
-                bundle.putString("SONG_NAME",songName[i].getText().toString());
-                bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
+                bundle.putString("ARTIST_NAME",nameArtist);
                 Intent playListActivity = new Intent(Album_view.this, listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

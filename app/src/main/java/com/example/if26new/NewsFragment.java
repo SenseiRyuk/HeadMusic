@@ -24,13 +24,13 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
     private LinearLayout mLinearLayoutNew1;
     private LinearLayout mLinearLayoutNew2;
     private LinearLayout mLinearLayoutNew3;
-    private ImageButton mImageButtonsSingles;
+    private ImageButton[] mImageButtonsSingles;
     private Button[] mImageButtonsConcerts;
     private ImageButton[] mImageButtonsAlbums;
     private LinearLayout mLinearLayoutsSingles;
     private LinearLayout mLinearLayoutsAlbums;
     private LinearLayout mLinearLayoutsConcerts;
-    private TextView mTextViewsSingles;
+    private TextView[] mTextViewsSingles;
     private TextView[] mTextViewsAlbums;
     private TextView mTextViewsConcerts;
     private SaveMyMusicDatabase db;
@@ -49,7 +49,8 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
         mLinearLayoutNew1 = result.findViewById(R.id.linearNewSinglesID);
         mLinearLayoutNew2 = result.findViewById(R.id.linearNewConcertsID);
         mLinearLayoutNew3 = result.findViewById(R.id.linearNewAlbumsID);
-
+        mTextViewsSingles=new TextView[db.mSingleDao().getSingleFromNew(true).length];
+        mImageButtonsSingles=new ImageButton[db.mSingleDao().getSingleFromNew(true).length];
         mImageButtonsAlbums=new ImageButton[db.mAlbumDao().getAlbumFromNew().length];
         mTextViewsAlbums=new TextView[db.mAlbumDao().getAlbumFromNew().length];
         mImageButtonsConcerts=new Button[db.mConcertDao().getConcertFromNew(true).length];
@@ -57,27 +58,29 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(20, 50, 20, 50);
 
-        for (int i=0;i<10;i++) {
+        for (int i=0;i<db.mSingleDao().getSingleFromNew(true).length;i++) {
             //PARTIE SINGLES
             mLinearLayoutsSingles = new LinearLayout(getActivity());
             mLinearLayoutNew1.addView(mLinearLayoutsSingles);
             mLinearLayoutsSingles.setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsSingles = new ImageButton(getActivity());
-            mLinearLayoutsSingles.addView(mImageButtonsSingles);
-            mImageButtonsSingles.setBackground(null);
-            mImageButtonsSingles.setImageResource(R.drawable.iconforplaylist);
-            mImageButtonsSingles.setAdjustViewBounds(true);
-            android.view.ViewGroup.LayoutParams params = mImageButtonsSingles.getLayoutParams();
+            mImageButtonsSingles[i] = new ImageButton(getActivity());
+            mLinearLayoutsSingles.addView(mImageButtonsSingles[i]);
+            mImageButtonsSingles[i].setBackground(null);
+            mImageButtonsSingles[i].setImageResource(R.drawable.iconforplaylist);
+            mImageButtonsSingles[i].setAdjustViewBounds(true);
+            android.view.ViewGroup.LayoutParams params = mImageButtonsSingles[i].getLayoutParams();
             params.height = 450;
             params.width = 450;
-            mImageButtonsSingles.setLayoutParams(params);
-            mImageButtonsSingles.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            mTextViewsSingles = new TextView(getActivity());
-            mTextViewsSingles.setText("Singles " + i);
-            mTextViewsSingles.setTextColor(Color.WHITE);
-            mLinearLayoutsSingles.addView(mTextViewsSingles);
+            mImageButtonsSingles[i].setLayoutParams(params);
+            mImageButtonsSingles[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mTextViewsSingles[i] = new TextView(getActivity());
+            mTextViewsSingles[i].setText(db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName()+" -\n"+db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
+            mTextViewsSingles[i].setTextColor(Color.WHITE);
+            mLinearLayoutsSingles.addView(mTextViewsSingles[i]);
             mLinearLayoutsSingles.setLayoutParams(lp);
-            mTextViewsSingles.setGravity(Gravity.CENTER_HORIZONTAL);
+            mTextViewsSingles[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mTextViewsSingles[i].setOnClickListener(this);
+            mImageButtonsSingles[i].setOnClickListener(this);
         }
         for(int i=0;i<db.mConcertDao().getConcertFromNew(true).length;i++) {
 
@@ -123,13 +126,15 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             mImageButtonsAlbums[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
             mImageButtonsAlbums[i].setAdjustViewBounds(true);
             mTextViewsAlbums[i] = new TextView(getActivity());
-            mTextViewsAlbums[i].setText(db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName()+" - "+db.mAlbumDao().getAllAlbum()[i].getTitleAlbum());
+            mTextViewsAlbums[i].setText(db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName()+" - \n"+db.mAlbumDao().getAllAlbum()[i].getTitleAlbum());
             mTextViewsAlbums[i].setTextColor(Color.WHITE);
             mTextViewsAlbums[i].setOnClickListener(this);
             mImageButtonsAlbums[i].setOnClickListener(this);
             mLinearLayoutsAlbums.addView(mTextViewsAlbums[i]);
             mLinearLayoutsAlbums.setLayoutParams(lp);
             mTextViewsAlbums[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mTextViewsAlbums[i].setOnClickListener(this);
+            mImageButtonsAlbums[i].setOnClickListener(this);
         }
         return result;
 
@@ -138,6 +143,23 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
+        for (int i=0;i<db.mSingleDao().getSingleFromNew(true).length;i++){
+            if (v.equals(mImageButtonsSingles[i])){
+                Bundle bundle = new Bundle();
+                bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                Intent playListActivity = new Intent(getContext(), listening.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            } else if(v.equals(mTextViewsSingles[i])){
+                Bundle bundle = new Bundle();
+                bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                Intent playListActivity = new Intent(getContext(), listening.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }
+        }
         for (int i=0;i<db.mConcertDao().getConcertFromNew(true).length;i++){
             if(v.equals(mImageButtonsConcerts[i])){
                 Bundle bundle = new Bundle();
@@ -156,6 +178,15 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
         }
         for (int i=0;i<db.mAlbumDao().getAlbumFromNew().length;i++){
             if(v.equals(mImageButtonsConcerts[i])){
+                Bundle bundle = new Bundle();
+                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromNew()[i].getId());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName());
+                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromNew()[i].getTitleAlbum());
+                bundle.putInt("ALBUM_IMAGE_ID", db.mAlbumDao().getAlbumFromNew()[i].getImage());
+                Intent albumActivity = new Intent(getActivity(), Album_view.class);
+                albumActivity.putExtras(bundle);
+                startActivity(albumActivity);
+            } else if(v.equals(mTextViewsAlbums[i])){
                 Bundle bundle = new Bundle();
                 bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromNew()[i].getId());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName());

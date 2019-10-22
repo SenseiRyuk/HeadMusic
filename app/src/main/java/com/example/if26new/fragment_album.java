@@ -22,6 +22,8 @@ public class fragment_album extends Fragment implements View.OnClickListener {
     private TextView[] albumName;
     private ImageButton[] imageButtonAlbum;
     private int sizeAlbums;
+    private String artistName;
+    private SaveMyMusicDatabase db;
     public fragment_album() {
     }
 
@@ -34,10 +36,12 @@ public class fragment_album extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view;
+        db=SaveMyMusicDatabase.getInstance(getActivity());
         view=inflater.inflate(R.layout.fragment_album_artist, container, false);
+        artistName=getActivity().getIntent().getStringExtra("ARTIST_NAME");
 
 
-        sizeAlbums=10;
+        sizeAlbums=db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId()).length;
         imageButtonAlbum=new ImageButton[sizeAlbums];
         albumName=new TextView[sizeAlbums];
         linearLayout = view.findViewById(R.id.linearForAlbumFragmentArtistID);
@@ -45,33 +49,45 @@ public class fragment_album extends Fragment implements View.OnClickListener {
         paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsAlbumName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsAlbumName.setMargins(10,60,0,0);
-        for (int i = 0; i < sizeAlbums; i++) {
+        if(sizeAlbums==0){
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
-
-            imageButtonAlbum[i]=new ImageButton(getActivity());
-            dynamique.addView(imageButtonAlbum[i],paramsImageButton);
-            imageButtonAlbum[i].setBackground(null);
-            imageButtonAlbum[i].setImageResource(R.drawable.rap4);
-            imageButtonAlbum[i].setTag(R.drawable.rap4);
-            android.view.ViewGroup.LayoutParams params = imageButtonAlbum[i].getLayoutParams();
-            params.height=200;
-            params.width=200;
-            imageButtonAlbum[i].setLayoutParams(params);
-            imageButtonAlbum[i].setAdjustViewBounds(true);
-            imageButtonAlbum[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonAlbum[i].requestLayout();
-            imageButtonAlbum[i].setOnClickListener(this);
-
-            albumName[i]=new TextView(getActivity());
-            albumName[i].setText("Album " +i);
-            albumName[i].setTextColor(Color.WHITE);
-            albumName[i].setTextSize(20);
-            albumName[i].setSingleLine(true);
-            albumName[i].setOnClickListener(this);
-
-            dynamique.addView(albumName[i],paramsAlbumName);
+            albumName[0]=new TextView(getActivity());
+            albumName[0].setText("Cet artiste ne possède pas d'album.");
+            albumName[0].setTextColor(Color.WHITE);
+            albumName[0].setTextSize(20);
+            albumName[0].setSingleLine(true);
+            dynamique.addView(albumName[0],paramsAlbumName);
             linearLayout.addView(dynamique);
+        }else {
+            for (int i = 0; i < sizeAlbums; i++) {
+                dynamique = new LinearLayout(getActivity());
+                dynamique.setOrientation(LinearLayout.HORIZONTAL);
+
+                imageButtonAlbum[i] = new ImageButton(getActivity());
+                dynamique.addView(imageButtonAlbum[i], paramsImageButton);
+                imageButtonAlbum[i].setBackground(null);
+                imageButtonAlbum[i].setImageResource(db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                imageButtonAlbum[i].setTag(db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                android.view.ViewGroup.LayoutParams params = imageButtonAlbum[i].getLayoutParams();
+                params.height = 200;
+                params.width = 200;
+                imageButtonAlbum[i].setLayoutParams(params);
+                imageButtonAlbum[i].setAdjustViewBounds(true);
+                imageButtonAlbum[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageButtonAlbum[i].requestLayout();
+                imageButtonAlbum[i].setOnClickListener(this);
+
+                albumName[i] = new TextView(getActivity());
+                albumName[i].setText(db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
+                albumName[i].setTextColor(Color.WHITE);
+                albumName[i].setTextSize(20);
+                albumName[i].setSingleLine(true);
+                albumName[i].setOnClickListener(this);
+
+                dynamique.addView(albumName[i], paramsAlbumName);
+                linearLayout.addView(dynamique);
+            }
         }
         return view;
     }
@@ -79,15 +95,19 @@ public class fragment_album extends Fragment implements View.OnClickListener {
         for (int i=0;i<sizeAlbums;i++){
             if (v.equals(albumName[i])){
                 Bundle bundle=new Bundle();
-                bundle.putString("ALBUM_NAME",albumName[i].getText().toString());
-                bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
+                bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
+                bundle.putString("ARTIST_NAME",artistName);
                 Intent playListActivity = new Intent(getActivity(), Album_view.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(imageButtonAlbum[i])){
                 Bundle bundle=new Bundle();
-                bundle.putString("ALBUM_NAME",albumName[i].getText().toString());
-                bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
+                bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
+                bundle.putString("ARTIST_NAME",artistName);
                 Intent playListActivity = new Intent(getActivity(), Album_view.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

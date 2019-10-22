@@ -26,6 +26,9 @@ public interface ArtistDao {
     @Query("SELECT * FROM ArtistModel WHERE id = :id")
     ArtistModel getArtistFromId(int id);
 
+    @Query("SELECT * FROM ArtistModel WHERE name = :name")
+    ArtistModel getArtistFromName(String name);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertArtist(ArtistModel artist);
 

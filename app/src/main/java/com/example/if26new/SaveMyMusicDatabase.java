@@ -75,6 +75,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("imageButton",R.drawable.like);
                 db.insert("PlaylistModel",OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
+
                 //ALBUM
                 contentValues.put("id",1);
                 contentValues.put("userId",0);
@@ -98,7 +99,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("userId",0);
                 contentValues.put("artistId",2);
                 contentValues.put("titleAlbum","Thank U, Next");
-                contentValues.put("isNew",0);
+                contentValues.put("isNew",1);
                 contentValues.put("image",R.drawable.arianagrande_album_thank);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
@@ -107,7 +108,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("userId",0);
                 contentValues.put("artistId",2);
                 contentValues.put("titleAlbum","Sweetener");
-                contentValues.put("isNew",1);
+                contentValues.put("isNew",0);
                 contentValues.put("image",R.drawable.arianagrande_album_sweetener);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
@@ -276,7 +277,236 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
+                //SINGLES
+                contentValues.put("id",1);
+                contentValues.put("albumId",1);
+                contentValues.put("artistId",1);
+                contentValues.put("titleSingle","Sunflower");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.postmalone_sunflower);
+                contentValues.put("video",R.raw.postmalone_sunflower_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
 
+                contentValues.put("id",2);
+                contentValues.put("albumId",1);
+                contentValues.put("artistId",1);
+                contentValues.put("titleSingle","Circles");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.postmalone_circles);
+                contentValues.put("video",R.raw.postmalone_circles_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",3);
+                contentValues.put("albumId",2);
+                contentValues.put("artistId",1);
+                contentValues.put("titleSingle","Psycho");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.postmalone_psycho);
+                contentValues.put("video",R.raw.postmalone_psycho_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",4);
+                contentValues.put("albumId",2);
+                contentValues.put("artistId",1);
+                contentValues.put("titleSingle","Rockstar");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.postmalone_rockstar);
+                contentValues.put("video",R.raw.postmalone_rockstar_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",5);
+                contentValues.put("albumId",3);
+                contentValues.put("artistId",2);
+                contentValues.put("titleSingle","Thank U, Next");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.arianagrande_thank);
+                contentValues.put("video",R.raw.arianagrande_thank_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",6);
+                contentValues.put("albumId",3);
+                contentValues.put("artistId",2);
+                contentValues.put("titleSingle","7 rings");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.arianagrande_sevenrings);
+                contentValues.put("video",R.raw.arianagrande_sevenrings_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",7);
+                contentValues.put("albumId",4);
+                contentValues.put("artistId",2);
+                contentValues.put("titleSingle","God is a woman");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.arianagrande_god);
+                contentValues.put("video",R.raw.arianagrande_god_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",8);
+                contentValues.put("albumId",4);
+                contentValues.put("artistId",2);
+                contentValues.put("titleSingle","No tears left to cry");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.arianagrande_notears);
+                contentValues.put("video",R.raw.arianagrande_notears_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",9);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",3);
+                contentValues.put("titleSingle","Mama he");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.vegedream_mamahe);
+                contentValues.put("video",R.raw.vegedream_mamahe_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",10);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",3);
+                contentValues.put("titleSingle","Marchand de sable");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.vegedream_marchand);
+                contentValues.put("video",R.raw.vegedream_marchand_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",11);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",3);
+                contentValues.put("titleSingle","La fuite");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.vegedream_lafuite);
+                contentValues.put("video",R.raw.vegedreamlafuite_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",12);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",3);
+                contentValues.put("titleSingle","Elle est bonne sa mère");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.vegedream_bonne);
+                contentValues.put("video",R.raw.vegedream_bonne_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",13);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",4);
+                contentValues.put("titleSingle","One day");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.bakermat_oneday);
+                contentValues.put("video",R.raw.bakermat_oneday_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",14);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",4);
+                contentValues.put("titleSingle","Baiana");
+                contentValues.put("isNew",true);
+                contentValues.put("music",R.raw.bakermat_baiana);
+                contentValues.put("video",R.raw.bakermat_baiana_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",15);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",4);
+                contentValues.put("titleSingle","Baby");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.bakermat_baby);
+                contentValues.put("video",R.raw.bakermat_baby_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",16);
+                contentValues.put("albumId",6);
+                contentValues.put("artistId",5);
+                contentValues.put("titleSingle","September");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.ewf_septemner);
+                contentValues.put("video",R.raw.ewf_september_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",17);
+                contentValues.put("albumId",6);
+                contentValues.put("artistId",5);
+                contentValues.put("titleSingle","Let's groove");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.ewf_groove);
+                contentValues.put("video",R.raw.ewf_groove_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",18);
+                contentValues.put("albumId",5);
+                contentValues.put("artistId",6);
+                contentValues.put("titleSingle","Bohemian rhapsody");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.queen_bohemian);
+                contentValues.put("video",R.raw.queen_bohemian_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",19);
+                contentValues.put("albumId",5);
+                contentValues.put("artistId",6);
+                contentValues.put("titleSingle","Another bites in the dust");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.queen_bites);
+                contentValues.put("video",R.raw.queen_bites_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",20);
+                contentValues.put("albumId",5);
+                contentValues.put("artistId",6);
+                contentValues.put("titleSingle","Don't stop me now");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.queen_stop);
+                contentValues.put("video",R.raw.queen_stop_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",21);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",7);
+                contentValues.put("titleSingle","Universe");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.hazy_universe);
+                contentValues.put("video",R.raw.hazy_universe_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",22);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",7);
+                contentValues.put("titleSingle","Cosmos");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.hazy_cosmos);
+                contentValues.put("video",R.raw.hazy_cosmos_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
+
+                contentValues.put("id",23);
+                contentValues.put("albumId",0);
+                contentValues.put("artistId",7);
+                contentValues.put("titleSingle","Ocean");
+                contentValues.put("isNew",false);
+                contentValues.put("music",R.raw.hazy_ocean);
+                contentValues.put("video",R.raw.hazy_ocean_video);
+                db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
+                contentValues.clear();
 
             }
         };

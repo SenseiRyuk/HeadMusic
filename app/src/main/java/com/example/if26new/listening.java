@@ -53,6 +53,7 @@ public class listening extends AppCompatActivity {
     private Dialog playlistDialog;
     private String songName;
     private String artistName;
+    private SaveMyMusicDatabase db;
 
 
     // Find ID corresponding to the name of the resource (in the directory raw).
@@ -139,6 +140,7 @@ public class listening extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listening);
+        db=SaveMyMusicDatabase.getInstance(this);
         playlistDialog=new Dialog(this);
         like=findViewById(R.id.likeButton);
         previousMusic=findViewById(R.id.previousMusic);
@@ -156,16 +158,15 @@ public class listening extends AppCompatActivity {
         single=findViewById(R.id.ArtistIDinListening);
         album=findViewById(R.id.AlbumIDinListening);
 
-        //Set photo Music Artist
-        photoAlbum.setImageResource(R.drawable.hazy1);
-        photoAlbum.setAdjustViewBounds(false);
-        photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
 
         //Retrieve the name of the song and the name of the artist
         songName=getIntent().getExtras().getString("SONG_NAME");
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
+        //Set photo Music Artist
+        photoAlbum.setImageResource(db.mArtistDao().getArtistFromName(artistName).getImage());
+        photoAlbum.setAdjustViewBounds(false);
+        photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         single.setText(songName);
         album.setText(artistName);
 
@@ -174,7 +175,7 @@ public class listening extends AppCompatActivity {
         //For the Video
         try {
             // ID of video file.
-            int id = this.getRawResIdByName("hazy_universe_video");
+            int id = db.mSingleDao().getSingleFromName(songName).getVideo();
             clipVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + id));
         } catch (Exception e) {
             Log.e("Error", e.getMessage());
@@ -183,7 +184,7 @@ public class listening extends AppCompatActivity {
         clipVideo.requestFocus();
 
         //Pour l'audio
-        int songId = this.getRawResIdByName("hazy_universe");
+        int songId = db.mSingleDao().getSingleFromName(songName).getMusic();
         // Create MediaPlayer.
         this.mediaPlayerAudio=MediaPlayer.create(this,songId);// MediaPlayer(this, songId);
         String totalDuration = this.millisecondsToString(this.mediaPlayerAudio.getDuration());
