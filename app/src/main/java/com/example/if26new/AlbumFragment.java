@@ -18,6 +18,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.example.if26new.Model.AlbumModel;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +31,7 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
     private TextView[] AlbumName;
     private ImageButton[] imageButtonAlbum;
     private int sizeAlbum;
+    private SaveMyMusicDatabase db;
     public static AlbumFragment newInstance() {
         return (new AlbumFragment());
     }
@@ -44,12 +47,12 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
 
 
         //here we will get all the playlist Name in the dataBase, hence we got the length
-        sizeAlbum=10;
+        db=SaveMyMusicDatabase.getInstance(getActivity());
+        AlbumModel[] allAlbum=db.mAlbumDao().getLikedAlbum(true);
+        sizeAlbum=allAlbum.length;
         AlbumName=new TextView[sizeAlbum];
-
         //here we retrieve all the imageName for each Playlist
         imageButtonAlbum=new ImageButton[sizeAlbum];
-
         linearLayout = view.findViewById(R.id.linearForAlbum);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(40,0,0,0);
@@ -62,13 +65,8 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
             imageButtonAlbum[i]=new ImageButton(getActivity());
             dynamique.addView(imageButtonAlbum[i],paramsImageButton);
             imageButtonAlbum[i].setBackground(null);
-            if (i==1){
-                imageButtonAlbum[i].setImageResource(R.drawable.rap2);
-                imageButtonAlbum[i].setTag(R.drawable.rap2);
-            }else{
-                imageButtonAlbum[i].setImageResource(R.drawable.rap);
-                imageButtonAlbum[i].setTag(R.drawable.rap);
-            }
+            imageButtonAlbum[i].setImageResource(allAlbum[i].getImage());
+            imageButtonAlbum[i].setTag(allAlbum[i].getImage());
             android.view.ViewGroup.LayoutParams params = imageButtonAlbum[i].getLayoutParams();
             params.height=200;
             params.width=200;
@@ -79,7 +77,7 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
             imageButtonAlbum[i].setOnClickListener(this);
 
             AlbumName[i]=new TextView(getActivity());
-            AlbumName[i].setText("Album "+i);
+            AlbumName[i].setText(allAlbum[i].getTitleAlbum());
             AlbumName[i].setTextColor(Color.WHITE);
             AlbumName[i].setTextSize(20);
             AlbumName[i].setSingleLine(true);
@@ -89,7 +87,6 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
             dynamique.addView(AlbumName[i],paramsAlbumName);
             linearLayout.addView(dynamique);
         }
-
         return view;
     }
     public void onClick(View v){
@@ -98,6 +95,8 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("ALBUM_NAME",AlbumName[i].getText().toString());
                 bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromName(AlbumName[i].getText().toString()).getId());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromName(AlbumName[i].getText().toString()).getArtistId()).getName());
                 Intent playListActivity = new Intent(getActivity(), Album_view.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -105,6 +104,8 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("ALBUM_NAME",AlbumName[i].getText().toString());
                 bundle.putInt("ALBUM_IMAGE_ID",(Integer) imageButtonAlbum[i].getTag());
+                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromName(AlbumName[i].getText().toString()).getId());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromName(AlbumName[i].getText().toString()).getArtistId()).getName());
                 Intent playListActivity = new Intent(getActivity(), Album_view.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

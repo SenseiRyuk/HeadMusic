@@ -7,15 +7,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.example.if26new.Model.AlbumModel;
 
 public class Album_view extends AppCompatActivity implements View.OnClickListener {
 
     private TextView[] songName;
     private TextView[] artistName;
     private TextView albumName;
+    private Button followbtn;
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
     private ImageView mImageView;
@@ -30,6 +34,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
         db=SaveMyMusicDatabase.getInstance(this);
+        followbtn=findViewById(R.id.followButtonAlbum);
         imageAlbum=getIntent().getExtras().getInt("ALBUM_IMAGE_ID");
         setImageAlbum(imageAlbum);
         idAlbum=getIntent().getExtras().getInt("ALBUM_ID");
@@ -37,6 +42,23 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         nameAlbum=getIntent().getExtras().getString("ALBUM_NAME");
         setAlbumName(nameAlbum);
         nameArtist=getIntent().getStringExtra("ARTIST_NAME");
+        if (db.mAlbumDao().getAlbumFromName(nameAlbum).isLike()==true){
+            followbtn.setText("Dislike");
+        }else{
+            followbtn.setText("Like");
+        }
+            followbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (followbtn.getText().equals("Like")){
+                    db.mAlbumDao().updateLike(true,idAlbum);
+                    followbtn.setText("Dislike");
+                }else{
+                    db.mAlbumDao().updateLike(false,idAlbum);
+                    followbtn.setText("Like");
+                }
+            }
+        });
 
     }
     public void setImageAlbum(int idImage){
@@ -50,6 +72,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
     public void setAlbumMusic(int albumId){
+        System.out.println("Albummmm ID " + albumId);
         //BDD --> Grace a la base de donnée on va venir chercher notre album(les singles, ainsi que sa taille) dans la base de donnée grâce à son nom passer en paramètre
         sizeSongInAlbum=db.mSingleDao().getSingleFromAlbum(albumId).length;
         artistName=new TextView[sizeSongInAlbum];
@@ -90,6 +113,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
+                bundle.putInt("ALBUM_ID",idAlbum);
                 Intent playListActivity = new Intent(Album_view.this, listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -97,6 +121,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
+                bundle.putInt("ALBUM_ID",idAlbum);
                 Intent playListActivity = new Intent(Album_view.this, listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

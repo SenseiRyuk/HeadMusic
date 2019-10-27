@@ -17,6 +17,7 @@ import com.example.if26new.DAO.ArtistDao;
 import com.example.if26new.DAO.ConcertDao;
 import com.example.if26new.DAO.PlaylistDao;
 import com.example.if26new.DAO.SingleDao;
+import com.example.if26new.DAO.SinglePlaylistDao;
 import com.example.if26new.DAO.UserDao;
 import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.ArtistModel;
@@ -24,8 +25,9 @@ import com.example.if26new.Model.ConcertModel;
 import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.SingleModel;
 import com.example.if26new.Model.UserModel;
+import com.example.if26new.Model.SinglePlaylistModel;
 
-@Database(entities = {UserModel.class, PlaylistModel.class,ArtistModel.class , ConcertModel.class, AlbumModel.class, SingleModel.class}, version = 1, exportSchema = false)
+@Database(entities = {UserModel.class, PlaylistModel.class,ArtistModel.class , ConcertModel.class, AlbumModel.class, SingleModel.class, SinglePlaylistModel.class}, version = 1, exportSchema = false)
 public abstract class SaveMyMusicDatabase extends RoomDatabase {
 
     // --- SINGLETON ---
@@ -35,10 +37,11 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
     // --- DAO ---
     public abstract PlaylistDao mPlaylistDao();
     public abstract UserDao userDao();
-   public abstract AlbumDao mAlbumDao();
+    public abstract AlbumDao mAlbumDao();
     public abstract ConcertDao mConcertDao();
     public abstract ArtistDao mArtistDao();
     public abstract SingleDao mSingleDao();
+    public abstract SinglePlaylistDao mSinglePlaylistDao();
 
     // --- INSTANCE ---
     public static SaveMyMusicDatabase getInstance(Context context) {
@@ -84,6 +87,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Hollywood's Bleeding");
                 contentValues.put("isNew",1);
                 contentValues.put("image",R.drawable.postmalone_album_hollywood);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -93,6 +97,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Beerpongs & Bentleys");
                 contentValues.put("isNew",0);
                 contentValues.put("image",R.drawable.postmalone_album_beerpong);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -102,6 +107,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Thank U, Next");
                 contentValues.put("isNew",1);
                 contentValues.put("image",R.drawable.arianagrande_album_thank);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -111,6 +117,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Sweetener");
                 contentValues.put("isNew",0);
                 contentValues.put("image",R.drawable.arianagrande_album_sweetener);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -120,6 +127,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Greatest Hits");
                 contentValues.put("isNew",0);
                 contentValues.put("image",R.drawable.queen_album_greatest);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -129,6 +137,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("titleAlbum","Greatest Hits");
                 contentValues.put("isNew",0);
                 contentValues.put("image",R.drawable.ewf_album_greatest);
+                contentValues.put("isLike",false);
                 db.insert("AlbumModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -221,6 +230,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",1);
                 contentValues.put("bio",R.raw.postmalone_bio);
                 contentValues.put("image",R.drawable.postmalone);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -230,6 +240,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",2);
                 contentValues.put("bio",R.raw.arianagrande_bio);
                 contentValues.put("image",R.drawable.arianagrande);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -239,6 +250,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",3);
                 contentValues.put("bio",R.raw.vegedream_bio);
                 contentValues.put("image",R.drawable.vegedream);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -248,6 +260,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",0);
                 contentValues.put("bio",R.raw.bakermat_bio);
                 contentValues.put("image",R.drawable.bakermat);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -257,6 +270,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",0);
                 contentValues.put("bio",R.raw.ewf_bio);
                 contentValues.put("image",R.drawable.ewf);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -266,6 +280,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",0);
                 contentValues.put("bio",R.raw.queen_bio);
                 contentValues.put("image",R.drawable.queen);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -275,6 +290,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("topArtist",0);
                 contentValues.put("bio",R.raw.hazy_bio);
                 contentValues.put("image",R.drawable.hazy1);
+                contentValues.put("isLike",false);
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 

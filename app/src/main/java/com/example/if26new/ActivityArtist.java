@@ -3,6 +3,7 @@ package com.example.if26new;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,12 +18,13 @@ import com.google.android.material.tabs.TabLayout;
 public class ActivityArtist extends AppCompatActivity{
 
     private ImageButton followBtn;
+    private Button followButton;
     private ImageView imageArtist;
-    private TextView followTxt;
     private TabLayout mTableLayout;
     private ViewPager mViewPager;
     private TextView artistName;
     private String txtBio;
+    private SaveMyMusicDatabase db;
 
 
     @Override
@@ -31,23 +33,29 @@ public class ActivityArtist extends AppCompatActivity{
         setContentView(R.layout.activity_artist);
 
         followBtn = findViewById(R.id.followArtistBtnID);
-        followTxt = findViewById(R.id.followTxtID);
+        followButton=findViewById(R.id.followTxtID);
         mTableLayout = findViewById(R.id.tableLayoutArtistID);
         mViewPager = findViewById(R.id.viewPagerArtistID);
 
         followBtn.setBackground(null);
         setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
-
-        followBtn.setOnClickListener(new View.OnClickListener() {
+        db=SaveMyMusicDatabase.getInstance(this);
+        if (db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).isLike()==true){
+            followButton.setText("Unfollow");
+        }else{
+            followButton.setText("Follow");
+        }
+        followButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (followBtn.getDrawable().getConstantState().equals(getDrawable(R.drawable.ic_followwhite).getConstantState())) {
-                    followBtn.setImageResource(R.drawable.ic_followgreen);
-                } else if (followBtn.getDrawable().getConstantState().equals(getDrawable(R.drawable.ic_followgreen).getConstantState())) {
-                    followBtn.setImageResource(R.drawable.ic_followwhite);
+                if(followButton.getText().toString()=="Follow"){
+                    followButton.setText("Unfollow");
+                    db.mArtistDao().updateLike(true,db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId());
+                }else{
+                    followButton.setText("Follow");
+                    db.mArtistDao().updateLike(false,db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId());
                 }
-
             }
         });
         setImageArtist(getIntent().getExtras().getInt("ARTIST_IMAGE_ID"));

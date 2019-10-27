@@ -58,43 +58,38 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
         paramsArtistName.setMargins(10,60,0,0);
 
         db=SaveMyMusicDatabase.getInstance(getActivity());
-        ArtistModel[] allArtist = db.mArtistDao().getAllArtist();
+        ArtistModel[] allArtist = db.mArtistDao().getLikedArtist(true);
         sizeArtists=allArtist.length;
         ArtistName=new TextView[sizeArtists];
         imageButtonArtist=new ImageButton[sizeArtists];
         for (int i = 0; i <sizeArtists; i++) {
-            dynamique = new LinearLayout(getActivity());
-            dynamique.setOrientation(LinearLayout.HORIZONTAL);
+                dynamique = new LinearLayout(getActivity());
+                dynamique.setOrientation(LinearLayout.HORIZONTAL);
 
-            imageButtonArtist[i]=new ImageButton(getActivity());
-            dynamique.addView(imageButtonArtist[i],paramsImageButton);
-            imageButtonArtist[i].setBackground(null);
-            if (i==1){
-                imageButtonArtist[i].setImageResource(R.drawable.jazz);
-                imageButtonArtist[i].setTag(R.drawable.jazz);
-            }else{
-                imageButtonArtist[i].setImageResource(R.drawable.jazz2);
-                imageButtonArtist[i].setTag(R.drawable.jazz2);
+                imageButtonArtist[i]=new ImageButton(getActivity());
+                dynamique.addView(imageButtonArtist[i],paramsImageButton);
+                imageButtonArtist[i].setBackground(null);
+                imageButtonArtist[i].setImageResource(allArtist[i].getImage());
+                imageButtonArtist[i].setTag(allArtist[i].getImage());
+                android.view.ViewGroup.LayoutParams params = imageButtonArtist[i].getLayoutParams();
+                params.height=200;
+                params.width=200;
+                imageButtonArtist[i].setLayoutParams(params);
+                imageButtonArtist[i].setAdjustViewBounds(true);
+                imageButtonArtist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageButtonArtist[i].requestLayout();
+                imageButtonArtist[i].setOnClickListener(this);
+
+                ArtistName[i]=new TextView(getActivity());
+                ArtistName[i].setText(allArtist[i].getName());
+                ArtistName[i].setTextColor(Color.WHITE);
+                ArtistName[i].setTextSize(20);
+                ArtistName[i].setSingleLine(true);
+                ArtistName[i].setOnClickListener(this);
+                //dynamique.addView(imageButtonPlaylist,paramsImageButton);
+                dynamique.addView(ArtistName[i],paramsArtistName);
+                linearLayout.addView(dynamique);
             }
-            android.view.ViewGroup.LayoutParams params = imageButtonArtist[i].getLayoutParams();
-            params.height=200;
-            params.width=200;
-            imageButtonArtist[i].setLayoutParams(params);
-            imageButtonArtist[i].setAdjustViewBounds(true);
-            imageButtonArtist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonArtist[i].requestLayout();
-            imageButtonArtist[i].setOnClickListener(this);
-
-            ArtistName[i]=new TextView(getActivity());
-            ArtistName[i].setText("Artist "+i);
-            ArtistName[i].setTextColor(Color.WHITE);
-            ArtistName[i].setTextSize(20);
-            ArtistName[i].setSingleLine(true);
-            ArtistName[i].setOnClickListener(this);
-            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
-            dynamique.addView(ArtistName[i],paramsArtistName);
-            linearLayout.addView(dynamique);
-        }
     }
     public void onClick(View v){
         for (int i=0;i<sizeArtists;i++){
@@ -102,6 +97,7 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("ARTIST_NAME",ArtistName[i].getText().toString());
                 bundle.putInt("ARTIST_IMAGE_ID",(Integer) imageButtonArtist[i].getTag());
+                bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(ArtistName[i].getText().toString()).getBio());
                 Intent playListActivity = new Intent(getActivity(), ActivityArtist.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -109,6 +105,7 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("ARTIST_NAME",ArtistName[i].getText().toString());
                 bundle.putInt("ARTIST_IMAGE_ID",(Integer) imageButtonArtist[i].getTag());
+                bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(ArtistName[i].getText().toString()).getBio());
                 Intent playListActivity = new Intent(getActivity(), ActivityArtist.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

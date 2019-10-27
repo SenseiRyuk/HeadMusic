@@ -93,4 +93,5 @@ public class SingleModel {
     public void setVideo(int video) {
         this.video = video;
     }
+
 }

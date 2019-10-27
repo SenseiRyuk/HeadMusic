@@ -17,6 +17,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.SinglePlaylistModel;
+
 public class PlaylistView extends AppCompatActivity implements View.OnClickListener {
 
 
@@ -28,6 +31,8 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
     private ImageView mImageView;
     private String playlistNameFromFragment;
     private int sizePlaylistMusic;
+    private SaveMyMusicDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +63,11 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
 
         //DDB--> retrieve all the song in the dataBase and put them into an Array, Then retrieve in the for loop bellow each song name and artist name
         //retrieve number of song in the playlist
-        sizePlaylistMusic=10;
+        db=SaveMyMusicDatabase.getInstance(this);
+        PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylist(playlistName.getText().toString());
+
+        SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
+        sizePlaylistMusic=allSingles.length;
         songName=new TextView[sizePlaylistMusic];
         artistName=new TextView[sizePlaylistMusic];
 
@@ -73,11 +82,11 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
             dynamique.setOrientation(LinearLayout.VERTICAL);
             artistName[i] = new TextView(this);
             songName[i] = new TextView(this);
-            songName[i].setText("Universer");
+            songName[i].setText(allSingles[i].getSongName());
             songName[i].setTextColor(Color.WHITE);
             songName[i].setTextSize(20);
             songName[i].setSingleLine(true);
-            artistName[i].setText("Hazy - centrifuge");
+            artistName[i].setText(allSingles[i].getArtistName());
             artistName[i].setTextColor(Color.WHITE);
             artistName[i].setTextSize(10);
 

@@ -51,4 +51,6 @@ public class PlaylistModel {
     public void setImage(int imageButton) {
         image = imageButton;
     }
+
+
 }

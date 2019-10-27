@@ -1,6 +1,9 @@
 package com.example.if26new;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,26 +12,24 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class HomeActivity extends FragmentActivity implements BottomNavigationView.OnNavigationItemSelectedListener{
 
 
-    private ImageButton home;
-    private ImageButton news;
-    private ImageButton profile;
-    private ImageButton previousSong;
-    private ImageButton nextSong;
-    private ImageButton pausePlay;
     private SearchView search;
     private BottomNavigationView bottomNavigationView;
+    private View home;
+    private View news;
+    private View profil;
     private boolean isOnClickHome;
     private TextView musicTitle;
     private Fragment mainFragment;
-    int sertPas;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,17 +38,22 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         isOnClickHome=false;
         search=findViewById(R.id.searchView);
         search.clearFocus();
+      //  home=findViewById(R.id.homeButtonBottomBar);
+      //  news=findViewById(R.id.newButtonBottomBar);
+      //  profil=findViewById(R.id.profileButtonBottomBar);
         bottomNavigationView=findViewById(R.id.bottonView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
 
-        musicTitle.setOnClickListener(new View.OnClickListener() {
+      //  home.setIcon(R.drawable.homeonclick);
+
+       /* musicTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent listenActivity = new Intent(HomeActivity.this, listening.class);
                 startActivity(listenActivity);
             }
-        });
+        });*/
         loadFragment(new MainFragment());
     }
 
@@ -67,7 +73,6 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
                 fragment = new UserFragment();
                 break;
         }
-
         return loadFragment(fragment);
     }
     private boolean loadFragment(Fragment fragment){

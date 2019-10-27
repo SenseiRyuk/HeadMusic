@@ -1,6 +1,7 @@
 package com.example.if26new;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -10,8 +11,10 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,12 +24,16 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.SingleModel;
+import com.example.if26new.Model.SinglePlaylistModel;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
 
-public class listening extends AppCompatActivity {
+public class listening extends AppCompatActivity implements View.OnClickListener {
 
     private ImageButton like;
     private ImageButton previousMusic;
@@ -54,6 +61,11 @@ public class listening extends AppCompatActivity {
     private String songName;
     private String artistName;
     private SaveMyMusicDatabase db;
+    private ImageButton[] imageButtonPlaylist;
+    private TextView[] playlistTitle;
+    private LinearLayout linearLayout;
+    private LinearLayout dynamique;
+    private int sizePlaylist;
 
 
     // Find ID corresponding to the name of the resource (in the directory raw).
@@ -163,8 +175,9 @@ public class listening extends AppCompatActivity {
         //Retrieve the name of the song and the name of the artist
         songName=getIntent().getExtras().getString("SONG_NAME");
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
+        int AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
         //Set photo Music Artist
-        photoAlbum.setImageResource(db.mArtistDao().getArtistFromName(artistName).getImage());
+        photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
         photoAlbum.setAdjustViewBounds(false);
         photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         single.setText(songName);
@@ -172,6 +185,13 @@ public class listening extends AppCompatActivity {
 
         //WE WILL USE SONG NAME AND ALBUM NAME FOR LAUNCH MP3 AND MP4 ANC LYRICS
 
+        PlaylistModel playlistLike=db.mPlaylistDao().getPlaylist("Favorite");
+        SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
+        for (int j=0;j<allSingles.length;j++){
+            if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
+                like.setImageResource(R.drawable.likeonclick);
+            }
+        }
         //For the Video
         try {
             // ID of video file.
@@ -199,16 +219,7 @@ public class listening extends AppCompatActivity {
                 startActivity(homeActivity);
             }
         });*/
-        like.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likenoclick).getConstantState())){
-                    like.setImageResource(R.drawable.likeonclick);
-                }else if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likeonclick).getConstantState())){
-                    like.setImageResource(R.drawable.likenoclick);
-                }
-            }
-        });
+        like.setOnClickListener(this);
         addPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -361,35 +372,114 @@ public class listening extends AppCompatActivity {
     public void ShowPopup(){
         playlistDialog.setContentView(R.layout.playlist_pop_up);
         playlistDialog.show();
+        linearLayout = playlistDialog.findViewById(R.id.linearForSingle);
 
-        TableLayout table = playlistDialog.findViewById(R.id.tablePlaylist);
-        TableLayout.LayoutParams tl=new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT,TableLayout.LayoutParams.WRAP_CONTENT);
-        TableRow row;
-        for (int i=0;i<=7;i++){
-            row=new TableRow(this);
-            row.setGravity(Gravity.CENTER);
-            ImageButton myButton=new ImageButton(this);
-            myButton.setBackground(null);
-            myButton.setImageResource(R.drawable.iconforplaylist);
-            final TextView myText = new TextView(this);
-            //Set the TEXT OF THE PLAYLIST
-            myText.setTextColor(Color.parseColor("#FFFFFF"));
-            myText.setText("    Playlist n°" +(i+1) + " ("+(i+20)+" songs)");
-            myText.setTextSize(20);
-            myText.setGravity(Gravity.CENTER_HORIZONTAL);
-            row.addView(myButton);
-            row.addView(myText);
-            table.addView(row,tl);
-            //table.addView(myText,tl);
-            //IT'S HERE WE WILL SET THE ON CLICK ON THE BUTTON AND THE TEXT TO GO TO THE VIEW PLAYLIST
-            myText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Mucic add in the playlist Playlist n° ", Toast.LENGTH_SHORT);
-                    toast.show();
-                    playlistDialog.dismiss();
+        ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsImageButton.setMargins(40,0,0,0);
+        ViewGroup.MarginLayoutParams paramsPlaylistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsPlaylistName.setMargins(10,60,0,0);
+
+        db=SaveMyMusicDatabase.getInstance(this);
+        PlaylistModel[] allPlaylist = db.mPlaylistDao().loadAllPlaylist();
+        sizePlaylist=allPlaylist.length;
+        playlistTitle=new TextView[sizePlaylist];
+        imageButtonPlaylist=new ImageButton[sizePlaylist];
+
+        for (int i=0; i<sizePlaylist; i++){
+            dynamique = new LinearLayout(this);
+            dynamique.setOrientation(LinearLayout.HORIZONTAL);
+
+            imageButtonPlaylist[i]=new ImageButton(this);
+            dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
+            imageButtonPlaylist[i].setBackground(null);
+
+            int id = allPlaylist[i].getImage();
+            imageButtonPlaylist[i].setImageResource(id);
+            imageButtonPlaylist[i].setTag(id);
+            android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();
+            params.height=200;
+            params.width=200;
+            imageButtonPlaylist[i].setLayoutParams(params);
+            imageButtonPlaylist[i].setAdjustViewBounds(true);
+            imageButtonPlaylist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imageButtonPlaylist[i].requestLayout();
+            imageButtonPlaylist[i].setOnClickListener(this);
+
+            playlistTitle[i]=new TextView(this);
+            playlistTitle[i].setText(allPlaylist[i].getTitles());
+            playlistTitle[i].setTextColor(Color.WHITE);
+            playlistTitle[i].setTextSize(20);
+            playlistTitle[i].setSingleLine(true);
+            playlistTitle[i].setOnClickListener(this);
+
+            dynamique.addView(playlistTitle[i],paramsPlaylistName);
+            linearLayout.addView(dynamique);
+        }
+    }
+    public void onClick(View v){
+        db=SaveMyMusicDatabase.getInstance(this);
+        boolean isAlreadyExist=false;
+        boolean playlistEnter=false;
+        for (int i=0;i<sizePlaylist;i++){
+            PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylist(playlistTitle[i].getText().toString());
+            SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
+            if (v.equals(playlistTitle[i])){
+                for (int j=0;j<allSingles.length;j++){
+                    if ((allSingles[j].getSongName().equals(songName))&&(allSingles[i].getArtistName().equals(artistName))){
+                        isAlreadyExist=true;
+                    }
                 }
-            });
+                if (isAlreadyExist==false){
+                    SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
+                    db.mSinglePlaylistDao().insertSingle(singleToAdd);
+                }
+                unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
+                playlistEnter=true;
+            }else if (v.equals(imageButtonPlaylist[i])){
+                for (int j=0;j<allSingles.length;j++){
+                    if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
+                        isAlreadyExist=true;
+                    }
+                }
+                if (isAlreadyExist==false){
+                    SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
+                    db.mSinglePlaylistDao().insertSingle(singleToAdd);
+                }
+                unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
+                playlistEnter=true;
+            }
+        }
+        if (playlistEnter==false){
+            Toast toast;
+            PlaylistModel playlistLike=db.mPlaylistDao().getPlaylist("Favorite");
+            if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likenoclick).getConstantState())){
+                like.setImageResource(R.drawable.likeonclick);
+                SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistLike.getId(),songName.toString(),artistName.toString());
+                db.mSinglePlaylistDao().insertSingle(singleToAdd);
+                toast = Toast.makeText(getApplicationContext(), "Music add in playlist : Favorite ", Toast.LENGTH_SHORT);
+                toast.show();
+            }else if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likeonclick).getConstantState())){
+                SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
+                for (int j=0;j<allSingles.length;j++){
+                    if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
+                        db.mSinglePlaylistDao().deleteSingle(allSingles[j].getId());
+                        toast = Toast.makeText(getApplicationContext(), "Music delete in playlist : Favorite ", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
+                }
+                like.setImageResource(R.drawable.likenoclick);
+            }
+        }
+    }
+    public void unShowPopUp(String playlistName,boolean isAlreadyExist){
+        playlistDialog.dismiss();
+        Toast toast;
+        if (isAlreadyExist==false){
+            toast = Toast.makeText(getApplicationContext(), "Music add in playlist : "+playlistName, Toast.LENGTH_SHORT);
+            toast.show();
+        }else{
+            toast = Toast.makeText(getApplicationContext(), "This Song is already in playlist : "+playlistName, Toast.LENGTH_SHORT);
+            toast.show();
         }
 
     }

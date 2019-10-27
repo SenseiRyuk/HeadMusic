@@ -77,7 +77,6 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
             imageButtonPlaylist[i].setBackground(null);
 
             int id = allPlaylist[i].getImage();
-            System.out.println("VALEUUUUUR" + id);
             imageButtonPlaylist[i].setImageResource(id);
             imageButtonPlaylist[i].setTag(id);
             android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();

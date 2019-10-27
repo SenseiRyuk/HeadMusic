@@ -20,21 +20,22 @@ public class ArtistModel {
     private int topArtist;
     private int bio;
     private int image;
+    private boolean isLike;
 
 public ArtistModel(){}
-    public ArtistModel(int id, int userId, String name, int topArtist, int bio, int image) {
+    public ArtistModel(int id, int userId, String name, int topArtist, int bio, int image, boolean isLike) {
         this.id = id;
         this.userId = userId;
         this.name = name;
         this.topArtist = topArtist;
         this.bio = bio;
         this.image = image;
+        this.isLike=isLike;
     }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -42,7 +43,6 @@ public ArtistModel(){}
     public int getUserId() {
         return userId;
     }
-
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -50,7 +50,6 @@ public ArtistModel(){}
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -58,7 +57,6 @@ public ArtistModel(){}
     public int getTopArtist() {
         return topArtist;
     }
-
     public void setTopArtist(int topArtist) {
         this.topArtist = topArtist;
     }
@@ -66,7 +64,6 @@ public ArtistModel(){}
     public int getBio() {
         return bio;
     }
-
     public void setBio(int bio) {
         this.bio = bio;
     }
@@ -74,8 +71,14 @@ public ArtistModel(){}
     public int getImage() {
         return image;
     }
-
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }

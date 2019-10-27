@@ -37,4 +37,10 @@ public interface ArtistDao {
 
     @Query("DELETE FROM ArtistModel WHERE id = :artistId")
     int deleteArtist(int artistId);
+
+    @Query("UPDATE ArtistModel SET isLike = :islike WHERE id =:id")
+    void updateLike(boolean islike, int id);
+
+    @Query("SELECT * FROM ArtistModel WHERE isLike = :islike")
+    ArtistModel[] getLikedArtist(boolean islike);
 }

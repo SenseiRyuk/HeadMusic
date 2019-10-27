@@ -27,22 +27,22 @@ public class AlbumModel{
     private String titleAlbum;
     private int isNew;
     private int image;
+    @ColumnInfo(name = "isLike")
+    private boolean isLike;
 
 public AlbumModel(){}
-    public AlbumModel(int id, int userId, int artistId, String titleAlbum, int isNew, int image) {
+    public AlbumModel(int id, int userId, int artistId, String titleAlbum, int isNew, int image, boolean isLike) {
         this.id = id;
         this.userId = userId;
         this.artistId = artistId;
         this.titleAlbum = titleAlbum;
         this.isNew = isNew;
         this.image = image;
+        this.isLike=isLike;
     }
-
-
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -50,7 +50,6 @@ public AlbumModel(){}
     public int getUserId() {
         return userId;
     }
-
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -58,7 +57,6 @@ public AlbumModel(){}
     public int getArtistId() {
         return artistId;
     }
-
     public void setArtistId(int artistId) {
         this.artistId = artistId;
     }
@@ -66,7 +64,6 @@ public AlbumModel(){}
     public String getTitleAlbum() {
         return titleAlbum;
     }
-
     public void setTitleAlbum(String titleAlbum) {
         this.titleAlbum = titleAlbum;
     }
@@ -74,7 +71,6 @@ public AlbumModel(){}
     public int getIsNew() {
         return isNew;
     }
-
     public void setIsNew(int isNew) {
         this.isNew = isNew;
     }
@@ -82,8 +78,14 @@ public AlbumModel(){}
     public int getImage() {
         return image;
     }
-
     public void setImage(int image) {
         this.image = image;
+    }
+
+    public boolean isLike() {
+        return isLike;
+    }
+    public void setLike(boolean like) {
+        isLike = like;
     }
 }

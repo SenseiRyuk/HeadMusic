@@ -33,13 +33,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private LinearLayout mLinearLayout1;
     private LinearLayout mLinearLayout2;
     private LinearLayout mLinearLayout3;
-    private ImageButton mImageButtonsPlaylists;
+    private ImageButton[] mImageButtonsPlaylists;
     private Button[] mImageButtonsConcerts;
     private ImageButton[] mImageButtonsAlbums;
     private LinearLayout mLinearLayoutsPlaylists;
     private LinearLayout mLinearLayoutsAlbums;
     private LinearLayout mLinearLayoutsConcerts;
-    private TextView mTextViewsPlaylists;
+    private TextView[] mTextViewsPlaylists;
     private TextView[] mTextViewsAlbums;
     private TextView mTextViewsConcerts;
     private TextView mTextViewTop1;
@@ -114,27 +114,32 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
         int sizePlaylist = db.mPlaylistDao().loadAllPlaylist().length;
         PlaylistModel playlsit[]=db.mPlaylistDao().loadAllPlaylist();
+        mImageButtonsPlaylists= new ImageButton[sizePlaylist];
+        mTextViewsPlaylists = new TextView[sizePlaylist];
         for (int i=0;i<sizePlaylist;i++) {
             //PARTIE PLAYLIST
             mLinearLayoutsPlaylists = new LinearLayout(getActivity());
             mLinearLayout1.addView(mLinearLayoutsPlaylists);
             mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsPlaylists = new ImageButton(getActivity());
-            mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists);
-            mImageButtonsPlaylists.setBackground(null);
-            mImageButtonsPlaylists.setImageResource(playlsit[i].getImage());
-            mImageButtonsPlaylists.setAdjustViewBounds(true);
-            android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists.getLayoutParams();
+            mImageButtonsPlaylists[i] = new ImageButton(getActivity());
+            mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
+            mImageButtonsPlaylists[i].setBackground(null);
+            mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
+            mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
+            mImageButtonsPlaylists[i].setAdjustViewBounds(true);
+            mImageButtonsPlaylists[i].setOnClickListener(this);
+            android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
             params.height = 450;
             params.width = 450;
-            mImageButtonsPlaylists.setLayoutParams(params);
-            mImageButtonsPlaylists.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            mTextViewsPlaylists = new TextView(getActivity());
-            mTextViewsPlaylists.setText(playlsit[i].getTitles());
-            mTextViewsPlaylists.setTextColor(Color.WHITE);
-            mLinearLayoutsPlaylists.addView(mTextViewsPlaylists);
+            mImageButtonsPlaylists[i].setLayoutParams(params);
+            mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            mTextViewsPlaylists[i] = new TextView(getActivity());
+            mTextViewsPlaylists[i].setText(playlsit[i].getTitles());
+            mTextViewsPlaylists[i].setTextColor(Color.WHITE);
+            mTextViewsPlaylists[i].setOnClickListener(this);
+            mLinearLayoutsPlaylists.addView(mTextViewsPlaylists[i]);
             mLinearLayoutsPlaylists.setLayoutParams(lp);
-            mTextViewsPlaylists.setGravity(Gravity.CENTER_HORIZONTAL);
+            mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
         }
         for(int i=0;i<db.mConcertDao().getAllConcert().length;i++) {
 
@@ -262,6 +267,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 Intent albumActivity = new Intent(getActivity(), Album_view.class);
                 albumActivity.putExtras(bundle);
                 startActivity(albumActivity);
+            }
+        }
+        for (int i=0;i<db.mPlaylistDao().loadAllPlaylist().length;i++){
+            if (v.equals(mImageButtonsPlaylists[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
+                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
+                Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }else if (v.equals(mTextViewsPlaylists[i])){
+                Bundle bundle=new Bundle();
+                bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
+                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
+                Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
             }
         }
 

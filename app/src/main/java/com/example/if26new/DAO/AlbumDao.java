@@ -31,7 +31,7 @@ public interface AlbumDao {
     AlbumModel[] getAlbumFromNew();
 
     @Query("SELECT * FROM AlbumModel WHERE id =:id")
-    AlbumModel[] getAlbumFromId(int id);
+    AlbumModel getAlbumFromId(int id);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertAlbum(AlbumModel album);
@@ -39,6 +39,12 @@ public interface AlbumDao {
     @Update
     int updateAlbum(AlbumModel album);
 
+    @Query("UPDATE AlbumModel SET isLike = :islike WHERE id =:id")
+    void updateLike(boolean islike, int id);
+
     @Query("DELETE FROM AlbumModel WHERE id = :albumId")
     int deleteAlbum(int albumId);
+
+    @Query("SELECT * FROM AlbumModel WHERE isLike = :islike")
+    AlbumModel[] getLikedAlbum(boolean islike);
 }
