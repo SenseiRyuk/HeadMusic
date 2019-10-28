@@ -66,7 +66,13 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             mImageButtonsSingles[i] = new ImageButton(getActivity());
             mLinearLayoutsSingles.addView(mImageButtonsSingles[i]);
             mImageButtonsSingles[i].setBackground(null);
-            mImageButtonsSingles[i].setImageResource(R.drawable.iconforplaylist);
+            if (db.mSingleDao().getSingleFromNew(true)[i].getAlbumId()==0){
+                //On Passe l'image de l'artist car il n'est relié à aucun album
+                mImageButtonsSingles[i].setImageResource(db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getImage());
+            }else{
+                mImageButtonsSingles[i].setImageResource(db.mAlbumDao().getAlbumFromId(db.mSingleDao().getSingleFromNew(true)[i].getAlbumId()).getImage());
+                System.out.println("TAG " + db.mAlbumDao().getAlbumFromId(db.mSingleDao().getSingleFromNew(true)[i].getAlbumId()).getImage());
+            }
             mImageButtonsSingles[i].setAdjustViewBounds(true);
             android.view.ViewGroup.LayoutParams params = mImageButtonsSingles[i].getLayoutParams();
             params.height = 450;
@@ -148,6 +154,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 Bundle bundle = new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
                 Intent playListActivity = new Intent(getContext(), listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -155,6 +162,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 Bundle bundle = new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
                 Intent playListActivity = new Intent(getContext(), listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -177,7 +185,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             }
         }
         for (int i=0;i<db.mAlbumDao().getAlbumFromNew().length;i++){
-            if(v.equals(mImageButtonsConcerts[i])){
+            if(v.equals(mImageButtonsAlbums[i])){
                 Bundle bundle = new Bundle();
                 bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromNew()[i].getId());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName());

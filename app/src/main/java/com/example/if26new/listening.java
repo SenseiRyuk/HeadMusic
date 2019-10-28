@@ -177,7 +177,12 @@ public class listening extends AppCompatActivity implements View.OnClickListener
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
         int AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
         //Set photo Music Artist
-        photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+        System.out.println("CE QUE JE RECUP  " + AlbumID);
+        if (AlbumID!=0){
+            photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+        }else if (AlbumID==0){
+            photoAlbum.setImageResource(db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getImage());
+        }
         photoAlbum.setAdjustViewBounds(false);
         photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         single.setText(songName);

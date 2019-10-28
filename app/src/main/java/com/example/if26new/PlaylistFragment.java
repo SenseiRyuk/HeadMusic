@@ -1,6 +1,7 @@
 package com.example.if26new;
 
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -18,6 +19,7 @@ import android.widget.Space;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -27,7 +29,7 @@ import com.example.if26new.Model.PlaylistModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PlaylistFragment extends Fragment implements View.OnClickListener {
+public class PlaylistFragment extends Fragment implements View.OnClickListener, View.OnLongClickListener  {
 
     private ImageButton[] imageButtonPlaylist;
     private TextView[] playlistTitle;
@@ -37,7 +39,12 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
     private Context context;
     private int idImagePlaylist;
     private int sizePlaylist;
+    private Dialog erasePlaylist;
     private SaveMyMusicDatabase db;
+    private TextView erasetxt;
+    private Button yes;
+    private Button no;
+    private TextView playlistTitleErase;
 
     public static PlaylistFragment newInstance() {
         return (new PlaylistFragment());
@@ -51,6 +58,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view=inflater.inflate(R.layout.fragment_playlist, container, false);
+        erasePlaylist=new Dialog(getActivity());
         getAndDisplayAllPlaylistFromTheDataBase();
         return view;
     }
@@ -87,6 +95,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
             imageButtonPlaylist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
             imageButtonPlaylist[i].requestLayout();
             imageButtonPlaylist[i].setOnClickListener(this);
+            imageButtonPlaylist[i].setOnLongClickListener(this);
 
             playlistTitle[i]=new TextView(getActivity());
             playlistTitle[i].setText(allPlaylist[i].getTitles());
@@ -94,6 +103,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
             playlistTitle[i].setTextSize(20);
             playlistTitle[i].setSingleLine(true);
             playlistTitle[i].setOnClickListener(this);
+            playlistTitle[i].setOnLongClickListener(this);
 
             dynamique.addView(playlistTitle[i],paramsPlaylistName);
             linearLayout.addView(dynamique);
@@ -118,5 +128,49 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener {
                 startActivity(playListActivity);
             }
         }
+    }
+    public boolean onLongClick(View v){
+
+        System.out.println("JE RENTRE DANS LE CLICK PROLONGER ");
+        for (int i=0;i<sizePlaylist;i++){
+            if (v.equals(playlistTitle[i])){
+                playlistTitleErase=playlistTitle[i];
+                showErasePopUp();
+            }else if (v.equals(imageButtonPlaylist[i])){
+                playlistTitleErase=playlistTitle[i];
+                showErasePopUp();
+            }
+        }
+        return true;
+    }
+    public void showErasePopUp(){
+        erasePlaylist.setContentView(R.layout.erase_playlist_pop_up);
+        erasetxt=erasePlaylist.findViewById(R.id.text_erase_playlist);
+        yes=erasePlaylist.findViewById(R.id.yes_erase_btn);
+        no=erasePlaylist.findViewById(R.id.no_erase_btn);
+
+        erasetxt.setTextColor(Color.WHITE);
+        erasetxt.setTextSize(20);
+        erasetxt.setGravity(Gravity.CENTER);
+        erasetxt.setText("Are you sure you want to delete the playlist : "+playlistTitleErase.getText().toString());
+
+        no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                erasePlaylist.dismiss();
+            }
+        });
+        yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                db.mPlaylistDao().deletePlaylist(db.mPlaylistDao().getPlaylist(playlistTitleErase.getText().toString()).getId());
+                Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist " +playlistTitleErase.getText().toString() +" is deleted", Toast.LENGTH_SHORT);
+                erasePlaylist.dismiss();
+                toast.show();
+            }
+        });
+
+        erasePlaylist.show();
+
     }
 }
