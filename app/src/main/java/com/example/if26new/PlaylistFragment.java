@@ -133,12 +133,14 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
 
         System.out.println("JE RENTRE DANS LE CLICK PROLONGER ");
         for (int i=0;i<sizePlaylist;i++){
-            if (v.equals(playlistTitle[i])){
-                playlistTitleErase=playlistTitle[i];
-                showErasePopUp();
-            }else if (v.equals(imageButtonPlaylist[i])){
-                playlistTitleErase=playlistTitle[i];
-                showErasePopUp();
+            if (!playlistTitle[i].getText().toString().equals("Favorite")) {
+                if (v.equals(playlistTitle[i])) {
+                    playlistTitleErase = playlistTitle[i];
+                    showErasePopUp();
+                } else if (v.equals(imageButtonPlaylist[i])) {
+                    playlistTitleErase = playlistTitle[i];
+                    showErasePopUp();
+                }
             }
         }
         return true;
