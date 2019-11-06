@@ -14,8 +14,8 @@
 
         <TextView
             android:id="@+id/text_erase_playlist"
-            android:layout_width="285dp"
-            android:layout_height="63dp"
+            android:layout_width="302dp"
+            android:layout_height="110dp"
             android:text="TextView"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

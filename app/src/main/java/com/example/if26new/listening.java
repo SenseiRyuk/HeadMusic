@@ -66,6 +66,7 @@ public class listening extends AppCompatActivity implements View.OnClickListener
     private LinearLayout linearLayout;
     private LinearLayout dynamique;
     private int sizePlaylist;
+    private int AlbumID;
 
 
     // Find ID corresponding to the name of the resource (in the directory raw).
@@ -169,25 +170,59 @@ public class listening extends AppCompatActivity implements View.OnClickListener
         lyricsText=findViewById(R.id.lyricsText);
         single=findViewById(R.id.ArtistIDinListening);
         album=findViewById(R.id.AlbumIDinListening);
-
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
 
         //Retrieve the name of the song and the name of the artist
         songName=getIntent().getExtras().getString("SONG_NAME");
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
-        int AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
+        AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
         //Set photo Music Artist
-        System.out.println("CE QUE JE RECUP  " + AlbumID);
         if (AlbumID!=0){
             photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+            photoAlbum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromId(AlbumID).getTitleAlbum());
+                    bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+                    bundle.putInt("ALBUM_ID",AlbumID);
+                    bundle.putString("ARTIST_NAME",artistName);
+                    Intent Album = new Intent(listening.this, Album_view.class);
+                    Album.putExtras(bundle);
+                    startActivity(Album);
+                }
+            });
         }else if (AlbumID==0){
             photoAlbum.setImageResource(db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getImage());
+            photoAlbum.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle=new Bundle();
+                    bundle.putString("ARTIST_NAME",artistName);
+                    bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
+                    bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+                    Intent Artist = new Intent(listening.this, ActivityArtist.class);
+                    Artist.putExtras(bundle);
+                    startActivity(Artist);
+                }
+            });
         }
         photoAlbum.setAdjustViewBounds(false);
         photoAlbum.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         single.setText(songName);
         album.setText(artistName);
-
+        album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString("ARTIST_NAME",artistName);
+                bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
+                bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+                Intent playListActivity = new Intent(listening.this, ActivityArtist.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+            }
+        });
         //WE WILL USE SONG NAME AND ALBUM NAME FOR LAUNCH MP3 AND MP4 ANC LYRICS
 
         PlaylistModel playlistLike=db.mPlaylistDao().getPlaylist("Favorite");

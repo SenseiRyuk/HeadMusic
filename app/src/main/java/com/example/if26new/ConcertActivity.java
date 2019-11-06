@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.w3c.dom.Text;
 
-public class ConcertActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class ConcertActivity extends AppCompatActivity implements OnMapReadyCallback,View.OnClickListener {
     private MapView mMapView;
     private TextView mTextViewTitle;
     private TextView mTextViewDate;
@@ -39,11 +40,13 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private double locationLgn;
     private String titleConcert;
     private int artistImage;
+    private SaveMyMusicDatabase db;
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db=SaveMyMusicDatabase.getInstance(this);
         artistName=getIntent().getStringExtra("ARTIST_NAME");
         date=getIntent().getStringExtra("DATE");
         location=getIntent().getStringExtra("LOCATION");
@@ -65,6 +68,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         params3.height=450;
         params3.width=450;
         mImageViewArtist.setLayoutParams(params3);
+        mImageViewArtist.setOnClickListener(this);
         focusBtn=findViewById(R.id.buttonFocusMap);
         focusBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,6 +86,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         });
 
         mTextViewArtist.setText(artistName);
+        mTextViewArtist.setOnClickListener(this);
         mTextViewLocation.setText(location+", "+locationCity);
         mTextViewDate.setText(date);
         mTextViewTitle.setText(titleConcert);
@@ -170,5 +175,14 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
             return;
         }
 
+    }
+    public void onClick(View v){
+        Bundle bundle=new Bundle();
+        bundle.putString("ARTIST_NAME",artistName);
+        bundle.putInt("ARTIST_IMAGE_ID",artistImage);
+        bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+        Intent playListActivity = new Intent(ConcertActivity.this, ActivityArtist.class);
+        playListActivity.putExtras(bundle);
+        startActivity(playListActivity);
     }
 }
