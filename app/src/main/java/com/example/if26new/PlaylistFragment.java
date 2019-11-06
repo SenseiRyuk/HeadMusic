@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.if26new.Model.PlaylistModel;
 
@@ -62,6 +65,8 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
         getAndDisplayAllPlaylistFromTheDataBase();
         return view;
     }
+
+
     public void getAndDisplayAllPlaylistFromTheDataBase(){
         linearLayout = view.findViewById(R.id.linearForPlaylistUser);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
@@ -167,10 +172,12 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist " +playlistTitleErase.getText().toString() +" is deleted", Toast.LENGTH_SHORT);
                 erasePlaylist.dismiss();
                 toast.show();
+
             }
         });
-
         erasePlaylist.show();
 
+
     }
+
 }

@@ -251,4 +251,10 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             }
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        pageAdaptaterForUser.notifyDataSetChanged();
+    }
 }
