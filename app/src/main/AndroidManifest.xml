@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
+    android:installLocation="internalOnly"
     package="com.example.if26new">
 
     <dist:module dist:instant="true" />
@@ -48,7 +49,7 @@
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".listening"
+            android:name=".Listening"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SettingActivity"

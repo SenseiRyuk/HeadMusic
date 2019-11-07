@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.if26new.listening"
+    tools:context="com.example.if26new.Listening"
     android:background="@drawable/gradientbackground">
 
     <SearchView
         android:id="@+id/searchView"
-        android:layout_width="401dp"
-        android:layout_height="53dp"
+        android:layout_width="408dp"
+        android:layout_height="37dp"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,8 +51,8 @@
 
     <ImageView
         android:id="@+id/imageAlbum"
-        android:layout_width="340dp"
-        android:layout_height="340dp"
+        android:layout_width="315dp"
+        android:layout_height="315dp"
         android:layout_marginTop="42dp"
         android:layout_marginBottom="7dp"
         app:layout_constraintBottom_toTopOf="@+id/ArtistIDinListening"
@@ -209,8 +209,8 @@
 
     <TextView
         android:id="@+id/lyricsText"
-        android:layout_width="340dp"
-        android:layout_height="340dp"
+        android:layout_width="315dp"
+        android:layout_height="315dp"
         android:text="Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. "
         android:textColor="#FFFFFF"
         android:textSize="20dp"
@@ -221,5 +221,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/retunrListening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        android:background="@null"
+        app:srcCompat="@drawable/returnmenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

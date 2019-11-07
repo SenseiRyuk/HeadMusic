@@ -13,20 +13,60 @@
         android:layout_height="45dp"
         app:layout_constraintBottom_toTopOf="@+id/bottonView"
         app:layout_constraintEnd_toEndOf="parent"
+        android:background="#000000"
         app:layout_constraintStart_toStartOf="parent">
 
-        <TextView
-            android:id="@+id/musicTitle"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#000000"
-            android:gravity="center"
-            android:singleLine="true"
-            android:text="Sunflower - Spider-Man : Into the Spider-Verse"
-            android:textColor="#FFFFFF"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp" />
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageViewHome"
+                android:layout_width="25dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:src="@drawable/profile" />
+
+            <LinearLayout
+                android:layout_width="325dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/musicTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Song Name"
+                    android:singleLine="true"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/artistTitleHome"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="Artist Name"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/playPauseHome"
+                android:layout_width="25dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_gravity="center"
+                android:src="@drawable/play" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

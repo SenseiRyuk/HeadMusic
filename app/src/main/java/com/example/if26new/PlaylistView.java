@@ -2,19 +2,13 @@ package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Space;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.example.if26new.Model.PlaylistModel;
@@ -106,14 +100,14 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
-                Intent playListActivity = new Intent(PlaylistView.this, listening.class);
+                Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(artistName[i])){
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
-                Intent playListActivity = new Intent(PlaylistView.this, listening.class);
+                Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }

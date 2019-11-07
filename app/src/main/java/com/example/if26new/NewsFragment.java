@@ -155,7 +155,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
-                Intent playListActivity = new Intent(getContext(), listening.class);
+                Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             } else if(v.equals(mTextViewsSingles[i])){
@@ -163,7 +163,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
-                Intent playListActivity = new Intent(getContext(), listening.class);
+                Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }

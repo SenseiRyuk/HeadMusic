@@ -12,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.if26new.Model.AlbumModel;
-
 public class Album_view extends AppCompatActivity implements View.OnClickListener {
 
     private TextView[] songName;
@@ -114,7 +112,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
                 bundle.putInt("ALBUM_ID",idAlbum);
-                Intent playListActivity = new Intent(Album_view.this, listening.class);
+                Intent playListActivity = new Intent(Album_view.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(artistName[i])){
@@ -122,7 +120,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
                 bundle.putInt("ALBUM_ID",idAlbum);
-                Intent playListActivity = new Intent(Album_view.this, listening.class);
+                Intent playListActivity = new Intent(Album_view.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }

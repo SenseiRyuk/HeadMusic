@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -77,14 +75,14 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
-                Intent playListActivity = new Intent(getContext(), listening.class);
+                Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }else if (v.equals(artistName[i])){
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
-                Intent playListActivity = new Intent(getContext(), listening.class);
+                Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }

@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
@@ -25,16 +22,13 @@ import android.widget.VideoView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.if26new.Model.PlaylistModel;
-import com.example.if26new.Model.SingleModel;
 import com.example.if26new.Model.SinglePlaylistModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
-
-public class listening extends AppCompatActivity implements View.OnClickListener {
-
+public class Listening extends AppCompatActivity implements View.OnClickListener {
     private ImageButton like;
     private ImageButton previousMusic;
     private ImageButton nextMusic;
@@ -45,7 +39,6 @@ public class listening extends AppCompatActivity implements View.OnClickListener
     private ImageButton lyrics;
     private ImageView photoAlbum;
     private VideoView clipVideo;
-    private MediaPlayer mediaPlayerAudio;
     private SeekBar seekBar;
     private TextView totalDurationText;
     private TextView currentDurationText;
@@ -67,17 +60,12 @@ public class listening extends AppCompatActivity implements View.OnClickListener
     private LinearLayout dynamique;
     private int sizePlaylist;
     private int AlbumID;
-
+    private MediaControllerAudio mediaControllerAudio;
+    private MediaPlayer mediaPlayerAudio;
+    private ImageButton returnButton;
 
     // Find ID corresponding to the name of the resource (in the directory raw).
-    public int getRawResIdByName(String resName) {
-        String pkgName = this.getPackageName();
-        // Return 0 if not found.
-        int resID = this.getResources().getIdentifier(resName, "raw", pkgName);
-        Log.i("AndroidVideoView", "Res Name: " + resName + "==> Res ID = " + resID);
-        return resID;
-    }
-    private String millisecondsToString(int milliseconds)  {
+        private String millisecondsToString(int milliseconds)  {
         long minutes = TimeUnit.MILLISECONDS.toMinutes((long) milliseconds);
         long seconds =  TimeUnit.MILLISECONDS.toSeconds((long) milliseconds)-(minutes*60) ;
         if ((seconds<10)&& (seconds>=0)){
@@ -135,7 +123,6 @@ public class listening extends AppCompatActivity implements View.OnClickListener
                 threadHandler.postDelayed(this, 50);
             }
     }
-
     // When user click to "Pause".
     public void doPause()  {
         this.mediaPlayerAudio.pause();
@@ -170,7 +157,17 @@ public class listening extends AppCompatActivity implements View.OnClickListener
         lyricsText=findViewById(R.id.lyricsText);
         single=findViewById(R.id.ArtistIDinListening);
         album=findViewById(R.id.AlbumIDinListening);
+        returnButton=findViewById(R.id.retunrListening);
+
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent returnhome= new Intent(Listening.this,HomeActivity.class);
+                startActivity(returnhome);
+            }
+        });
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
+
 
         //Retrieve the name of the song and the name of the artist
         songName=getIntent().getExtras().getString("SONG_NAME");
@@ -187,7 +184,7 @@ public class listening extends AppCompatActivity implements View.OnClickListener
                     bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
                     bundle.putInt("ALBUM_ID",AlbumID);
                     bundle.putString("ARTIST_NAME",artistName);
-                    Intent Album = new Intent(listening.this, Album_view.class);
+                    Intent Album = new Intent(Listening.this, Album_view.class);
                     Album.putExtras(bundle);
                     startActivity(Album);
                 }
@@ -201,7 +198,7 @@ public class listening extends AppCompatActivity implements View.OnClickListener
                     bundle.putString("ARTIST_NAME",artistName);
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
                     bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
-                    Intent Artist = new Intent(listening.this, ActivityArtist.class);
+                    Intent Artist = new Intent(Listening.this, ActivityArtist.class);
                     Artist.putExtras(bundle);
                     startActivity(Artist);
                 }
@@ -218,7 +215,7 @@ public class listening extends AppCompatActivity implements View.OnClickListener
                 bundle.putString("ARTIST_NAME",artistName);
                 bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
                 bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
-                Intent playListActivity = new Intent(listening.this, ActivityArtist.class);
+                Intent playListActivity = new Intent(Listening.this, ActivityArtist.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }
@@ -246,16 +243,51 @@ public class listening extends AppCompatActivity implements View.OnClickListener
         //Pour l'audio
         int songId = db.mSingleDao().getSingleFromName(songName).getMusic();
         // Create MediaPlayer.
-        this.mediaPlayerAudio=MediaPlayer.create(this,songId);// MediaPlayer(this, songId);
+        mediaControllerAudio=MediaControllerAudio.getInstance();
+        if (mediaControllerAudio.getMediaPlayerAudio()==null){
+            this.mediaPlayerAudio=MediaPlayer.create(this,songId);
+            mediaControllerAudio.setMediaPlayerAudio(this.mediaPlayerAudio);
+            mediaControllerAudio.setSongName(songName);
+            mediaControllerAudio.setArtistName(artistName);
+            mediaControllerAudio.setAlbumID(AlbumID);
+            currentDurationText.setText("0:00");
+        }else{
+            if ((!songName.equals(mediaControllerAudio.getSongName())) && (!artistName.equals(mediaControllerAudio.getArtistName()))){
+                this.mediaPlayerAudio=MediaPlayer.create(this,songId);
+                mediaControllerAudio.freeMediaCOntroller();
+                mediaControllerAudio.setMediaPlayerAudio(this.mediaPlayerAudio);
+                mediaControllerAudio.setSongName(songName);
+                mediaControllerAudio.setArtistName(artistName);
+                mediaControllerAudio.setAlbumID(AlbumID);
+                currentDurationText.setText("0:00");
+                //On va venir stopper l'autrre music
+            }else{
+                this.mediaPlayerAudio=mediaControllerAudio.getMediaPlayerAudio();
+                if (mediaPlayerAudio.isPlaying()==true){
+                    playPause.setImageResource(R.drawable.pauselistening);
+                    doStart();
+                }else{
+                    seekBar.setProgress(mediaPlayerAudio.getCurrentPosition());
+                    String currentPositionStr = millisecondsToString(mediaPlayerAudio.getCurrentPosition());
+                    currentDurationText.setText(currentPositionStr);
+                }
+            }
+        }
         String totalDuration = this.millisecondsToString(this.mediaPlayerAudio.getDuration());
         totalDurationText.setText(totalDuration);
-        currentDurationText.setText("0:00");
         seekBar.setMax(this.mediaPlayerAudio.getDuration());
         seekBar.setMin(0);
+        if (AlbumID==0){
+            mediaControllerAudio.setArtist(true);
+        }else{
+            mediaControllerAudio.setArtist(false);
+        }
+
+
         /*home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent homeActivity = new Intent(listening.this, HomeActivity.class);
+                Intent homeActivity = new Intent(Listening.this, HomeActivity.class);
                 startActivity(homeActivity);
             }
         });*/
