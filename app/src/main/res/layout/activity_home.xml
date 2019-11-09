@@ -70,18 +70,6 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentContainter"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
-
-    </SearchView>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottonView"
         android:layout_width="match_parent"
@@ -93,8 +81,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainter"
-        android:layout_width="408dp"
-        android:layout_height="581dp"
+        android:layout_width="421dp"
+        android:layout_height="639dp"
         android:layout_marginBottom="1dp"
         app:layout_constraintBottom_toTopOf="@+id/test"
         app:layout_constraintEnd_toEndOf="parent"

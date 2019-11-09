@@ -252,7 +252,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             mediaControllerAudio.setAlbumID(AlbumID);
             currentDurationText.setText("0:00");
         }else{
-            if ((!songName.equals(mediaControllerAudio.getSongName())) && (!artistName.equals(mediaControllerAudio.getArtistName()))){
+            if ((!songName.equals(mediaControllerAudio.getSongName())) || (!artistName.equals(mediaControllerAudio.getArtistName()))){
                 this.mediaPlayerAudio=MediaPlayer.create(this,songId);
                 mediaControllerAudio.freeMediaCOntroller();
                 mediaControllerAudio.setMediaPlayerAudio(this.mediaPlayerAudio);

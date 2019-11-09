@@ -15,13 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.if26new.Model.AlbumModel;
+import com.example.if26new.Model.ArtistModel;
+import com.example.if26new.Model.SingleModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeActivity extends FragmentActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private SearchView search;
     private BottomNavigationView bottomNavigationView;
     private TextView musicTitle;
     private MediaControllerAudio mediaControllerAudio;
@@ -29,6 +33,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private ImageView musicPicture;
     private TextView artistTitle;
     private ImageButton playPause;
+
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +45,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         musicPicture=findViewById(R.id.imageViewHome);
         playPause=findViewById(R.id.playPauseHome);
         artistTitle=findViewById(R.id.artistTitleHome);
+
         musicTitle.setText(mediaControllerAudio.getSongName());
         artistTitle.setText(mediaControllerAudio.getArtistName());
         if (mediaControllerAudio.getAlbumID()!=0){
@@ -100,8 +107,6 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         });
         artistTitle.setOnClickListener(this);
         musicTitle.setOnClickListener(this);
-        search=findViewById(R.id.searchView);
-        search.clearFocus();
         bottomNavigationView=findViewById(R.id.bottonView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
@@ -123,6 +128,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             case R.id.profileButtonBottomBar:
                 fragment = new UserFragment();
                 break;
+            case R.id.searchViewBottomBar:
+                fragment = new SearchViewFragment();
         }
         return loadFragment(fragment);
     }

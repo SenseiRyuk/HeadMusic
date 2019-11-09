@@ -16,6 +16,13 @@
         app:itemIconTint="@drawable/newselector"
         app:showAsAction="ifRoom" />
     <item
+        android:id="@+id/searchViewBottomBar"
+        android:enabled="true"
+        android:icon="@drawable/searchview"
+        android:title="SEARCH"
+        app:itemIconTint="@drawable/searchselector"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/profileButtonBottomBar"
         android:enabled="true"
         android:icon="@drawable/profileselector"

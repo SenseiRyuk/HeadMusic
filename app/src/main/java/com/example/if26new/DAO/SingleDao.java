@@ -34,6 +34,9 @@ public interface SingleDao {
     @Query("DELETE FROM SingleModel WHERE id = :singleId")
     int deleteSingle(int singleId);
 
+    @Query("SELECT * FROM SingleModel")
+    SingleModel[] getAllSingles();
+
 }
 
 
