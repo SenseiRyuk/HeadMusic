@@ -29,6 +29,7 @@ public class SearchViewFragment extends Fragment {
     private ArtistModel[] allArtist;
     private AlbumModel[] allAlbum;
     private List<String> all;
+    private List<String> allFilter;
     private SaveMyMusicDatabase db;
     private View v;
     private RecyclerView recyclerView;
@@ -52,6 +53,7 @@ public class SearchViewFragment extends Fragment {
         allArtist=db.mArtistDao().getAllArtist();
         allAlbum=db.mAlbumDao().getAllAlbum();
         all=new ArrayList<>();
+        allFilter=new ArrayList<>();
         searchView=v.findViewById(R.id.searchViewFragment);
         /*for (int i=0;i<allSingles.length;i++){
             all.add(allSingles[i].getTitleSingle() +" - Single");
@@ -68,6 +70,7 @@ public class SearchViewFragment extends Fragment {
             all.add(allAlbum[i].getTitleAlbum()+" - Album");
         }
         java.util.Collections.sort(all);
+        allFilter.addAll(all);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -77,12 +80,12 @@ public class SearchViewFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                newAllRequest=new ArrayList<>();
-                for (int i=0;i<all.size();i++){
+                    allFilter.clear();
+                    for (int i=0;i<all.size();i++){
                     if ((newText.compareToIgnoreCase(all.get(i).substring(0,newText.length()))==0) && (newText.length()>=1)){
-                        newAllRequest.add(all.get(i));
+                        allFilter.add(all.get(i));
                     }
-                    updateRecyclerView(newAllRequest);
+                    adapteur.notifyDataSetChanged();
                 }
                 return false;
             }
@@ -91,13 +94,9 @@ public class SearchViewFragment extends Fragment {
         return v;
     }
     public void configureRecyclerView(){
-        this.adapteur=new SearchViewAdapteur(all);
+        this.adapteur=new SearchViewAdapteur(allFilter);
         this.recyclerView.setAdapter(adapteur);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
-    public void updateRecyclerView(List<String> newAll){
-         this.adapteur=new SearchViewAdapteur(newAll);
-        this.recyclerView.setAdapter(adapteur);
-        //this.adapteur.notifyDataSetChanged();
-    }
+
 }

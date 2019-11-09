@@ -93,18 +93,15 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
     public void onBindViewHolder(MyViewHolder viewHolder, int position) {
         viewHolder.textView.setText(allSong.get(position));
         db=SaveMyMusicDatabase.getInstance(context);
-        System.out.println("TTTTTTTTT " + allSong.get(position));
         String[] sp=slip.split(allSong.get(position));
         String[] artistNameFromSingle = slip2.split(sp[1]);
         if (artistNameFromSingle.length==1){
-            System.out.println("CAS 1 " +sp[0]);
             if (artistNameFromSingle[0].equals("Artist")){
                 viewHolder.photo.setImageResource(db.mArtistDao().getArtistFromName(sp[0]).getImage());
             }else{
                 viewHolder.photo.setImageResource(db.mAlbumDao().getAlbumFromName(sp[0]).getImage());
             }
         }else{
-            System.out.println("Cas 2 " + artistNameFromSingle[1]);
             viewHolder.photo.setImageResource(db.mArtistDao().getArtistFromName(artistNameFromSingle[1]).getImage());
         }
         viewHolder.photo.setAdjustViewBounds(true);
