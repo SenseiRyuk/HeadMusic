@@ -34,6 +34,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
     private TextView[] mTextViewsAlbums;
     private TextView mTextViewsConcerts;
     private SaveMyMusicDatabase db;
+    private String FragmentName;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -155,6 +156,8 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
+                bundle.putString("CONTEXT","HomeActivity");
+                bundle.putString("FRAGMENT","NewsFragment");
                 Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -163,6 +166,8 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
+                bundle.putString("CONTEXT","HomeActivity");
+                bundle.putString("FRAGMENT","NewsFragment");
                 Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -179,6 +184,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putDouble("LOCATION_LGN",db.mConcertDao().getConcertFromNew(true)[i].getLocationLgn());
                 bundle.putString("TITLE_CONCERT",db.mConcertDao().getConcertFromNew(true)[i].getTitleConcert());
                 bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromId(db.mConcertDao().getConcertFromNew(true)[i].getArtistId()).getImage());
+                bundle.putString("FRAGMENT_NAME","NewsFragment");
                 Intent concertActivity = new Intent(getActivity(), ConcertActivity.class);
                 concertActivity.putExtras(bundle);
                 startActivity(concertActivity);
@@ -191,6 +197,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName());
                 bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromNew()[i].getTitleAlbum());
                 bundle.putInt("ALBUM_IMAGE_ID", db.mAlbumDao().getAlbumFromNew()[i].getImage());
+                bundle.putString("FRAGMENT_NAME","NewsFragment");
                 Intent albumActivity = new Intent(getActivity(), Album_view.class);
                 albumActivity.putExtras(bundle);
                 startActivity(albumActivity);
@@ -200,6 +207,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromNew()[i].getArtistId()).getName());
                 bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromNew()[i].getTitleAlbum());
                 bundle.putInt("ALBUM_IMAGE_ID", db.mAlbumDao().getAlbumFromNew()[i].getImage());
+                bundle.putString("FRAGMENT_NAME","NewsFragment");
                 Intent albumActivity = new Intent(getActivity(), Album_view.class);
                 albumActivity.putExtras(bundle);
                 startActivity(albumActivity);

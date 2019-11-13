@@ -39,12 +39,11 @@
         android:id="@+id/imageArtistID"
         android:layout_width="wrap_content"
         android:layout_height="175dp"
+        android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchArtistID"
-        app:layout_constraintVertical_bias="0.186"
         app:srcCompat="@drawable/postmalone" />
 
     <TextView
@@ -57,17 +56,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageArtistID" />
-
-    <SearchView
-        android:id="@+id/searchArtistID"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/followArtistBtnID"
@@ -104,5 +92,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameArtistID"
         app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/returnButtonArtistView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/returnmenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

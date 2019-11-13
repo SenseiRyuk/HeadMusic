@@ -73,7 +73,10 @@ public class MainActivity extends AppCompatActivity {
                     for(int i=0;i<allUsers.length;i++){
                         if ((password.getText().toString().equals(allUsers[i].getPassword().toString())) && ((username.getText().toString().equals(allUsers[i].getUsername().toString()) || (username.getText().toString().equals(allUsers[i].getMailAdress()))))){
                             isRegisterUser=true;
+                            Bundle bundle=new Bundle();
+                            bundle.putString("FRAGMENT_NAME","MainFragment");
                             Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);
+                            homeActivity.putExtras(bundle);
                             startActivity(homeActivity);
                         }
                     }

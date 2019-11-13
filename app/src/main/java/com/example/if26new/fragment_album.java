@@ -24,6 +24,8 @@ public class fragment_album extends Fragment implements View.OnClickListener {
     private int sizeAlbums;
     private String artistName;
     private SaveMyMusicDatabase db;
+    private int isCallFromArtistView;
+    private String fragmentName;
     public fragment_album() {
     }
 
@@ -39,7 +41,9 @@ public class fragment_album extends Fragment implements View.OnClickListener {
         db=SaveMyMusicDatabase.getInstance(getActivity());
         view=inflater.inflate(R.layout.fragment_album_artist, container, false);
         artistName=getActivity().getIntent().getStringExtra("ARTIST_NAME");
-
+        Bundle args = getArguments();
+        isCallFromArtistView=args.getInt("IS_FROM_ARTIST_VIEW",0);
+        fragmentName=args.getString("FRAGMENT","null");
 
         sizeAlbums=db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId()).length;
         imageButtonAlbum=new ImageButton[sizeAlbums];
@@ -94,25 +98,30 @@ public class fragment_album extends Fragment implements View.OnClickListener {
     }
     public void onClick(View v){
         for (int i=0;i<sizeAlbums;i++){
-            if (v.equals(albumName[i])){
-                Bundle bundle=new Bundle();
-                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
-                bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
-                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
-                bundle.putString("ARTIST_NAME",artistName);
-                Intent playListActivity = new Intent(getActivity(), Album_view.class);
-                playListActivity.putExtras(bundle);
-                startActivity(playListActivity);
-            }else if (v.equals(imageButtonAlbum[i])){
-                Bundle bundle=new Bundle();
-                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
-                bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
-                bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
-                bundle.putString("ARTIST_NAME",artistName);
-                Intent playListActivity = new Intent(getActivity(), Album_view.class);
-                playListActivity.putExtras(bundle);
-                startActivity(playListActivity);
-            }
+
+                if (v.equals(albumName[i])){
+                    Bundle bundle=new Bundle();
+                    bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
+                    bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                    bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
+                    bundle.putString("ARTIST_NAME",artistName);
+                    bundle.putString("FRAGMENT_NAME",fragmentName);
+                    bundle.putInt("IS_FROM_ARTIST_VIEW",isCallFromArtistView);
+                    Intent playListActivity = new Intent(getActivity(), Album_view.class);
+                    playListActivity.putExtras(bundle);
+                    startActivity(playListActivity);
+                }else if (v.equals(imageButtonAlbum[i])){
+                    Bundle bundle=new Bundle();
+                    bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getTitleAlbum());
+                    bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getImage());
+                    bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId())[i].getId());
+                    bundle.putString("ARTIST_NAME",artistName);
+                    bundle.putString("FRAGMENT_NAME",fragmentName);
+                    bundle.putInt("IS_FROM_ARTIST_VIEW",isCallFromArtistView);
+                    Intent playListActivity = new Intent(getActivity(), Album_view.class);
+                    playListActivity.putExtras(bundle);
+                    startActivity(playListActivity);
+                }
         }
     }
 }

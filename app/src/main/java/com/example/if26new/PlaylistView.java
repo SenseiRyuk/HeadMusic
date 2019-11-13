@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
     private String playlistNameFromFragment;
     private int sizePlaylistMusic;
     private SaveMyMusicDatabase db;
+    private ImageButton returnButton;
+    private String fragmentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +36,22 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_playlist_view);
         //Set ImagePlaylist
         setImagePlaylistFromTheDataBase(getIntent().getExtras().getInt("PLAYLIST_IMAGE_ID"));
-
+        returnButton=findViewById(R.id.returnButtonPlaylist);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnMethod();
+            }
+        });
+        fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
         //Retrieve PlayListName
         playlistNameFromFragment=getIntent().getExtras().getString("PLAYLIST_NAME");
         playlistName=findViewById(R.id.playlistNameInPlaylistView);
-        System.out.println("nom de la playlist " + playlistNameFromFragment);
         playlistName.setText(playlistNameFromFragment);
         //USE DATA BASE TO RETRIEVE ALL SONG FOR THIS PLAYLIST
         getAllSongFromTheDataBase();
     }
     public void setImagePlaylistFromTheDataBase(int idImage){
-        System.out.println("valeur de l'id " + idImage);
         mImageView = findViewById(R.id.playlistImageInPlaylistView);
         android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
         params.height=650;
@@ -100,6 +108,9 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putString("CONTEXT","PlaylistActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                bundle.putString("PLAYLIST_NAME",playlistNameFromFragment);
                 Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -107,10 +118,25 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putString("CONTEXT","PlaylistActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                bundle.putString("PLAYLIST_NAME",playlistNameFromFragment);
                 Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }
         }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        returnMethod();
+    }
+    public void returnMethod(){
+        Bundle bundle = new Bundle();
+        bundle.putString("FRAGMENT_NAME",fragmentName);
+        Intent playListActivity = new Intent(PlaylistView.this, HomeActivity.class);
+        playListActivity.putExtras(bundle);
+        startActivity(playListActivity);
     }
 }

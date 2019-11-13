@@ -33,6 +33,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private ImageView musicPicture;
     private TextView artistTitle;
     private ImageButton playPause;
+    private String wichFragment;
 
 
 
@@ -46,6 +47,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         playPause=findViewById(R.id.playPauseHome);
         artistTitle=findViewById(R.id.artistTitleHome);
 
+        wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
         musicTitle.setText(mediaControllerAudio.getSongName());
         artistTitle.setText(mediaControllerAudio.getArtistName());
         if (mediaControllerAudio.getAlbumID()!=0){
@@ -110,7 +112,20 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         bottomNavigationView=findViewById(R.id.bottonView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
-        loadFragment(new MainFragment());
+        switch (wichFragment){
+            case "MainFragment":
+                loadFragment(new MainFragment());
+                break;
+            case "NewsFragment":
+                loadFragment(new NewsFragment());
+                break;
+            case "UserFragment":
+                loadFragment(new UserFragment());
+                break;
+            case "SearchViewFragment":
+                loadFragment(new SearchViewFragment());
+                break;
+        }
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -145,6 +160,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         bundle.putString("SONG_NAME",musicTitle.getText().toString());
         bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
         bundle.putInt("ALBUM_ID",mediaControllerAudio.getAlbumID());
+        bundle.putString("CONTEXT","HomeActivity");
+        bundle.putString("FRAGMENT",wichFragment);
         Intent playListActivity = new Intent(HomeActivity.this, Listening.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);

@@ -121,6 +121,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
                 Bundle bundle=new Bundle();
                 bundle.putString("PLAYLIST_NAME",playlistTitle[i].getText().toString());
                 bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) imageButtonPlaylist[i].getTag());
+                bundle.putString("FRAGMENT_NAME","UserFragment");
                 Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -128,6 +129,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
                 Bundle bundle=new Bundle();
                 bundle.putString("PLAYLIST_NAME",playlistTitle[i].getText().toString());
                 bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) imageButtonPlaylist[i].getTag());
+                bundle.putString("FRAGMENT_NAME","UserFragment");
                 Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

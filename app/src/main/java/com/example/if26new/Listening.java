@@ -63,6 +63,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     private MediaControllerAudio mediaControllerAudio;
     private MediaPlayer mediaPlayerAudio;
     private ImageButton returnButton;
+    private String context;
+    private String fragmentForSingleInNew;
+    private String fragmentName;
+    private String PlaylistName;
+
 
     // Find ID corresponding to the name of the resource (in the directory raw).
         private String millisecondsToString(int milliseconds)  {
@@ -162,8 +167,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent returnhome= new Intent(Listening.this,HomeActivity.class);
-                startActivity(returnhome);
+              returnMethod();
             }
         });
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
@@ -173,6 +177,12 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         songName=getIntent().getExtras().getString("SONG_NAME");
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
         AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
+        context=getIntent().getExtras().getString("CONTEXT");
+        fragmentForSingleInNew=getIntent().getExtras().getString("FRAGMENT");
+        fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
+        PlaylistName=getIntent().getExtras().getString("PLAYLIST_NAME");
+
+
         //Set photo Music Artist
         if (AlbumID!=0){
             photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
@@ -554,6 +564,50 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             toast.show();
         }
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        returnMethod();
+    }
+    public void  returnMethod(){
+        Bundle bundle=new Bundle();
+        switch (context){
+            case "HomeActivity":
+                bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
+                Intent returnhome= new Intent(Listening.this,HomeActivity.class);
+                returnhome.putExtras(bundle);
+                startActivity(returnhome);
+                break;
+            case "AlbumActivity":
+                bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromId(AlbumID).getTitleAlbum());
+                bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+                bundle.putInt("ALBUM_ID",AlbumID);
+                bundle.putString("ARTIST_NAME",artistName);
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                Intent Album = new Intent(Listening.this, Album_view.class);
+                Album.putExtras(bundle);
+                startActivity(Album);
+                break;
+            case "ArtistActivity":
+                bundle.putString("ARTIST_NAME",artistName);
+                bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
+                bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                Intent Artist = new Intent(Listening.this, ActivityArtist.class);
+                Artist.putExtras(bundle);
+                startActivity(Artist);
+                break;
+            case "PlaylistActivity":
+                PlaylistModel currentPlaylist=db.mPlaylistDao().getPlaylist(PlaylistName);
+                bundle.putString("PLAYLIST_NAME",currentPlaylist.getTitles());
+                bundle.putInt("PLAYLIST_IMAGE_ID",currentPlaylist.getImage());
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                Intent playListActivity = new Intent(Listening.this, PlaylistView.class);
+                playListActivity.putExtras(bundle);
+                startActivity(playListActivity);
+                break;
+        }
     }
 
 }

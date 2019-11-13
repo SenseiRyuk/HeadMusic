@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -42,6 +43,8 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     private int artistImage;
     private SaveMyMusicDatabase db;
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
+    private ImageButton returnButton;
+    private String fragmentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +58,15 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         locationLgn=getIntent().getDoubleExtra("LOCATION_LGN",0);
         titleConcert=getIntent().getStringExtra("TITLE_CONCERT");
         artistImage=getIntent().getIntExtra("ARTIST_IMAGE_ID",0);
+        fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
         setContentView(R.layout.activity_concert);
+        returnButton=findViewById(R.id.returnButtonConcertView);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnMethod();
+            }
+        });
 
         mMapView = findViewById(R.id.mapView);
         mTextViewTitle = findViewById(R.id.txtTitleConcertID);
@@ -182,6 +193,18 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         bundle.putInt("ARTIST_IMAGE_ID",artistImage);
         bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
         Intent playListActivity = new Intent(ConcertActivity.this, ActivityArtist.class);
+        playListActivity.putExtras(bundle);
+        startActivity(playListActivity);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        returnMethod();
+    }
+    public void  returnMethod(){
+        Bundle bundle = new Bundle();
+        bundle.putString("FRAGMENT_NAME",fragmentName);
+        Intent playListActivity = new Intent(ConcertActivity.this, HomeActivity.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);
     }

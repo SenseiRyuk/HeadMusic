@@ -25,7 +25,8 @@ public class ActivityArtist extends AppCompatActivity{
     private TextView artistName;
     private String txtBio;
     private SaveMyMusicDatabase db;
-
+    private ImageButton returnButton;
+    private String fragmentName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,13 @@ public class ActivityArtist extends AppCompatActivity{
         followButton=findViewById(R.id.followTxtID);
         mTableLayout = findViewById(R.id.tableLayoutArtistID);
         mViewPager = findViewById(R.id.viewPagerArtistID);
+        returnButton=findViewById(R.id.returnButtonArtistView);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnMethod();
+            }
+        });
 
         followBtn.setBackground(null);
         setViewPager(mViewPager);
@@ -61,7 +69,7 @@ public class ActivityArtist extends AppCompatActivity{
         setImageArtist(getIntent().getExtras().getInt("ARTIST_IMAGE_ID"));
         setArtistName(getIntent().getExtras().getString("ARTIST_NAME"));
         txtBio=getIntent().getExtras().getString("ARTIST_BIO");
-
+        fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
     }
     public void setImageArtist(int id){
         imageArtist = findViewById(R.id.imageArtistID);
@@ -80,10 +88,35 @@ public class ActivityArtist extends AppCompatActivity{
     }
     private void setViewPager(ViewPager viewPager) {
         PageAdapterForArtist adapter = new PageAdapterForArtist(getSupportFragmentManager());
-        adapter.addFragment(new fragment_album(), "Album");
-        adapter.addFragment(new TitlesFragment(), "Titles");
+        Bundle args = new Bundle();
+        fragment_album frg=new fragment_album();
+        args.putInt("IS_FROM_ARTIST_VIEW",1);
+        args.putString("FRAGMENT", getIntent().getExtras().getString("FRAGMENT_NAME"));
+        frg.setArguments(args);
+        adapter.addFragment(frg, "Album");
+
+
+        TitlesFragment t = new TitlesFragment();
+        // Supply index input as an argument.
+        args.clear();
+        args.putString("FRAGMENT", getIntent().getExtras().getString("FRAGMENT_NAME"));
+        t.setArguments(args);
+        adapter.addFragment(t , "Titles");
+
+
         adapter.addFragment(new fragment_bio(), "Bio");
         viewPager.setAdapter(adapter);
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        returnMethod();
+    }
+    public void returnMethod(){
+        Bundle bundle = new Bundle();
+        bundle.putString("FRAGMENT_NAME",fragmentName);
+        Intent playListActivity = new Intent(ActivityArtist.this, HomeActivity.class);
+        playListActivity.putExtras(bundle);
+        startActivity(playListActivity);
+    }
 }

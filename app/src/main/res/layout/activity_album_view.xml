@@ -7,15 +7,6 @@
     android:background="@drawable/gradientbackground"
     tools:context=".Album_view">
 
-    <SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </SearchView>
-
     <TextView
         android:id="@+id/albumNameInAlbumView"
         android:layout_width="wrap_content"
@@ -27,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/AlbumImageInAlbumView"
-        app:layout_constraintVertical_bias="0.11" />
+        app:layout_constraintVertical_bias="0.173" />
 
     <TextView
         android:id="@+id/titleInAlbumView"
@@ -66,12 +57,11 @@
         android:id="@+id/AlbumImageInAlbumView"
         android:layout_width="274dp"
         android:layout_height="166dp"
+        android:layout_marginBottom="148dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollViewAlbum"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/searchView"
-        app:layout_constraintVertical_bias="0.057" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/followButtonAlbum"
@@ -85,5 +75,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/albumNameInAlbumView" />
+
+    <ImageButton
+        android:id="@+id/returnButtonAlbumView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="32dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/returnmenu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,5 @@
 package com.example.if26new;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,7 +13,6 @@ import android.widget.SearchView;
 
 import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.ArtistModel;
-import com.example.if26new.Model.SearchViewAdapteur;
 import com.example.if26new.Model.SingleModel;
 
 import java.util.ArrayList;
@@ -34,7 +31,6 @@ public class SearchViewFragment extends Fragment {
     private View v;
     private RecyclerView recyclerView;
     private SearchViewAdapteur adapteur;
-    private List<String>newAllRequest;
 
 
     public SearchViewFragment() {
@@ -55,10 +51,6 @@ public class SearchViewFragment extends Fragment {
         all=new ArrayList<>();
         allFilter=new ArrayList<>();
         searchView=v.findViewById(R.id.searchViewFragment);
-        /*for (int i=0;i<allSingles.length;i++){
-            all.add(allSingles[i].getTitleSingle() +" - Single");
-            db.mSingleDao().get
-        }*/
         for (int i=0;i<allArtist.length;i++){
             all.add(allArtist[i].getName()+" - Artist");
             SingleModel[] currentSingle=db.mSingleDao().getSingleFromArtist(allArtist[i].getId());
@@ -90,7 +82,7 @@ public class SearchViewFragment extends Fragment {
                 return false;
             }
         });
-        this.configureRecyclerView(); // - 4 Call during UI creation
+        this.configureRecyclerView();
         return v;
     }
     public void configureRecyclerView(){
@@ -98,5 +90,4 @@ public class SearchViewFragment extends Fragment {
         this.recyclerView.setAdapter(adapteur);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }
-
 }

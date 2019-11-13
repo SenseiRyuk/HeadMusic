@@ -20,6 +20,7 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
     private TextView[] artistName;
     private SaveMyMusicDatabase db;
     private String nameArtist;
+    private String fragmentName;
 
     private int sizeMusicArtist;
 
@@ -37,6 +38,9 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
         View view;
         view = inflater.inflate(R.layout.fragment_titles, container, false);
         db=SaveMyMusicDatabase.getInstance(getActivity());
+        Bundle args = getArguments();
+        fragmentName=args.getString("FRAGMENT", "null");
+
         nameArtist=getActivity().getIntent().getStringExtra("ARTIST_NAME");
 
         sizeMusicArtist=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(nameArtist).getId()).length;
@@ -75,6 +79,9 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromName(songName[i].getText().toString()).getAlbumId());
+                bundle.putString("CONTEXT","ArtistActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
                 Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -82,6 +89,9 @@ public class TitlesFragment extends Fragment implements View.OnClickListener {
                 Bundle bundle=new Bundle();
                 bundle.putString("SONG_NAME",songName[i].getText().toString());
                 bundle.putString("ARTIST_NAME",artistName[i].getText().toString());
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromName(songName[i].getText().toString()).getAlbumId());
+                bundle.putString("CONTEXT","ArtistActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
                 Intent playListActivity = new Intent(getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);

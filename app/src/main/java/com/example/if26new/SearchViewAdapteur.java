@@ -1,4 +1,4 @@
-package com.example.if26new.Model;
+package com.example.if26new;
 
 import android.content.Context;
 import android.content.Intent;
@@ -6,17 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.if26new.ActivityArtist;
-import com.example.if26new.Album_view;
-import com.example.if26new.Listening;
-import com.example.if26new.R;
-import com.example.if26new.SaveMyMusicDatabase;
 
 import java.util.List;
 import java.util.regex.Pattern;

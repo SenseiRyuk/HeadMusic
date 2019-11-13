@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,12 +28,22 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
     private int idAlbum;
     private String nameAlbum;
     private SaveMyMusicDatabase db;
+    private ImageButton returnButton;
+    private String fragmentName;
+    private int isCallFromArtistView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
         db=SaveMyMusicDatabase.getInstance(this);
         followbtn=findViewById(R.id.followButtonAlbum);
+        returnButton=findViewById(R.id.returnButtonAlbumView);
+        returnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                returnMethod();
+            }
+        });
         imageAlbum=getIntent().getExtras().getInt("ALBUM_IMAGE_ID");
         setImageAlbum(imageAlbum);
         idAlbum=getIntent().getExtras().getInt("ALBUM_ID");
@@ -40,6 +51,8 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         nameAlbum=getIntent().getExtras().getString("ALBUM_NAME");
         setAlbumName(nameAlbum);
         nameArtist=getIntent().getStringExtra("ARTIST_NAME");
+        fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
+        isCallFromArtistView=getIntent().getExtras().getInt("IS_FROM_ARTIST_VIEW");
         if (db.mAlbumDao().getAlbumFromName(nameAlbum).isLike()==true){
             followbtn.setText("Dislike");
         }else{
@@ -112,6 +125,8 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
                 bundle.putInt("ALBUM_ID",idAlbum);
+                bundle.putString("CONTEXT","AlbumActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
                 Intent playListActivity = new Intent(Album_view.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -120,10 +135,34 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromAlbum(idAlbum)[i].getTitleSingle());
                 bundle.putString("ARTIST_NAME",nameArtist);
                 bundle.putInt("ALBUM_ID",idAlbum);
+                bundle.putString("CONTEXT","AlbumActivity");
+                bundle.putString("FRAGMENT_NAME",fragmentName);
                 Intent playListActivity = new Intent(Album_view.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
             }
+        }
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        returnMethod();
+    }
+    public void  returnMethod(){
+        Bundle bundle=new Bundle();
+        if (isCallFromArtistView==1){
+            bundle.putString("ARTIST_NAME",nameArtist);
+            bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(nameArtist).getImage());
+            bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(nameArtist).getBio());
+            bundle.putString("FRAGMENT_NAME",fragmentName);
+            Intent playListActivity = new Intent(Album_view.this, ActivityArtist.class);
+            playListActivity.putExtras(bundle);
+            startActivity(playListActivity);
+        }else{
+            bundle.putString("FRAGMENT_NAME",fragmentName);
+            Intent playListActivity = new Intent(Album_view.this, HomeActivity.class);
+            playListActivity.putExtras(bundle);
+            startActivity(playListActivity);
         }
     }
 }
