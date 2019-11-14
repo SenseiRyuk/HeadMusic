@@ -21,7 +21,9 @@ import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.SingleModel;
 import com.example.if26new.Model.SinglePlaylistModel;
 
 import java.io.ByteArrayOutputStream;
@@ -170,16 +172,85 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         previousMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                weWantUpdate=true;
-                updateSeekBarThread= new UpdateSeekBarThread();
-                threadHandler.postDelayed(updateSeekBarThread,50);
-                if(currentPosition-10000>0){
-                    goTOTimeSong(currentPosition-10000);
-                    seekBar.setProgress(currentPosition-10000);
-                }else{
-                    //go back to 0
-                    goTOTimeSong(0);
-                    seekBar.setProgress(0);
+                Bundle bundle=new Bundle();
+                int position=0;
+                Intent switchListening;
+                switch (context) {
+                    case "AlbumActivity":
+                        SingleModel[] allSingleInAlbum=db.mSingleDao().getSingleFromAlbum(AlbumID);
+                        for (int i=0;i<allSingleInAlbum.length;i++){
+                            if (allSingleInAlbum[i].getTitleSingle().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        if (position==0){
+                            bundle.putString("SONG_NAME", allSingleInAlbum[allSingleInAlbum.length-1].getTitleSingle());
+                        }else{
+                            bundle.putString("SONG_NAME", allSingleInAlbum[position-1].getTitleSingle());
+                        }
+                        bundle.putString("ARTIST_NAME", artistName);
+                        bundle.putInt("ALBUM_ID", AlbumID);
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
+                    case "PlaylistActivity":
+                        System.out.println("RRRRRRR "+PlaylistName);
+                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylist(PlaylistName).getId());
+                        for (int i=0;i<allSinglePlaylist.length;i++){
+                            if (allSinglePlaylist[i].getSongName().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        SingleModel[] singleInAlbum=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(allSinglePlaylist[0].getArtistName()).getId());
+                        if (position==0){
+                            bundle.putString("SONG_NAME", allSinglePlaylist[allSinglePlaylist.length-1].getSongName());
+                            bundle.putString("ARTIST_NAME",allSinglePlaylist[allSinglePlaylist.length-1].getArtistName());
+                            for (int i=0;i<singleInAlbum.length;i++){
+                                if (singleInAlbum[i].getTitleSingle().equals(allSinglePlaylist[allSinglePlaylist.length-1].getSongName())){
+                                    bundle.putInt("ALBUM_ID",singleInAlbum[i].getAlbumId() );
+                                }
+                            }
+                        }else{
+                            bundle.putString("SONG_NAME", allSinglePlaylist[position-1].getSongName());
+                            bundle.putString("ARTIST_NAME",allSinglePlaylist[position-1].getArtistName());
+                            for (int i=0;i<singleInAlbum.length;i++){
+                                if (singleInAlbum[i].getTitleSingle().equals(allSinglePlaylist[position-1].getSongName())){
+                                    bundle.putInt("ALBUM_ID",singleInAlbum[i].getAlbumId() );
+                                }
+                            }
+                        }
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        bundle.putString("PLAYLIST_NAME",PlaylistName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
+                    case "ArtistActivity":
+                        SingleModel [] allArtistSingle=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(artistName).getId());
+                        for (int i=0;i<allArtistSingle.length;i++){
+                            if (allArtistSingle[i].getTitleSingle().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        if (position==0){
+                            bundle.putString("SONG_NAME", allArtistSingle[allArtistSingle.length-1].getTitleSingle());
+                        }else{
+                            bundle.putString("SONG_NAME", allArtistSingle[position-1].getTitleSingle());
+                        }
+                        bundle.putString("ARTIST_NAME", artistName);
+                        bundle.putInt("ALBUM_ID", AlbumID);
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
+
+
                 }
             }
         });
@@ -187,16 +258,82 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         nextMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                weWantUpdate=true;
-                updateSeekBarThread= new UpdateSeekBarThread();
-                threadHandler.postDelayed(updateSeekBarThread,50);
-                if (mediaPlayerAudio.getDuration()-currentPosition>10000){
-                    goTOTimeSong(currentPosition+10000);
-                    seekBar.setProgress(currentPosition+10000);
-                }else{
-                    //end
-                    goTOTimeSong(mediaPlayerAudio.getDuration());
-                    seekBar.setProgress(mediaPlayerAudio.getDuration());
+                int position=0;
+                Bundle bundle=new Bundle();
+                Intent switchListening;
+                switch (context) {
+                    case "AlbumActivity":
+                        SingleModel[] allSingleInAlbum=db.mSingleDao().getSingleFromAlbum(AlbumID);
+                        for (int i=0;i<allSingleInAlbum.length;i++){
+                            if (allSingleInAlbum[i].getTitleSingle().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        if (position==allSingleInAlbum.length-1){
+                            bundle.putString("SONG_NAME", allSingleInAlbum[0].getTitleSingle());
+                        }else{
+                            bundle.putString("SONG_NAME", allSingleInAlbum[position+1].getTitleSingle());
+                        }
+                        bundle.putString("ARTIST_NAME", artistName);
+                        bundle.putInt("ALBUM_ID", AlbumID);
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
+                    case "PlaylistActivity":
+                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylist(PlaylistName).getId());
+                        for (int i=0;i<allSinglePlaylist.length;i++){
+                            if (allSinglePlaylist[i].getSongName().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        SingleModel[] singleInAlbum=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(allSinglePlaylist[0].getArtistName()).getId());
+                        if (position==allSinglePlaylist.length-1){
+                            bundle.putString("SONG_NAME", allSinglePlaylist[0].getSongName());
+                            bundle.putString("ARTIST_NAME",allSinglePlaylist[0].getArtistName());
+                            for (int i=0;i<singleInAlbum.length;i++){
+                                if (singleInAlbum[i].getTitleSingle().equals(allSinglePlaylist[0].getSongName())){
+                                    bundle.putInt("ALBUM_ID",singleInAlbum[i].getAlbumId() );
+                                }
+                            }
+                        }else{
+                            bundle.putString("SONG_NAME", allSinglePlaylist[position+1].getSongName());
+                            bundle.putString("ARTIST_NAME",allSinglePlaylist[position+1].getArtistName());
+                            for (int i=0;i<singleInAlbum.length;i++){
+                                if (singleInAlbum[i].getTitleSingle().equals(allSinglePlaylist[position+1].getSongName())){
+                                    bundle.putInt("ALBUM_ID",singleInAlbum[i].getAlbumId() );
+                                }
+                            }
+                        }
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        bundle.putString("PLAYLIST_NAME",PlaylistName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
+                    case "ArtistActivity":
+                        SingleModel [] allArtistSingle=db.mSingleDao().getSingleFromArtist(db.mArtistDao().getArtistFromName(artistName).getId());
+                        for (int i=0;i<allArtistSingle.length;i++){
+                            if (allArtistSingle[i].getTitleSingle().equals(songName)){
+                                position=i;
+                            }
+                        }
+                        if (position==allArtistSingle.length-1){
+                            bundle.putString("SONG_NAME", allArtistSingle[0].getTitleSingle());
+                        }else{
+                            bundle.putString("SONG_NAME", allArtistSingle[position+1].getTitleSingle());
+                        }
+                        bundle.putString("ARTIST_NAME", artistName);
+                        bundle.putInt("ALBUM_ID", AlbumID);
+                        bundle.putString("CONTEXT", context);
+                        bundle.putString("FRAGMENT_NAME", fragmentName);
+                        switchListening = new Intent(Listening.this, Listening.class);
+                        switchListening.putExtras(bundle);
+                        startActivity(switchListening);
+                        break;
                 }
             }
         });
@@ -207,8 +344,6 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             }
         });
         lyricsText.setMovementMethod(new ScrollingMovementMethod());
-
-
         //Retrieve the name of the song and the name of the artist
         songName=getIntent().getExtras().getString("SONG_NAME");
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
