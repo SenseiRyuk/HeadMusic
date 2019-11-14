@@ -87,6 +87,7 @@ public class SearchViewFragment extends Fragment {
     }
     public void configureRecyclerView(){
         this.adapteur=new SearchViewAdapteur(allFilter);
+        recyclerView.setHasFixedSize(true);
         this.recyclerView.setAdapter(adapteur);
         this.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     }

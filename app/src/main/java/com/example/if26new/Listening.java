@@ -163,7 +163,43 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         single=findViewById(R.id.ArtistIDinListening);
         album=findViewById(R.id.AlbumIDinListening);
         returnButton=findViewById(R.id.retunrListening);
+        previousMusic=findViewById(R.id.previousMusic);
+        nextMusic=findViewById(R.id.nextMusic);
 
+
+        previousMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weWantUpdate=true;
+                updateSeekBarThread= new UpdateSeekBarThread();
+                threadHandler.postDelayed(updateSeekBarThread,50);
+                if(currentPosition-10000>0){
+                    goTOTimeSong(currentPosition-10000);
+                    seekBar.setProgress(currentPosition-10000);
+                }else{
+                    //go back to 0
+                    goTOTimeSong(0);
+                    seekBar.setProgress(0);
+                }
+            }
+        });
+
+        nextMusic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                weWantUpdate=true;
+                updateSeekBarThread= new UpdateSeekBarThread();
+                threadHandler.postDelayed(updateSeekBarThread,50);
+                if (mediaPlayerAudio.getDuration()-currentPosition>10000){
+                    goTOTimeSong(currentPosition+10000);
+                    seekBar.setProgress(currentPosition+10000);
+                }else{
+                    //end
+                    goTOTimeSong(mediaPlayerAudio.getDuration());
+                    seekBar.setProgress(mediaPlayerAudio.getDuration());
+                }
+            }
+        });
         returnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,13 +330,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         }
 
 
-        /*home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent homeActivity = new Intent(Listening.this, HomeActivity.class);
-                startActivity(homeActivity);
-            }
-        });*/
+
         like.setOnClickListener(this);
         addPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override

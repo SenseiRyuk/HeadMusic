@@ -6,27 +6,23 @@
         android:enabled="true"
         android:icon="@drawable/homeselector"
         android:title="HOME"
-        app:itemIconTint="@drawable/homeselector"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/newButtonBottomBar"
         android:enabled="true"
         android:icon="@drawable/newselector"
         android:title="NEWS"
-        app:itemIconTint="@drawable/newselector"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/searchViewBottomBar"
         android:enabled="true"
         android:icon="@drawable/searchselector"
         android:title="SEARCH"
-        app:itemIconTint="@drawable/searchselector"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/profileButtonBottomBar"
         android:enabled="true"
         android:icon="@drawable/profileselector"
         android:title="PROFILE"
-        app:itemIconTint="@drawable/profileselector"
         app:showAsAction="ifRoom" />
 </menu>
