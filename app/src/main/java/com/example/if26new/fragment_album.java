@@ -41,9 +41,11 @@ public class fragment_album extends Fragment implements View.OnClickListener {
         db=SaveMyMusicDatabase.getInstance(getActivity());
         view=inflater.inflate(R.layout.fragment_album_artist, container, false);
         artistName=getActivity().getIntent().getStringExtra("ARTIST_NAME");
-        Bundle args = getArguments();
-        isCallFromArtistView=args.getInt("IS_FROM_ARTIST_VIEW",0);
+        Bundle args = this.getArguments();
+        isCallFromArtistView=Integer.valueOf(args.getString("ARTIST","0"));
+        System.out.println("CCCCCCCCCCC "+args.getString("ARTIST"));
         fragmentName=args.getString("FRAGMENT","null");
+        System.out.println("DDDDDDDDD "+  fragmentName);
 
         sizeAlbums=db.mAlbumDao().getAlbumFromArtist(db.mArtistDao().getArtistFromName(artistName).getId()).length;
         imageButtonAlbum=new ImageButton[sizeAlbums];

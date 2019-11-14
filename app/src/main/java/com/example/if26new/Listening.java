@@ -607,6 +607,12 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
                 break;
+            case "SearchViewActivity":
+                bundle.putString("FRAGMENT_NAME",fragmentName);
+                Intent search = new Intent(Listening.this, HomeActivity.class);
+                search.putExtras(bundle);
+                startActivity(search);
+                break;
         }
     }
 

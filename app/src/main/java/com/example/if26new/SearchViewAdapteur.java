@@ -50,6 +50,8 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
                 bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromName(sp[0]).getImage());
                 bundle.putInt("ALBUM_ID",db.mAlbumDao().getAlbumFromName(sp[0]).getId());
                 bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mAlbumDao().getAlbumFromName(sp[0]).getArtistId()).getName());
+                bundle.putString("FRAGMENT_NAME","SearchViewFragment");
+                bundle.putInt("IS_FROM_ARTIST_VIEW",0);
                 Intent playListActivity = new Intent(v.getContext(), Album_view.class);
                 playListActivity.putExtras(bundle);
                 v.getContext().startActivity(playListActivity);
@@ -58,6 +60,7 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
                 bundle.putString("ARTIST_NAME",sp[0]);
                 bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(sp[0]).getImage());
                 bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(sp[0]).getBio());
+                bundle.putString("FRAGMENT_NAME","SearchViewFragment");
                 Intent playListActivity = new Intent(v.getContext(), ActivityArtist.class);
                 playListActivity.putExtras(bundle);
                 v.getContext().startActivity(playListActivity);
@@ -67,6 +70,8 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
                 bundle.putString("SONG_NAME",sp[0]);
                 bundle.putString("ARTIST_NAME",artistNameFromSingle[1]);
                 bundle.putInt("ALBUM_ID",0);
+                bundle.putString("CONTEXT","SearchViewActivity");
+                bundle.putString("FRAGMENT_NAME","SearchViewFragment");
                 Intent playListActivity = new Intent(v.getContext(), Listening.class);
                 playListActivity.putExtras(bundle);
                 v.getContext().startActivity(playListActivity);
@@ -100,7 +105,6 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
         viewHolder.photo.setAdjustViewBounds(true);
         viewHolder.photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
-
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST
     public int getItemCount() {
         return this.allSong.size();

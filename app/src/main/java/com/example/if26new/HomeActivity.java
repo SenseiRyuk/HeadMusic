@@ -115,15 +115,19 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         switch (wichFragment){
             case "MainFragment":
                 loadFragment(new MainFragment());
+                bottomNavigationView.setSelectedItemId(R.id.homeButtonBottomBar);
                 break;
             case "NewsFragment":
                 loadFragment(new NewsFragment());
-                break;
-            case "UserFragment":
-                loadFragment(new UserFragment());
+                bottomNavigationView.setSelectedItemId(R.id.newButtonBottomBar);
                 break;
             case "SearchViewFragment":
                 loadFragment(new SearchViewFragment());
+                bottomNavigationView.setSelectedItemId(R.id.searchViewBottomBar);
+                break;
+            case "UserFragment":
+                loadFragment(new UserFragment());
+                bottomNavigationView.setSelectedItemId(R.id.profileButtonBottomBar);
                 break;
         }
     }
@@ -139,12 +143,12 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             case R.id.newButtonBottomBar:
                 fragment = new NewsFragment();
                 break;
-
+            case R.id.searchViewBottomBar:
+                fragment = new SearchViewFragment();
+                break;
             case R.id.profileButtonBottomBar:
                 fragment = new UserFragment();
                 break;
-            case R.id.searchViewBottomBar:
-                fragment = new SearchViewFragment();
         }
         return loadFragment(fragment);
     }

@@ -27,6 +27,7 @@ public class ActivityArtist extends AppCompatActivity{
     private SaveMyMusicDatabase db;
     private ImageButton returnButton;
     private String fragmentName;
+    private int isArtist=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,19 +89,18 @@ public class ActivityArtist extends AppCompatActivity{
     }
     private void setViewPager(ViewPager viewPager) {
         PageAdapterForArtist adapter = new PageAdapterForArtist(getSupportFragmentManager());
+
         Bundle args = new Bundle();
         fragment_album frg=new fragment_album();
-        args.putInt("IS_FROM_ARTIST_VIEW",1);
+        args.putString("ARTIST","1");
         args.putString("FRAGMENT", getIntent().getExtras().getString("FRAGMENT_NAME"));
         frg.setArguments(args);
         adapter.addFragment(frg, "Album");
 
-
+        Bundle args2 = new Bundle();
         TitlesFragment t = new TitlesFragment();
-        // Supply index input as an argument.
-        args.clear();
-        args.putString("FRAGMENT", getIntent().getExtras().getString("FRAGMENT_NAME"));
-        t.setArguments(args);
+        args2.putString("FRAGMENT", getIntent().getExtras().getString("FRAGMENT_NAME"));
+        t.setArguments(args2);
         adapter.addFragment(t , "Titles");
 
 

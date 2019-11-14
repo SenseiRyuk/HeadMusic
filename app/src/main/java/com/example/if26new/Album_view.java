@@ -150,6 +150,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
     }
     public void  returnMethod(){
         Bundle bundle=new Bundle();
+        System.out.println("AAAAAAAAAAAAAAAA "+isCallFromArtistView + " BBBBBBBBB " +fragmentName);
         if (isCallFromArtistView==1){
             bundle.putString("ARTIST_NAME",nameArtist);
             bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(nameArtist).getImage());
