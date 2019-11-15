@@ -54,6 +54,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private String text;
     private SaveMyMusicDatabase db;
     private PlaylistModel playlistToInsert;
+    private boolean isAlreadyCreate;
 
     public UserFragment() {
         // Required empty public constructor
@@ -203,14 +204,22 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void showPopup(){
 
         newplaylistDialog.setContentView(R.layout.add_playlist_pop_up);
-
         validate=newplaylistDialog.findViewById(R.id.validateNewPlaylist);
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 text = fieldPlaylist.getText().toString();
+                isAlreadyCreate=false;
+                PlaylistModel[] allPlaylist=db.mPlaylistDao().loadAllPlaylist();
+                for (int i=0;i<allPlaylist.length;i++){
+                    if (text.equals(allPlaylist[i].getTitles())){
+                        isAlreadyCreate=true;
+                    }
+                }
                 if (text.matches("")) {
                     fieldPlaylist.setError("Please enter a playlist name");
+                }else if (isAlreadyCreate==true){
+                    fieldPlaylist.setError("This Playlist already exist, please pick an other name");
                 }else{
                     unShowPopup();
                     showPopupImage();
