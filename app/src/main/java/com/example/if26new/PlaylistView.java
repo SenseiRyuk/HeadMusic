@@ -111,6 +111,7 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
                 bundle.putString("CONTEXT","PlaylistActivity");
                 bundle.putString("FRAGMENT_NAME",fragmentName);
                 bundle.putString("PLAYLIST_NAME",playlistNameFromFragment);
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromName(songName[i].getText().toString()).getAlbumId());
                 Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -121,6 +122,7 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
                 bundle.putString("CONTEXT","PlaylistActivity");
                 bundle.putString("FRAGMENT_NAME",fragmentName);
                 bundle.putString("PLAYLIST_NAME",playlistNameFromFragment);
+                bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromName(songName[i].getText().toString()).getAlbumId());
                 Intent playListActivity = new Intent(PlaylistView.this, Listening.class);
                 playListActivity.putExtras(bundle);
                 startActivity(playListActivity);
@@ -135,6 +137,8 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
     public void returnMethod(){
         Bundle bundle = new Bundle();
         bundle.putString("FRAGMENT_NAME",fragmentName);
+        bundle.putString("CONTEXT","PlaylistActivity");
+        bundle.putString("PLAYLIST_NAME",playlistNameFromFragment);
         Intent playListActivity = new Intent(PlaylistView.this, HomeActivity.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);

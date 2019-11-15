@@ -168,7 +168,6 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         previousMusic=findViewById(R.id.previousMusic);
         nextMusic=findViewById(R.id.nextMusic);
 
-
         previousMusic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +196,6 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         startActivity(switchListening);
                         break;
                     case "PlaylistActivity":
-                        System.out.println("RRRRRRR "+PlaylistName);
                         SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylist(PlaylistName).getId());
                         for (int i=0;i<allSinglePlaylist.length;i++){
                             if (allSinglePlaylist[i].getSongName().equals(songName)){
@@ -238,11 +236,12 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         }
                         if (position==0){
                             bundle.putString("SONG_NAME", allArtistSingle[allArtistSingle.length-1].getTitleSingle());
+                            bundle.putInt("ALBUM_ID", allArtistSingle[allArtistSingle.length-1].getAlbumId());
                         }else{
                             bundle.putString("SONG_NAME", allArtistSingle[position-1].getTitleSingle());
+                            bundle.putInt("ALBUM_ID", allArtistSingle[position-1].getAlbumId());
                         }
                         bundle.putString("ARTIST_NAME", artistName);
-                        bundle.putInt("ALBUM_ID", AlbumID);
                         bundle.putString("CONTEXT", context);
                         bundle.putString("FRAGMENT_NAME", fragmentName);
                         switchListening = new Intent(Listening.this, Listening.class);
@@ -251,6 +250,28 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         break;
 
 
+                }
+                if (fragmentForSingleInNew.equals("NewsFragment")){
+                    SingleModel [] allNewSingle=db.mSingleDao().getSingleFromNew(true);
+                    for (int i=0;i<allNewSingle.length;i++){
+                        if (allNewSingle[i].getTitleSingle().equals(songName)){
+                            position=i;
+                        }
+                    }
+                    if (position==0){
+                        bundle.putString("SONG_NAME", allNewSingle[allNewSingle.length-1].getTitleSingle());
+                        bundle.putInt("ALBUM_ID", allNewSingle[allNewSingle.length-1].getAlbumId());
+                        bundle.putString("ARTIST_NAME", db.mArtistDao().getArtistFromId(allNewSingle[allNewSingle.length-1].getArtistId()).getName());
+                    }else{
+                        bundle.putString("SONG_NAME", allNewSingle[position-1].getTitleSingle());
+                        bundle.putInt("ALBUM_ID", allNewSingle[position-1].getAlbumId());
+                        bundle.putString("ARTIST_NAME", db.mArtistDao().getArtistFromId(allNewSingle[position-1].getArtistId()).getName());
+                    }
+                    bundle.putString("CONTEXT", context);
+                    bundle.putString("FRAGMENT_NAME", fragmentName);
+                    switchListening = new Intent(Listening.this, Listening.class);
+                    switchListening.putExtras(bundle);
+                    startActivity(switchListening);
                 }
             }
         });
@@ -323,17 +344,43 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         }
                         if (position==allArtistSingle.length-1){
                             bundle.putString("SONG_NAME", allArtistSingle[0].getTitleSingle());
+                            bundle.putInt("ALBUM_ID", allArtistSingle[0].getAlbumId());
                         }else{
                             bundle.putString("SONG_NAME", allArtistSingle[position+1].getTitleSingle());
+                            bundle.putInt("ALBUM_ID", allArtistSingle[position+1].getAlbumId());
                         }
                         bundle.putString("ARTIST_NAME", artistName);
-                        bundle.putInt("ALBUM_ID", AlbumID);
                         bundle.putString("CONTEXT", context);
                         bundle.putString("FRAGMENT_NAME", fragmentName);
                         switchListening = new Intent(Listening.this, Listening.class);
                         switchListening.putExtras(bundle);
                         startActivity(switchListening);
                         break;
+                }
+                if (fragmentForSingleInNew.equals("NewsFragment")){
+                    SingleModel [] allNewSingle=db.mSingleDao().getSingleFromNew(true);
+                    for (int i=0;i<allNewSingle.length;i++){
+                        if (allNewSingle[i].getTitleSingle().equals(songName)){
+                            position=i;
+                        }
+                    }
+                    if (position==allNewSingle.length-1){
+                        bundle.putString("SONG_NAME", allNewSingle[0].getTitleSingle());
+                        bundle.putInt("ALBUM_ID", allNewSingle[0].getAlbumId());
+                        bundle.putString("ARTIST_NAME", db.mArtistDao().getArtistFromId(allNewSingle[0].getArtistId()).getName());
+                    }else{
+                        bundle.putString("SONG_NAME", allNewSingle[position+1].getTitleSingle());
+                        bundle.putInt("ALBUM_ID", allNewSingle[position+1].getAlbumId());
+                        bundle.putString("ARTIST_NAME", db.mArtistDao().getArtistFromId(allNewSingle[position+1].getArtistId()).getName());
+
+
+                    }
+                    bundle.putString("CONTEXT", context);
+                    bundle.putString("FRAGMENT_NAME", fragmentName);
+                    bundle.putString("FRAGMENT",fragmentForSingleInNew);
+                    switchListening = new Intent(Listening.this, Listening.class);
+                    switchListening.putExtras(bundle);
+                    startActivity(switchListening);
                 }
             }
         });
@@ -349,11 +396,9 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         artistName=getIntent().getExtras().getString("ARTIST_NAME");
         AlbumID=getIntent().getExtras().getInt("ALBUM_ID");
         context=getIntent().getExtras().getString("CONTEXT");
-        fragmentForSingleInNew=getIntent().getExtras().getString("FRAGMENT");
+        fragmentForSingleInNew=getIntent().getExtras().getString("FRAGMENT","null");
         fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
         PlaylistName=getIntent().getExtras().getString("PLAYLIST_NAME");
-
-
         //Set photo Music Artist
         if (AlbumID!=0){
             photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
@@ -365,6 +410,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
                     bundle.putInt("ALBUM_ID",AlbumID);
                     bundle.putString("ARTIST_NAME",artistName);
+                    if (fragmentForSingleInNew!="null"){
+                        bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
+                    }else{
+                        bundle.putString("FRAGMENT_NAME",fragmentName);
+                    }
                     Intent Album = new Intent(Listening.this, Album_view.class);
                     Album.putExtras(bundle);
                     startActivity(Album);
@@ -379,7 +429,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     bundle.putString("ARTIST_NAME",artistName);
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
                     bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
-                    Intent Artist = new Intent(Listening.this, ActivityArtist.class);
+                    if (fragmentForSingleInNew!="null"){
+                        bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
+                    }else{
+                        bundle.putString("FRAGMENT_NAME",fragmentName);
+                    }                    Intent Artist = new Intent(Listening.this, ActivityArtist.class);
                     Artist.putExtras(bundle);
                     startActivity(Artist);
                 }
@@ -492,7 +546,9 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     clipVideo.setVisibility(View.VISIBLE);
                     photoAlbum.setVisibility(View.INVISIBLE);
                     lyricsText.setVisibility(View.INVISIBLE);
-                    doPause();
+                    if (mediaPlayerAudio.isPlaying()){
+                        doPause();
+                    }
                     clipVideo.seekTo(currentPosition);
                     seekBar.setProgress(currentPosition);
                     if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.pauselistening).getConstantState())) {
@@ -500,11 +556,12 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     }
                 }else if (switchVideoAudio.getDrawable().getConstantState().equals(getDrawable(R.drawable.audio).getConstantState())){
                     switchVideoAudio.setImageResource(R.drawable.video);
-                    clipVideo.pause();
+                    if (clipVideo.isPlaying()){
+                        clipVideo.pause();
+                    }
                     clipVideo.setVisibility(View.INVISIBLE);
                     photoAlbum.setVisibility(View.VISIBLE);
                     lyricsText.setVisibility(View.INVISIBLE);
-                    System.out.println("current position " + currentPosition);
                     mediaPlayerAudio.seekTo(currentPosition);
                     seekBar.setProgress(currentPosition);
                     if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.pauselistening).getConstantState())) {
@@ -740,6 +797,8 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         switch (context){
             case "HomeActivity":
                 bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
+                bundle.putString("FRAGMENT",fragmentForSingleInNew);
+                bundle.putString("CONTEXT",context);
                 Intent returnhome= new Intent(Listening.this,HomeActivity.class);
                 returnhome.putExtras(bundle);
                 startActivity(returnhome);

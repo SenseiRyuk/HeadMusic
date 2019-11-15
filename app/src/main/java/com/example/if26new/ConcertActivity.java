@@ -192,6 +192,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         bundle.putString("ARTIST_NAME",artistName);
         bundle.putInt("ARTIST_IMAGE_ID",artistImage);
         bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+        bundle.putString("FRAGMENT_NAME",fragmentName);
         Intent playListActivity = new Intent(ConcertActivity.this, ActivityArtist.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);

@@ -115,6 +115,7 @@ public class ActivityArtist extends AppCompatActivity{
     public void returnMethod(){
         Bundle bundle = new Bundle();
         bundle.putString("FRAGMENT_NAME",fragmentName);
+        bundle.putString("CONTEXT","ArtistActivity");
         Intent playListActivity = new Intent(ActivityArtist.this, HomeActivity.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);

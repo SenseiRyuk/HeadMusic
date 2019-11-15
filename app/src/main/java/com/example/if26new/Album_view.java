@@ -52,7 +52,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         setAlbumName(nameAlbum);
         nameArtist=getIntent().getStringExtra("ARTIST_NAME");
         fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
-        isCallFromArtistView=getIntent().getExtras().getInt("IS_FROM_ARTIST_VIEW");
+        isCallFromArtistView=getIntent().getExtras().getInt("IS_FROM_ARTIST_VIEW",0);
         if (db.mAlbumDao().getAlbumFromName(nameAlbum).isLike()==true){
             followbtn.setText("Dislike");
         }else{
@@ -83,7 +83,6 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
     }
     public void setAlbumMusic(int albumId){
-        System.out.println("Albummmm ID " + albumId);
         //BDD --> Grace a la base de donnée on va venir chercher notre album(les singles, ainsi que sa taille) dans la base de donnée grâce à son nom passer en paramètre
         sizeSongInAlbum=db.mSingleDao().getSingleFromAlbum(albumId).length;
         artistName=new TextView[sizeSongInAlbum];
@@ -150,7 +149,6 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
     }
     public void  returnMethod(){
         Bundle bundle=new Bundle();
-        System.out.println("AAAAAAAAAAAAAAAA "+isCallFromArtistView + " BBBBBBBBB " +fragmentName);
         if (isCallFromArtistView==1){
             bundle.putString("ARTIST_NAME",nameArtist);
             bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(nameArtist).getImage());
@@ -161,6 +159,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
             startActivity(playListActivity);
         }else{
             bundle.putString("FRAGMENT_NAME",fragmentName);
+            bundle.putString("CONTEXT","AlbumActivity");
             Intent playListActivity = new Intent(Album_view.this, HomeActivity.class);
             playListActivity.putExtras(bundle);
             startActivity(playListActivity);

@@ -1,5 +1,6 @@
 package com.example.if26new;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -34,7 +35,9 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private TextView artistTitle;
     private ImageButton playPause;
     private String wichFragment;
-
+    private String context;
+    private String playListName;
+    private String fragmentForSingleInNew;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,10 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         musicPicture=findViewById(R.id.imageViewHome);
         playPause=findViewById(R.id.playPauseHome);
         artistTitle=findViewById(R.id.artistTitleHome);
-
+        context=getIntent().getExtras().getString("CONTEXT","null");
         wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
+        playListName=getIntent().getExtras().getString("PLAYLIST_NAME","null");
+        fragmentForSingleInNew=getIntent().getExtras().getString("FRAGMENT","null");
         musicTitle.setText(mediaControllerAudio.getSongName());
         artistTitle.setText(mediaControllerAudio.getArtistName());
         if (mediaControllerAudio.getAlbumID()!=0){
@@ -68,6 +73,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
                     bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(mediaControllerAudio.getAlbumID()).getImage());
                     bundle.putInt("ALBUM_ID",mediaControllerAudio.getAlbumID());
                     bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
+                    bundle.putString("FRAGMENT_NAME",wichFragment);
                     Intent Album = new Intent(HomeActivity.this, Album_view.class);
                     Album.putExtras(bundle);
                     startActivity(Album);
@@ -76,6 +82,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
                     bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
                     bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistTitle.getText().toString()).getImage());
                     bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistTitle.getText().toString()).getBio());
+                    bundle.putString("FRAGMENT_NAME",wichFragment);
                     Intent Artist = new Intent(HomeActivity.this, ActivityArtist.class);
                     Artist.putExtras(bundle);
                     startActivity(Artist);
@@ -112,6 +119,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         bottomNavigationView=findViewById(R.id.bottonView);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
+
         switch (wichFragment){
             case "MainFragment":
                 loadFragment(new MainFragment());
@@ -164,8 +172,10 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         bundle.putString("SONG_NAME",musicTitle.getText().toString());
         bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
         bundle.putInt("ALBUM_ID",mediaControllerAudio.getAlbumID());
-        bundle.putString("CONTEXT","HomeActivity");
-        bundle.putString("FRAGMENT",wichFragment);
+        bundle.putString("CONTEXT", context);
+        bundle.putString("FRAGMENT_NAME",wichFragment);
+        bundle.putString("PLAYLIST_NAME",playListName);
+        bundle.putString("FRAGMENT",fragmentForSingleInNew);
         Intent playListActivity = new Intent(HomeActivity.this, Listening.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);

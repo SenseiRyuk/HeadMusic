@@ -151,10 +151,13 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
         for (int i=0;i<db.mSingleDao().getSingleFromNew(true).length;i++){
+            System.out.println("valeur du text "+mTextViewsSingles[i].getText().toString());
+            String[] singleName=mTextViewsSingles[i].getText().toString().split(" -\n");
+            System.out.println("valeur du texttt "+singleName[0]);
             if (v.equals(mImageButtonsSingles[i])){
                 Bundle bundle = new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
-                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromName(singleName[1]).getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
                 bundle.putString("CONTEXT","HomeActivity");
                 bundle.putString("FRAGMENT","NewsFragment");
@@ -164,7 +167,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             } else if(v.equals(mTextViewsSingles[i])){
                 Bundle bundle = new Bundle();
                 bundle.putString("SONG_NAME",db.mSingleDao().getSingleFromNew(true)[i].getTitleSingle());
-                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getName());
+                bundle.putString("ARTIST_NAME",db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromName(singleName[1]).getArtistId()).getName());
                 bundle.putInt("ALBUM_ID",db.mSingleDao().getSingleFromNew(true)[i].getAlbumId());
                 bundle.putString("CONTEXT","HomeActivity");
                 bundle.putString("FRAGMENT","NewsFragment");
