@@ -655,7 +655,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
 
        //Read The TXT File for the lyrics ....
         //Name IN ROW IN minuscule
-        InputStream inputStream = getResources().openRawResource(R.raw.betternowpostmalonelyrics);
+        InputStream inputStream = getResources().openRawResource(db.mSingleDao().getSingleFromName(songName).getLyrics());
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         int i;
         try {
