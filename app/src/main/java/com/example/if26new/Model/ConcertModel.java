@@ -23,6 +23,7 @@ public class ConcertModel{
     private double locationLgn;
     private String titleConcert;
     private Boolean isNew;
+    private int image;
 
     public ConcertModel(){}
     public ConcertModel(int id, int artistId, String date, String location, String locationCity, double locationLat, double locationLgn, String titleConcert, Boolean isNew) {
@@ -108,4 +109,13 @@ public class ConcertModel{
     public void setNew(Boolean aNew) {
         isNew = aNew;
     }
+
+    public int getImage() {
+        return image;
+    }
+
+    public void setImage(int idImageConcert) {
+        this.image = idImageConcert;
+    }
+
 }

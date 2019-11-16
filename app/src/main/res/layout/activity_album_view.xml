@@ -55,12 +55,11 @@
 
     <ImageView
         android:id="@+id/AlbumImageInAlbumView"
-        android:layout_width="274dp"
-        android:layout_height="166dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:layout_marginBottom="136dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollViewAlbum"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button

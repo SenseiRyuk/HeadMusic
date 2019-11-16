@@ -151,6 +151,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",2.378591 );
                 contentValues.put("titleConcert","2019EuroTour");
                 contentValues.put("isNew",true);
+                contentValues.put("image",R.drawable.postmalone_paris_concert);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -163,6 +164,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",-118.341987);
                 contentValues.put("titleConcert","Sweetener World Tour");
                 contentValues.put("isNew",false);
+                contentValues.put("image",R.drawable.arianagrande_concert);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -175,6 +177,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",-73.975392);
                 contentValues.put("titleConcert","Sweetener World Tour");
                 contentValues.put("isNew",false);
+                contentValues.put("image",R.drawable.arianagrande_concert);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -188,6 +191,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",2.393186);
                 contentValues.put("titleConcert","Game over");
                 contentValues.put("isNew",true);
+                contentValues.put("image",R.drawable.vegedream_paris_concert);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -201,6 +205,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",4.858123);
                 contentValues.put("titleConcert","Game over");
                 contentValues.put("isNew",true);
+                contentValues.put("image",R.drawable.vegedream_lyon_concert);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -214,10 +219,9 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("locationLgn",4.888407);
                 contentValues.put("titleConcert","Valhalla Festival");
                 contentValues.put("isNew",true);
+                contentValues.put("image",R.drawable.valhalla_sound_cricus);
                 db.insert("ConcertModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
-
-
 
                 //SINGLE
 

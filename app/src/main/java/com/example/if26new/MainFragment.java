@@ -151,7 +151,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             lp1.setMargins(25, 50, 25, 50);
             mImageButtonsConcerts[i] = new Button(getActivity());
             mLinearLayoutsConcerts.addView(mImageButtonsConcerts[i]);
-            mImageButtonsConcerts[i].setBackgroundResource(R.drawable.concertstade);
+
+            mImageButtonsConcerts[i].setBackgroundResource(db.mConcertDao().getAllConcert()[i].getImage());
             android.view.ViewGroup.LayoutParams params1 = mImageButtonsConcerts[i].getLayoutParams();
             params1.height = 440;
             params1.width = 440;
