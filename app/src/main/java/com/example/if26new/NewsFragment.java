@@ -68,6 +68,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             mImageButtonsSingles[i] = new ImageButton(getActivity());
             mLinearLayoutsSingles.addView(mImageButtonsSingles[i]);
             mImageButtonsSingles[i].setBackground(null);
+            mImageButtonsSingles[i].setBackgroundColor(Color.BLACK);
             if (db.mSingleDao().getSingleFromNew(true)[i].getAlbumId()==0){
                 //On Passe l'image de l'artist car il n'est relié à aucun album
                 mImageButtonsSingles[i].setImageResource(db.mArtistDao().getArtistFromId(db.mSingleDao().getSingleFromNew(true)[i].getArtistId()).getImage());

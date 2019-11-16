@@ -19,6 +19,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.if26new.Model.AlbumModel;
+import com.example.if26new.Model.LikeAlbumModel;
 
 
 /**
@@ -48,7 +49,13 @@ public class AlbumFragment extends Fragment implements View.OnClickListener {
 
         //here we will get all the playlist Name in the dataBase, hence we got the length
         db=SaveMyMusicDatabase.getInstance(getActivity());
-        AlbumModel[] allAlbum=db.mAlbumDao().getLikedAlbum(true);
+        //AlbumModel[] allAlbum=db.mAlbumDao().getLikedAlbum(true); A SUPPRIMER
+        LikeAlbumModel[] allLikeAlbum=db.mLikeAlbumDao().getLikeFromUser(db.getActualUser());
+        AlbumModel[] allAlbum;
+        allAlbum=new AlbumModel[allLikeAlbum.length];
+        for (int i=0;i<allLikeAlbum.length;i++){
+            allAlbum[i]=db.mAlbumDao().getAlbumFromId(allLikeAlbum[i].getAlbumId());
+        }
         sizeAlbum=allAlbum.length;
         AlbumName=new TextView[sizeAlbum];
         //here we retrieve all the imageName for each Playlist

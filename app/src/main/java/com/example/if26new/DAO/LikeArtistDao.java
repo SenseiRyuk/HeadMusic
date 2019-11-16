@@ -14,11 +14,17 @@ public interface LikeArtistDao {
     @Query("SELECT * FROM LikeArtistModel WHERE userId = :userId")
     LikeArtistModel[] getLikeFromUser(int userId);
 
+    @Query("SELECT * FROM LikeArtistModel")
+    LikeArtistModel[] getAllLike();
+
     @Query("SELECT * FROM LikeArtistModel WHERE id = :id")
     LikeArtistModel getLikeFromId(int id);
 
     @Query("SELECT * FROM LikeArtistModel WHERE artistId = :artistId")
     LikeArtistModel[] getLikeFromArtist(int artistId);
+
+    @Query("SELECT * FROM LikeArtistModel WHERE userId = :userId AND artistId = :artistId")
+    LikeArtistModel getLikeFromArtistAndUser(int userId, int artistId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertLike(LikeArtistModel like);

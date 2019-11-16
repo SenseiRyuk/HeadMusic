@@ -245,7 +245,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist created", Toast.LENGTH_SHORT);
         toast.show();
         UserModel user[]=db.userDao().loadAllUsers();
-        playlistToInsert=new PlaylistModel(user[0].getId(),text,tag);
+        playlistToInsert = new PlaylistModel(db.getActualUser(), text, tag);
         db.mPlaylistDao().insertPlaylist(playlistToInsert);
         //Pour refresh la vue
         viewPagerForFragments.setAdapter(pageAdaptaterForUser);

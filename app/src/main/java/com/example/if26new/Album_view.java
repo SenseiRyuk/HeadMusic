@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.if26new.Model.LikeAlbumModel;
+
 public class Album_view extends AppCompatActivity implements View.OnClickListener {
 
     private TextView[] songName;
@@ -63,9 +65,11 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
             public void onClick(View v) {
                 if (followbtn.getText().equals("Like")){
                     db.mAlbumDao().updateLike(true,idAlbum);
+                        db.mLikeAlbumDao().insertLike(new LikeAlbumModel(db.getActualUser(), idAlbum));
                     followbtn.setText("Dislike");
                 }else{
                     db.mAlbumDao().updateLike(false,idAlbum);
+                    db.mLikeAlbumDao().deleteLike(db.mLikeAlbumDao().getLikeFromAlbumAndUser(db.getActualUser(),idAlbum).getId());
                     followbtn.setText("Like");
                 }
             }

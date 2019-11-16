@@ -13,15 +13,14 @@ import androidx.room.PrimaryKey;
                 childColumns = "albumId")
 })
 public class LikeAlbumModel {
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = true)
     int id;
     int userId;
     int albumId;
 
     public LikeAlbumModel(){}
 
-    public LikeAlbumModel(int id, int userId, int albumId) {
-        this.id = id;
+    public LikeAlbumModel(int userId, int albumId) {
         this.userId = userId;
         this.albumId = albumId;
     }

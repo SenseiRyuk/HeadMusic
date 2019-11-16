@@ -76,7 +76,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
 
 
         db=SaveMyMusicDatabase.getInstance(getActivity());
-        PlaylistModel[] allPlaylist = db.mPlaylistDao().loadAllPlaylist();
+        PlaylistModel[] allPlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
         sizePlaylist=allPlaylist.length;
         playlistTitle=new TextView[sizePlaylist];
         imageButtonPlaylist=new ImageButton[sizePlaylist];

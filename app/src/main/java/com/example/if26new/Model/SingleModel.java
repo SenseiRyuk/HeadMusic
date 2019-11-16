@@ -27,6 +27,7 @@ public class SingleModel {
     private int video;
     private int lyrics;
 
+
     public SingleModel(){};
 
     public SingleModel(int id, int albumId, int artistId, String titleSingle, boolean isNew, int music, int video) {

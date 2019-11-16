@@ -18,6 +18,13 @@ public interface PlaylistDao {
     @Query("SELECT * FROM PlaylistModel WHERE titles = :name")
     PlaylistModel getPlaylist(String name);
 
+    @Query("SELECT * FROM PlaylistModel")
+    PlaylistModel[] getAllPlaylist();
+
+    @Query("SELECT * FROM PlaylistModel WHERE userId = :userId")
+    PlaylistModel[] getPlaylistFromUser(int userId);
+
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertPlaylist(PlaylistModel playlist);
 

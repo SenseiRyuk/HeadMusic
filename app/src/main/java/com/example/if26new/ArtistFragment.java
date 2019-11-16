@@ -18,6 +18,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.if26new.Model.ArtistModel;
+import com.example.if26new.Model.LikeArtistModel;
 import com.example.if26new.Model.PlaylistModel;
 
 
@@ -58,7 +59,13 @@ public class ArtistFragment extends Fragment implements View.OnClickListener {
         paramsArtistName.setMargins(10,60,0,0);
 
         db=SaveMyMusicDatabase.getInstance(getActivity());
-        ArtistModel[] allArtist = db.mArtistDao().getLikedArtist(true);
+        //ArtistModel[] allArtist = db.mArtistDao().getLikedArtist(true);
+        LikeArtistModel[] allLikeArtist=db.mLikeArtistDao().getLikeFromUser(db.getActualUser());
+        ArtistModel[] allArtist;
+        allArtist=new ArtistModel[allLikeArtist.length];
+        for (int i=0;i<allLikeArtist.length;i++){
+            allArtist[i]=db.mArtistDao().getArtistFromId(allLikeArtist[i].getArtistId());
+        }
         sizeArtists=allArtist.length;
         ArtistName=new TextView[sizeArtists];
         imageButtonArtist=new ImageButton[sizeArtists];

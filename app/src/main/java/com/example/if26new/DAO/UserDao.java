@@ -14,8 +14,11 @@ public interface UserDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void createUser(UserModel user);
 
-    @Query("SELECT * FROM UserModel WHERE username = :userId")
-    UserModel getUser(long userId);
+    @Query("SELECT * FROM UserModel WHERE id = :userId")
+    UserModel getUserFromId(int userId);
+
+    @Query("SELECT * FROM UserModel WHERE username = :username")
+    UserModel getUserFromUsername(String username);
 
     @Query("SELECT * FROM UserModel")
     UserModel[] loadAllUsers();

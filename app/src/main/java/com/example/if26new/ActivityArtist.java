@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.if26new.Model.LikeArtistModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class ActivityArtist extends AppCompatActivity{
@@ -34,7 +35,6 @@ public class ActivityArtist extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
 
-        followBtn = findViewById(R.id.followArtistBtnID);
         followButton=findViewById(R.id.followTxtID);
         mTableLayout = findViewById(R.id.tableLayoutArtistID);
         mViewPager = findViewById(R.id.viewPagerArtistID);
@@ -61,9 +61,11 @@ public class ActivityArtist extends AppCompatActivity{
                 if(followButton.getText().toString()=="Follow"){
                     followButton.setText("Unfollow");
                     db.mArtistDao().updateLike(true,db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId());
+                    db.mLikeArtistDao().insertLike(new LikeArtistModel(db.getActualUser(),db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId()));
                 }else{
                     followButton.setText("Follow");
                     db.mArtistDao().updateLike(false,db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId());
+                    db.mLikeArtistDao().deleteLike(db.mLikeArtistDao().getLikeFromArtistAndUser(db.getActualUser(),db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId()).getId());
                 }
             }
         });

@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                     UserModel []allUsers=db.userDao().loadAllUsers();
                     for(int i=0;i<allUsers.length;i++){
                         if ((password.getText().toString().equals(allUsers[i].getPassword().toString())) && ((username.getText().toString().equals(allUsers[i].getUsername().toString()) || (username.getText().toString().equals(allUsers[i].getMailAdress()))))){
+                            db.setActualUser(allUsers[i].getId());
                             isRegisterUser=true;
                             Bundle bundle=new Bundle();
                             bundle.putString("FRAGMENT_NAME","MainFragment");
