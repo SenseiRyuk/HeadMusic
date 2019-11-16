@@ -35,6 +35,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
     private TextView mTextViewsConcerts;
     private SaveMyMusicDatabase db;
     private String FragmentName;
+    private TextView[] mTextViewsConcertsTitles;
 
     public NewsFragment() {
         // Required empty public constructor
@@ -89,9 +90,8 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             mTextViewsSingles[i].setOnClickListener(this);
             mImageButtonsSingles[i].setOnClickListener(this);
         }
+        mTextViewsConcertsTitles=new TextView[db.mConcertDao().getConcertFromNew(true).length];
         for(int i=0;i<db.mConcertDao().getConcertFromNew(true).length;i++) {
-
-            //PARTIE CONCERTS
             mLinearLayoutsConcerts = new LinearLayout(getActivity());
             mLinearLayoutNew2.addView(mLinearLayoutsConcerts);
             mLinearLayoutsConcerts.setOrientation(LinearLayout.VERTICAL);
@@ -99,21 +99,20 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             lp1.setMargins(25, 50, 25, 50);
             mImageButtonsConcerts[i] = new Button(getActivity());
             mLinearLayoutsConcerts.addView(mImageButtonsConcerts[i]);
-            mImageButtonsConcerts[i].setBackgroundResource(R.drawable.concertstade);
+
+            mImageButtonsConcerts[i].setBackgroundResource(db.mConcertDao().getConcertFromNew(true)[i].getImage());
             android.view.ViewGroup.LayoutParams params1 = mImageButtonsConcerts[i].getLayoutParams();
             params1.height = 440;
             params1.width = 440;
             mImageButtonsConcerts[i].setLayoutParams(params1);
-            mImageButtonsConcerts[i].setText(db.mArtistDao().getArtistFromId(db.mConcertDao().getConcertFromNew(true)[i].getArtistId()).getName()+"\n-\n"+db.mConcertDao().getConcertFromNew(true)[i].getLocationCity());
-            mImageButtonsConcerts[i].setTextColor(Color.BLACK);
             mImageButtonsConcerts[i].setOnClickListener(this);
-            /*mTextViewsConcerts = new TextView(getActivity());
-            mTextViewsConcerts.setText("Concert " + i);
-            mTextViewsConcerts.setTextColor(Color.WHITE);
-            mLinearLayoutsConcerts.addView(mTextViewsConcerts);
-            mTextViewsConcerts.setGravity(Gravity.CENTER_HORIZONTAL);*/
-            mLinearLayoutsConcerts.setLayoutParams(lp1);
-
+            mTextViewsConcertsTitles[i] = new TextView(getActivity());
+            mTextViewsConcertsTitles[i].setText(db.mArtistDao().getArtistFromId(db.mConcertDao().getConcertFromNew(true)[i].getArtistId()).getName() + " -\n " + db.mConcertDao().getConcertFromNew(true)[i].getLocationCity());
+            mTextViewsConcertsTitles[i].setTextColor(Color.WHITE);
+            mTextViewsConcertsTitles[i].setOnClickListener(this);
+            mTextViewsConcertsTitles[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayoutsConcerts.addView(mTextViewsConcertsTitles[i]);
+            mLinearLayoutsConcerts.setLayoutParams(lp);
         }
         for(int i=0;i<db.mAlbumDao().getAlbumFromNew().length;i++){
 
