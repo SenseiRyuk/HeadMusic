@@ -18,7 +18,6 @@ import com.google.android.material.tabs.TabLayout;
 
 public class ActivityArtist extends AppCompatActivity{
 
-    private ImageButton followBtn;
     private Button followButton;
     private ImageView imageArtist;
     private TabLayout mTableLayout;
@@ -46,7 +45,6 @@ public class ActivityArtist extends AppCompatActivity{
             }
         });
 
-        followBtn.setBackground(null);
         setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
         db=SaveMyMusicDatabase.getInstance(this);
