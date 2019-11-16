@@ -11,6 +11,7 @@ public class SinglePlaylistModel {
     private int playlistId;
     private String songName;
     private String artistName;
+    private int lyrics;
 
     public SinglePlaylistModel(){}
     public SinglePlaylistModel(int playlistId,String songName, String artistName){
@@ -45,6 +46,14 @@ public class SinglePlaylistModel {
     }
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(int lyrics) {
+        this.lyrics = lyrics;
     }
 
 

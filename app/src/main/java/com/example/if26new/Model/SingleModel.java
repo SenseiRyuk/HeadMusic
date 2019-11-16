@@ -25,6 +25,7 @@ public class SingleModel {
     private boolean isNew;
     private int music;
     private int video;
+    private int lyrics;
 
     public SingleModel(){};
 
@@ -92,6 +93,14 @@ public class SingleModel {
 
     public void setVideo(int video) {
         this.video = video;
+    }
+
+    public int getLyrics() {
+        return lyrics;
+    }
+
+    public void setLyrics(int lyrics) {
+        this.lyrics = lyrics;
     }
 
 }

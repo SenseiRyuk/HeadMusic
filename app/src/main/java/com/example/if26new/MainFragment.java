@@ -150,8 +150,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mLinearLayoutsConcerts = new LinearLayout(getActivity());
             mLinearLayout2.addView(mLinearLayoutsConcerts);
             mLinearLayoutsConcerts.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp1.setMargins(25, 50, 25, 50);
             mImageButtonsConcerts[i] = new Button(getActivity());
             mLinearLayoutsConcerts.addView(mImageButtonsConcerts[i]);
 
