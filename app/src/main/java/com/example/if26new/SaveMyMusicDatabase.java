@@ -441,7 +441,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("isNew",false);
                 contentValues.put("music",R.raw.bakermat_oneday);
                 contentValues.put("video",R.raw.bakermat_oneday_video);
-                contentValues.put("lyrics",R.raw.nolyrics);
+                contentValues.put("lyrics",R.raw.oneday_bakermat_lyrics);
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -452,6 +452,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("isNew",true);
                 contentValues.put("music",R.raw.bakermat_baiana);
                 contentValues.put("video",R.raw.bakermat_baiana_video);
+                contentValues.put("lyrics",R.raw.baiana_bakermat_lyrics);
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
@@ -462,6 +463,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("isNew",false);
                 contentValues.put("music",R.raw.bakermat_baby);
                 contentValues.put("video",R.raw.bakermat_baby_video);
+                contentValues.put("lyrics",R.raw.baby_bakermat_lyrics);
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
