@@ -124,7 +124,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
             mImageButtonsPlaylists[i] = new ImageButton(getActivity());
             mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
-            mImageButtonsPlaylists[i].setBackground(null);
+            mImageButtonsPlaylists[i].setBackgroundColor(Color.BLACK);
             mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
             mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
             mImageButtonsPlaylists[i].setAdjustViewBounds(true);
