@@ -66,7 +66,7 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
         //DDB--> retrieve all the song in the dataBase and put them into an Array, Then retrieve in the for loop bellow each song name and artist name
         //retrieve number of song in the playlist
         db=SaveMyMusicDatabase.getInstance(this);
-        PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylist(playlistName.getText().toString());
+        PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistName.getText().toString());
 
         SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
         sizePlaylistMusic=allSingles.length;

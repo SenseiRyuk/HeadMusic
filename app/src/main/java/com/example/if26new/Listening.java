@@ -755,7 +755,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         }
         if (playlistEnter==false){
             Toast toast;
-            PlaylistModel playlistLike=db.mPlaylistDao().getPlaylist("Favorite");
+            PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
             if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likenoclick).getConstantState())){
                 like.setImageResource(R.drawable.likeonclick);
                 SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistLike.getId(),songName.toString(),artistName.toString());
