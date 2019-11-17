@@ -113,36 +113,46 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mImageButton3Rank.setBackground(null);
         mImageButton3Rank.setImageResource(R.drawable.ic_third);
 
-        int sizePlaylist = db.mPlaylistDao().loadAllPlaylist().length;
-        PlaylistModel playlsit[]=db.mPlaylistDao().loadAllPlaylist();
+        int sizePlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length;
+        PlaylistModel playlsit[]=db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
         mImageButtonsPlaylists= new ImageButton[sizePlaylist];
         mTextViewsPlaylists = new TextView[sizePlaylist];
-        for (int i=0;i<sizePlaylist;i++) {
-            //PARTIE PLAYLIST
-            mLinearLayoutsPlaylists = new LinearLayout(getActivity());
-            mLinearLayout1.addView(mLinearLayoutsPlaylists);
-            mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
-            mImageButtonsPlaylists[i] = new ImageButton(getActivity());
-            mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
-            mImageButtonsPlaylists[i].setBackgroundColor(Color.BLACK);
-            mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
-            mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
-            mImageButtonsPlaylists[i].setAdjustViewBounds(true);
-            mImageButtonsPlaylists[i].setOnClickListener(this);
-            android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
-            params.height = 450;
-            params.width = 450;
-            mImageButtonsPlaylists[i].setLayoutParams(params);
-            mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+        if(sizePlaylist==0){
+            TextView textViewPlaylistEmpty = new TextView(getActivity());
+            textViewPlaylistEmpty.setText("Vous ne possédez pas de playlist");
+            textViewPlaylistEmpty.setTextColor(Color.WHITE);
+            textViewPlaylistEmpty.setTextSize(12);
+            textViewPlaylistEmpty.setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayout1.addView(textViewPlaylistEmpty);
+        }else {
+            for (int i = 0; i < sizePlaylist; i++) {
+                //PARTIE PLAYLIST
+                mLinearLayoutsPlaylists = new LinearLayout(getActivity());
+                mLinearLayout1.addView(mLinearLayoutsPlaylists);
+                mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
+                mImageButtonsPlaylists[i] = new ImageButton(getActivity());
+                mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
+                mImageButtonsPlaylists[i].setBackground(null);
+                mImageButtonsPlaylists[i].setBackgroundColor(Color.BLACK);
+                mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
+                mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
+                mImageButtonsPlaylists[i].setAdjustViewBounds(true);
+                mImageButtonsPlaylists[i].setOnClickListener(this);
+                android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
+                params.height = 450;
+                params.width = 450;
+                mImageButtonsPlaylists[i].setLayoutParams(params);
+                mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-            mTextViewsPlaylists[i] = new TextView(getActivity());
-            mTextViewsPlaylists[i].setText(playlsit[i].getTitles());
-            mTextViewsPlaylists[i].setTextColor(Color.WHITE);
-            mTextViewsPlaylists[i].setOnClickListener(this);
+                mTextViewsPlaylists[i] = new TextView(getActivity());
+                mTextViewsPlaylists[i].setText(playlsit[i].getTitles());
+                mTextViewsPlaylists[i].setTextColor(Color.WHITE);
+                mTextViewsPlaylists[i].setOnClickListener(this);
 
-            mLinearLayoutsPlaylists.addView(mTextViewsPlaylists[i]);
-            mLinearLayoutsPlaylists.setLayoutParams(lp);
-            mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
+                mLinearLayoutsPlaylists.addView(mTextViewsPlaylists[i]);
+                mLinearLayoutsPlaylists.setLayoutParams(lp);
+                mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            }
         }
         mTextViewsConcertsTitles=new TextView[db.mConcertDao().getAllConcert().length];
         for(int i=0;i<db.mConcertDao().getAllConcert().length;i++) {

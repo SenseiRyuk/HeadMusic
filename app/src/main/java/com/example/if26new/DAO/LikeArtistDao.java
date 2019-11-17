@@ -26,6 +26,9 @@ public interface LikeArtistDao {
     @Query("SELECT * FROM LikeArtistModel WHERE userId = :userId AND artistId = :artistId")
     LikeArtistModel getLikeFromArtistAndUser(int userId, int artistId);
 
+    @Query("SELECT * FROM LikeArtistModel WHERE userId = :userId AND artistId = :artistId")
+    boolean getLikeFromArtistAndUserExist(int userId, int artistId);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertLike(LikeArtistModel like);
 

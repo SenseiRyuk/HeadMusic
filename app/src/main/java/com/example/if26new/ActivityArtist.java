@@ -48,7 +48,7 @@ public class ActivityArtist extends AppCompatActivity{
         setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
         db=SaveMyMusicDatabase.getInstance(this);
-        if (db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).isLike()==true){
+        if (db.mLikeArtistDao().getLikeFromArtistAndUserExist(db.getActualUser(),db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId())){
             followButton.setText("Unfollow");
         }else{
             followButton.setText("Follow");

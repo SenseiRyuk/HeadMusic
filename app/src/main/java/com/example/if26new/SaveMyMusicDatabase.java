@@ -69,21 +69,18 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
 
                 //USER
                 ContentValues contentValues = new ContentValues();
-                //contentValues.put("id", 1);
                 contentValues.put("mailAdress", "root@gmail.com");
                 contentValues.put("username", "root");
                 contentValues.put("password", "root");
-
                 db.insert("UserModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
                 //PLAYLIST
-                //contentValues.put("id",1);
-                contentValues.put("userID",0);
+                /*contentValues.put("userID",);
                 contentValues.put("titles","Favorite");
                 contentValues.put("image",R.drawable.like);
                 db.insert("PlaylistModel",OnConflictStrategy.IGNORE, contentValues);
-                contentValues.clear();
+                contentValues.clear();*/
 
                 //ALBUM
                 contentValues.put("id",1);

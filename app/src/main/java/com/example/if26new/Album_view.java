@@ -55,7 +55,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         nameArtist=getIntent().getStringExtra("ARTIST_NAME");
         fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
         isCallFromArtistView=getIntent().getExtras().getInt("IS_FROM_ARTIST_VIEW",0);
-        if (db.mAlbumDao().getAlbumFromName(nameAlbum).isLike()==true){
+        if (db.mLikeAlbumDao().getLikeFromAlbumAndUserExist(db.getActualUser(),db.mAlbumDao().getAlbumFromId(idAlbum).getId())){
             followbtn.setText("Dislike");
         }else{
             followbtn.setText("Like");
