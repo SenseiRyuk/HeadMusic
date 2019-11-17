@@ -172,7 +172,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                db.mPlaylistDao().deletePlaylist(db.mPlaylistDao().getPlaylist(playlistTitleErase.getText().toString()).getId());
+                db.mPlaylistDao().deletePlaylist(db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistTitleErase.getText().toString()).getId());
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist " +playlistTitleErase.getText().toString() +" is deleted", Toast.LENGTH_SHORT);
                 erasePlaylist.dismiss();
                 toast.show();

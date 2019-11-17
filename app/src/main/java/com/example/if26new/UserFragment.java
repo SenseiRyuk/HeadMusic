@@ -210,7 +210,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             public void onClick(View v) {
                 text = fieldPlaylist.getText().toString();
                 isAlreadyCreate=false;
-                PlaylistModel[] allPlaylist=db.mPlaylistDao().loadAllPlaylist();
+                PlaylistModel[] allPlaylist=db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
                 for (int i=0;i<allPlaylist.length;i++){
                     if (text.equals(allPlaylist[i].getTitles())){
                         isAlreadyCreate=true;
