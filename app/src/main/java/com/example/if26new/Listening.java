@@ -692,32 +692,36 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         for (int i=0; i<sizePlaylist; i++){
             dynamique = new LinearLayout(this);
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
+            if (!allPlaylist[i].getTitles().equals("Favorite")){
+                imageButtonPlaylist[i]=new ImageButton(this);
+                dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
+                imageButtonPlaylist[i].setBackground(null);
 
-            imageButtonPlaylist[i]=new ImageButton(this);
-            dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
-            imageButtonPlaylist[i].setBackground(null);
+                int id = allPlaylist[i].getImage();
+                imageButtonPlaylist[i].setImageResource(id);
+                imageButtonPlaylist[i].setTag(id);
+                android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();
+                params.height=200;
+                params.width=200;
+                imageButtonPlaylist[i].setLayoutParams(params);
+                imageButtonPlaylist[i].setAdjustViewBounds(true);
+                imageButtonPlaylist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageButtonPlaylist[i].requestLayout();
+                imageButtonPlaylist[i].setOnClickListener(this);
 
-            int id = allPlaylist[i].getImage();
-            imageButtonPlaylist[i].setImageResource(id);
-            imageButtonPlaylist[i].setTag(id);
-            android.view.ViewGroup.LayoutParams params = imageButtonPlaylist[i].getLayoutParams();
-            params.height=200;
-            params.width=200;
-            imageButtonPlaylist[i].setLayoutParams(params);
-            imageButtonPlaylist[i].setAdjustViewBounds(true);
-            imageButtonPlaylist[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imageButtonPlaylist[i].requestLayout();
-            imageButtonPlaylist[i].setOnClickListener(this);
+                playlistTitle[i]=new TextView(this);
+                playlistTitle[i].setText(allPlaylist[i].getTitles());
+                playlistTitle[i].setTextColor(Color.WHITE);
+                playlistTitle[i].setTextSize(20);
+                playlistTitle[i].setSingleLine(true);
+                playlistTitle[i].setOnClickListener(this);
 
-            playlistTitle[i]=new TextView(this);
-            playlistTitle[i].setText(allPlaylist[i].getTitles());
-            playlistTitle[i].setTextColor(Color.WHITE);
-            playlistTitle[i].setTextSize(20);
-            playlistTitle[i].setSingleLine(true);
-            playlistTitle[i].setOnClickListener(this);
-
-            dynamique.addView(playlistTitle[i],paramsPlaylistName);
-            linearLayout.addView(dynamique);
+                dynamique.addView(playlistTitle[i],paramsPlaylistName);
+                linearLayout.addView(dynamique);
+            }else{
+                playlistTitle[i]=new TextView(this);
+                playlistTitle[i].setText("null");
+            }
         }
     }
     public void onClick(View v){
@@ -725,32 +729,34 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         boolean isAlreadyExist=false;
         boolean playlistEnter=false;
         for (int i=0;i<sizePlaylist;i++){
-            PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistTitle[i].getText().toString());
-            SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
-            if (v.equals(playlistTitle[i])){
-                for (int j=0;j<allSingles.length;j++){
-                    if ((allSingles[j].getSongName().equals(songName))&&(allSingles[i].getArtistName().equals(artistName))){
-                        isAlreadyExist=true;
+            if (!playlistTitle[i].getText().toString().equals("null")){
+                PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistTitle[i].getText().toString());
+                SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
+                if (v.equals(playlistTitle[i])){
+                    for (int j=0;j<allSingles.length;j++){
+                        if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
+                            isAlreadyExist=true;
+                        }
                     }
-                }
-                if (isAlreadyExist==false){
-                    SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
-                    db.mSinglePlaylistDao().insertSingle(singleToAdd);
-                }
-                unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
-                playlistEnter=true;
-            }else if (v.equals(imageButtonPlaylist[i])){
-                for (int j=0;j<allSingles.length;j++){
-                    if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
-                        isAlreadyExist=true;
+                    if (isAlreadyExist==false){
+                        SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
+                        db.mSinglePlaylistDao().insertSingle(singleToAdd);
                     }
+                    unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
+                    playlistEnter=true;
+                }else if (v.equals(imageButtonPlaylist[i])){
+                    for (int j=0;j<allSingles.length;j++){
+                        if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
+                            isAlreadyExist=true;
+                        }
+                    }
+                    if (isAlreadyExist==false){
+                        SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
+                        db.mSinglePlaylistDao().insertSingle(singleToAdd);
+                    }
+                    unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
+                    playlistEnter=true;
                 }
-                if (isAlreadyExist==false){
-                    SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistToAddSong.getId(),songName.toString(),artistName.toString());
-                    db.mSinglePlaylistDao().insertSingle(singleToAdd);
-                }
-                unShowPopUp(playlistTitle[i].getText().toString(),isAlreadyExist);
-                playlistEnter=true;
             }
         }
         if (playlistEnter==false){

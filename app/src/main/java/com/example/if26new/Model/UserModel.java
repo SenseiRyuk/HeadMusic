@@ -10,12 +10,14 @@ public class UserModel {
     private String mailAdress;
     private String username;
     private String password;
+    private int avatar;
 
     public UserModel(){}
-    public UserModel(String username,String pswrd, String mailAdress){
+    public UserModel(String username,String pswrd, String mailAdress,int avatar){
         this.mailAdress=mailAdress;
         this.username=username;
         this.password=pswrd;
+        this.avatar=avatar;
     }
 
 
@@ -43,5 +45,12 @@ public class UserModel {
     public void setPassword(String password) {
         this.password = password;
     }
+    public int getAvatar() {
+        return avatar;
+    }
+    public void setAvatar(int avatar) {
+        this.avatar = avatar;
+    }
+
 
 }

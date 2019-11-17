@@ -138,7 +138,6 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
     }
     public boolean onLongClick(View v){
 
-        System.out.println("JE RENTRE DANS LE CLICK PROLONGER ");
         for (int i=0;i<sizePlaylist;i++){
             if (!playlistTitle[i].getText().toString().equals("Favorite")) {
                 if (v.equals(playlistTitle[i])) {
@@ -172,6 +171,12 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent switche = new Intent(getContext(),HomeActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("CONTEXT","HomeActivity");
+                bundle.putString("FRAGMENT_NAME","UserFragment");
+                switche.putExtras(bundle);
+                getContext().startActivity(switche);
                 db.mPlaylistDao().deletePlaylist(db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistTitleErase.getText().toString()).getId());
                 Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist " +playlistTitleErase.getText().toString() +" is deleted", Toast.LENGTH_SHORT);
                 erasePlaylist.dismiss();

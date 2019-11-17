@@ -146,8 +146,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
 
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
-            android.os.Process.killProcess(android.os.Process.myPid());
-            System.exit(1);
+            Intent connexionActivity =new Intent(HomeActivity.this, MainActivity.class);
+            startActivity(connexionActivity);
             return;
         }
         this.doubleBackToExitPressedOnce = true;

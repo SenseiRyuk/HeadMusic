@@ -55,6 +55,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private SaveMyMusicDatabase db;
     private PlaylistModel playlistToInsert;
     private boolean isAlreadyCreate;
+    private int contextChoose=0;
+    private UserModel user;
 
     public UserFragment() {
         // Required empty public constructor
@@ -68,21 +70,28 @@ public class UserFragment extends Fragment implements View.OnClickListener {
 
         view=inflater.inflate(R.layout.fragment_user, container, false);
         onglet=view.findViewById(R.id.tabLayout);
+        db=SaveMyMusicDatabase.getInstance(getActivity());
         viewPagerForFragments=view.findViewById(R.id.viewPagerUser);
-        viewPagerForFragments.setOffscreenPageLimit(2);
         mImageView = view.findViewById(R.id.imageView);
-        mImageView.setImageResource(R.drawable.hazy1);
+        viewPagerForFragments.setOffscreenPageLimit(2);
+        user=db.userDao().getUserFromId(db.getActualUser());
+        mImageView.setImageResource(user.getAvatar());
+        mImageView.setImageResource(R.drawable.default_avatar);
         mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        mImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                contextChoose=1;
+                showPopupImage();
+            }
+        });
         //FragmentManager fragmentManager=myContext.getSupportFragmentManager();
         viewPagerForFragments.setAdapter(pageAdaptaterForUser);
         //viewPagerForFragments.addOnPageChangeListener(view);
         onglet.setupWithViewPager(viewPagerForFragments);
         //Design purpose. Tabs have the same width
         onglet.setTabMode(TabLayout.MODE_FIXED);
-
-        db=SaveMyMusicDatabase.getInstance(getActivity());
-
         newplaylistDialog=new Dialog(getActivity());
         chooseImageSong=new Dialog(getActivity());
         createNewPlaylist=view.findViewById(R.id.createNewPlaylist);
@@ -222,6 +231,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                     fieldPlaylist.setError("This Playlist already exist, please pick an other name");
                 }else{
                     unShowPopup();
+                    contextChoose=2;
                     showPopupImage();
                 }
             }
@@ -244,7 +254,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void registerPlaylist(int tag){
         Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist created", Toast.LENGTH_SHORT);
         toast.show();
-        UserModel user[]=db.userDao().loadAllUsers();
         playlistToInsert = new PlaylistModel(db.getActualUser(), text, tag);
         db.mPlaylistDao().insertPlaylist(playlistToInsert);
         //Pour refresh la vue
@@ -256,7 +265,20 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         for (int i=0;i<18;i++){
             if (v.equals(buttonWithImage[i])) {
                 chooseImageSong.dismiss();
-                registerPlaylist((Integer) buttonWithImage[i].getTag());
+                if (contextChoose==1){
+                    mImageView.setImageResource((Integer) buttonWithImage[i].getTag());
+                    //user.setAvatar((Integer) buttonWithImage[i].getTag());
+                    //db.userDao().UpdateUser((Integer) buttonWithImage[i].getTag(),db.getActualUser());
+                    mImageView.setAdjustViewBounds(true);
+                    mImageView.setOnClickListener(this);
+                    android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
+                    params.height = 500;
+                    params.width = 500;
+                    mImageView.setLayoutParams(params);
+                    mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                }else if (contextChoose==2){
+                    registerPlaylist((Integer) buttonWithImage[i].getTag());
+                }
             }
         }
     }

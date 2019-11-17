@@ -72,6 +72,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("mailAdress", "root@gmail.com");
                 contentValues.put("username", "root");
                 contentValues.put("password", "root");
+                contentValues.put("avatar",R.drawable.default_avatar);
                 db.insert("UserModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 

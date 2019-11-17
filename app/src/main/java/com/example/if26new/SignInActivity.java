@@ -54,7 +54,7 @@ public class SignInActivity extends AppCompatActivity {
                     int isValid=testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
                     switch (isValid) {
                         case 2:
-                            userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
+                            userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString(),R.drawable.default_avatar);
                             db.userDao().createUser(userModel);
                             PlaylistModel playlistUser=new PlaylistModel(db.userDao().getUserFromUsername(username.getText().toString()).getId(),"Favorite",R.drawable.like);
                             db.mPlaylistDao().insertPlaylist(playlistUser);
