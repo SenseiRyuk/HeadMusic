@@ -24,6 +24,6 @@ public interface UserDao {
     @Query("SELECT * FROM UserModel")
     UserModel[] loadAllUsers();
 
-    @Query("UPDATE UserModel SET avatar=:avatar WHERE id=:id")
+    @Query("UPDATE UserModel SET avatar=:avatar  WHERE id=:id")
     int UpdateUser(int avatar, int id);
 }

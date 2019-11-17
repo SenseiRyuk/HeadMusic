@@ -76,7 +76,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         viewPagerForFragments.setOffscreenPageLimit(2);
         user=db.userDao().getUserFromId(db.getActualUser());
         mImageView.setImageResource(user.getAvatar());
-        mImageView.setImageResource(R.drawable.default_avatar);
         mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         mImageView.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +267,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 if (contextChoose==1){
                     mImageView.setImageResource((Integer) buttonWithImage[i].getTag());
                     //user.setAvatar((Integer) buttonWithImage[i].getTag());
-                    //db.userDao().UpdateUser((Integer) buttonWithImage[i].getTag(),db.getActualUser());
+                    db.userDao().UpdateUser((Integer) buttonWithImage[i].getTag(),db.getActualUser());
                     mImageView.setAdjustViewBounds(true);
                     mImageView.setOnClickListener(this);
                     android.view.ViewGroup.LayoutParams params = mImageView.getLayoutParams();
