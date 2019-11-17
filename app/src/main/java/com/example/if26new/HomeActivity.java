@@ -95,8 +95,14 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         });
         if (mediaControllerAudio.getMediaPlayerAudio()==null){
             playPause.setVisibility(View.INVISIBLE);
+            musicTitle.setVisibility(View.INVISIBLE);
+            artistTitle.setVisibility(View.INVISIBLE);
+            musicPicture.setVisibility(View.INVISIBLE);
         }else{
            playPause.setVisibility(View.VISIBLE);
+            musicTitle.setVisibility(View.VISIBLE);
+            artistTitle.setVisibility(View.VISIBLE);
+            musicPicture.setVisibility(View.VISIBLE);
         }
         if (mediaControllerAudio.getMediaPlayerAudio()!=null){
             if (mediaControllerAudio.getMediaPlayerAudio().isPlaying()){
@@ -188,6 +194,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         return false;
     }
     public void onClick(View v){
+
         Bundle bundle=new Bundle();
         bundle.putString("SONG_NAME",musicTitle.getText().toString());
         bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
