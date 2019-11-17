@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
@@ -74,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
                         if ((password.getText().toString().equals(allUsers[i].getPassword().toString())) && ((username.getText().toString().equals(allUsers[i].getUsername().toString()) || (username.getText().toString().equals(allUsers[i].getMailAdress()))))){
                             db.setActualUser(allUsers[i].getId());
                             isRegisterUser=true;
+                            if(username.getText().toString().equals("root")&&!db.mPlaylistDao().getPlaylistFromUserAndNameExist(db.getActualUser(),"Favorite")){
+                                PlaylistModel playlistUser = new PlaylistModel(db.getActualUser(),"Favorite",R.drawable.like);
+                                db.mPlaylistDao().insertPlaylist(playlistUser);
+                            }
                             Bundle bundle=new Bundle();
                             bundle.putString("FRAGMENT_NAME","MainFragment");
                             Intent homeActivity = new Intent(MainActivity.this, HomeActivity.class);

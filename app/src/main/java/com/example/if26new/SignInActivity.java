@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.UserModel;
 
 
@@ -55,6 +56,8 @@ public class SignInActivity extends AppCompatActivity {
                         case 2:
                             userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString());
                             db.userDao().createUser(userModel);
+                            PlaylistModel playlistUser=new PlaylistModel(db.userDao().getUserFromUsername(username.getText().toString()).getId(),"Favorite",R.drawable.like);
+                            db.mPlaylistDao().insertPlaylist(playlistUser);
                             Intent mainLayout = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(mainLayout);
                             break;

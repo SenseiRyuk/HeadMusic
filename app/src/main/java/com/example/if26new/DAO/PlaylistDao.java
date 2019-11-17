@@ -24,6 +24,8 @@ public interface PlaylistDao {
     @Query("SELECT * FROM PlaylistModel WHERE userId = :userId")
     PlaylistModel[] getPlaylistFromUser(int userId);
 
+    @Query("SELECT * FROM PlaylistModel WHERE userId = :userId AND titles =:name")
+    boolean getPlaylistFromUserAndNameExist(int userId, String name);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insertPlaylist(PlaylistModel playlist);

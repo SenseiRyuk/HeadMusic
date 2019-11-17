@@ -288,7 +288,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 startActivity(albumActivity);
             }
         }
-        for (int i=0;i<db.mPlaylistDao().loadAllPlaylist().length;i++){
+        for (int i=0;i<db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length;i++){
             if (v.equals(mImageButtonsPlaylists[i])){
                 Bundle bundle=new Bundle();
                 bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
