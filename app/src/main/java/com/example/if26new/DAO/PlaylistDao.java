@@ -15,8 +15,6 @@ import java.util.List;
 @Dao
 public interface PlaylistDao {
 
-    @Query("SELECT * FROM PlaylistModel WHERE titles = :name")
-    PlaylistModel getPlaylist(String name);
 
     @Query("SELECT * FROM PlaylistModel")
     PlaylistModel[] getAllPlaylist();

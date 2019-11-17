@@ -196,7 +196,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         startActivity(switchListening);
                         break;
                     case "PlaylistActivity":
-                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylist(PlaylistName).getId());
+                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),PlaylistName).getId());
                         for (int i=0;i<allSinglePlaylist.length;i++){
                             if (allSinglePlaylist[i].getSongName().equals(songName)){
                                 position=i;
@@ -304,7 +304,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         startActivity(switchListening);
                         break;
                     case "PlaylistActivity":
-                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylist(PlaylistName).getId());
+                        SinglePlaylistModel[] allSinglePlaylist=db.mSinglePlaylistDao().getSinglesFromPlaylist(db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),PlaylistName).getId());
                         for (int i=0;i<allSinglePlaylist.length;i++){
                             if (allSinglePlaylist[i].getSongName().equals(songName)){
                                 position=i;
@@ -823,7 +823,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                 startActivity(Artist);
                 break;
             case "PlaylistActivity":
-                PlaylistModel currentPlaylist=db.mPlaylistDao().getPlaylist(PlaylistName);
+                PlaylistModel currentPlaylist=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),PlaylistName);
                 bundle.putString("PLAYLIST_NAME",currentPlaylist.getTitles());
                 bundle.putInt("PLAYLIST_IMAGE_ID",currentPlaylist.getImage());
                 bundle.putString("FRAGMENT_NAME",fragmentName);
