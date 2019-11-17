@@ -457,7 +457,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         });
         //WE WILL USE SONG NAME AND ALBUM NAME FOR LAUNCH MP3 AND MP4 ANC LYRICS
 
-        PlaylistModel playlistLike=db.mPlaylistDao().getPlaylist("Favorite");
+        PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
         SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
         for (int j=0;j<allSingles.length;j++){
             if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
@@ -684,7 +684,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         paramsPlaylistName.setMargins(10,60,0,0);
 
         db=SaveMyMusicDatabase.getInstance(this);
-        PlaylistModel[] allPlaylist = db.mPlaylistDao().loadAllPlaylist();
+        PlaylistModel[] allPlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
         sizePlaylist=allPlaylist.length;
         playlistTitle=new TextView[sizePlaylist];
         imageButtonPlaylist=new ImageButton[sizePlaylist];
@@ -725,7 +725,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         boolean isAlreadyExist=false;
         boolean playlistEnter=false;
         for (int i=0;i<sizePlaylist;i++){
-            PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylist(playlistTitle[i].getText().toString());
+            PlaylistModel playlistToAddSong=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),playlistTitle[i].getText().toString());
             SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistToAddSong.getId());
             if (v.equals(playlistTitle[i])){
                 for (int j=0;j<allSingles.length;j++){
