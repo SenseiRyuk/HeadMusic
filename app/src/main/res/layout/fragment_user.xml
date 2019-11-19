@@ -73,6 +73,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
+        <TextView
+            android:id="@+id/onPressTextView"
+            android:layout_width="132dp"
+            android:layout_height="40dp"
+            android:text="Click to change your profile picture"
+            android:gravity="center"
+            android:background="#04000000"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

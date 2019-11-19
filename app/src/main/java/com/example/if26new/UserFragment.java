@@ -56,25 +56,29 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private boolean isAlreadyCreate;
     private int contextChoose=0;
     private UserModel user;
+    private TextView textToChangeProfilePic;
 
     public UserFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
         view=inflater.inflate(R.layout.fragment_user, container, false);
+
         onglet=view.findViewById(R.id.tabLayout);
+        textToChangeProfilePic= view.findViewById(R.id.onPressTextView);
         db=SaveMyMusicDatabase.getInstance(getActivity());
         viewPagerForFragments=view.findViewById(R.id.viewPagerUser);
         mImageView = view.findViewById(R.id.imageView);
         viewPagerForFragments.setOffscreenPageLimit(2);
         user=db.userDao().getUserFromId(db.getActualUser());
         if(user.getAvatar()==R.drawable.default_avatar){
+            textToChangeProfilePic.setVisibility(View.VISIBLE);
+        }else{
+            textToChangeProfilePic.setVisibility(View.INVISIBLE);
         }
         mImageView.setImageResource(user.getAvatar());
         mImageView.setAdjustViewBounds(true);
@@ -266,6 +270,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
             if (v.equals(buttonWithImage[i])) {
                 chooseImageSong.dismiss();
                 if (contextChoose==1){
+                    textToChangeProfilePic.setVisibility(View.INVISIBLE);
                     mImageView.setImageResource((Integer) buttonWithImage[i].getTag());
                     //user.setAvatar((Integer) buttonWithImage[i].getTag());
                     db.userDao().UpdateUser((Integer) buttonWithImage[i].getTag(),db.getActualUser());
