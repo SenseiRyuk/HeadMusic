@@ -39,7 +39,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private TabLayout onglet;
     private ViewPager viewPagerForFragments;
     private ImageView mImageView;
-    private FragmentActivity myContext;
     private PageAdaptaterForUser pageAdaptaterForUser;
     private Button createNewPlaylist;
     private Dialog newplaylistDialog;
@@ -75,6 +74,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         mImageView = view.findViewById(R.id.imageView);
         viewPagerForFragments.setOffscreenPageLimit(2);
         user=db.userDao().getUserFromId(db.getActualUser());
+        if(user.getAvatar()==R.drawable.default_avatar){
+        }
         mImageView.setImageResource(user.getAvatar());
         mImageView.setAdjustViewBounds(true);
         mImageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
