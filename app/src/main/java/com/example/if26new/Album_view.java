@@ -1,9 +1,11 @@
 package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.if26new.Model.LikeAlbumModel;
+import com.example.if26new.Model.UserModel;
 
 public class Album_view extends AppCompatActivity implements View.OnClickListener {
 
@@ -33,11 +36,18 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
     private ImageButton returnButton;
     private String fragmentName;
     private int isCallFromArtistView;
+    private ConstraintLayout background;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_album_view);
         db=SaveMyMusicDatabase.getInstance(this);
+
+        background=findViewById(R.id.layoutAlbum);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
         followbtn=findViewById(R.id.followButtonAlbum);
         returnButton=findViewById(R.id.returnButtonAlbumView);
         returnButton.setOnClickListener(new View.OnClickListener() {

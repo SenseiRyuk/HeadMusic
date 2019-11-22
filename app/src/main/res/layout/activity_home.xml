@@ -2,13 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/backgroundHomeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradientbackground"
     tools:context="com.example.if26new.HomeActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/test"
+        android:id="@+id/musicBar"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         app:layout_constraintBottom_toTopOf="@+id/bottonView"
@@ -83,13 +84,27 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainter"
-        android:layout_width="421dp"
-        android:layout_height="639dp"
+        android:layout_width="match_parent"
+        android:layout_height="590dp"
         android:layout_marginBottom="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/test"
+        app:layout_constraintBottom_toTopOf="@+id/musicBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/settingBtn"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="5dp"
+        android:background="@null"
+        android:src="@drawable/setting"
+        app:layout_constraintBottom_toTopOf="@+id/fragmentContainter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.98"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

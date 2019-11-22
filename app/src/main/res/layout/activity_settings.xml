@@ -5,25 +5,160 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/secondLayout"
+    android:background="@drawable/gradientbackground"
     tools:context="com.example.if26new.SettingActivity">
 
-    <Switch
-        android:id="@+id/nightMode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
-        android:text="Night Mode"
+    <fragment
+        android:id="@+id/fragmentForColor"
+        android:name="com.example.if26new.MainFragment"
+        android:layout_width="183dp"
+        android:layout_height="234dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.967" />
 
     <ImageButton
         android:id="@+id/returnMainMenu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="211dp"
-        app:layout_constraintEnd_toStartOf="@+id/nightMode"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_revert" />
+        app:layout_constraintVertical_bias="0.022"
+        app:srcCompat="@drawable/returnmenu" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Change Your App"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.071" />
+
+    <EditText
+        android:id="@+id/hexadecimalForStopColor"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:ems="10"
+        android:hint="Hexadecimal"
+        android:inputType="textPersonName"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/applyColorChange"
+        app:layout_constraintEnd_toStartOf="@+id/hexadecimalForButtonColor"
+        app:layout_constraintStart_toEndOf="@+id/hexadecimalForStartColor"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.964" />
+
+    <Button
+        android:id="@+id/endButton"
+        android:layout_width="108dp"
+        android:layout_height="31dp"
+        android:background="@drawable/roundbutton"
+        android:text="End Button"
+        app:layout_constraintBottom_toTopOf="@+id/hexadecimalForStopColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.012"
+        app:layout_constraintStart_toEndOf="@+id/startButton"
+        app:layout_constraintTop_toBottomOf="@+id/colorTab"
+        app:layout_constraintVertical_bias="0.647" />
+
+    <EditText
+        android:id="@+id/hexadecimalForStartColor"
+        android:layout_width="96dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:hint="Hexadecimal"
+        android:inputType="textPersonName"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/applyColorChange"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="108dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/roundbutton"
+        android:text="Start Color"
+        app:layout_constraintBottom_toTopOf="@+id/hexadecimalForStartColor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorTab"
+        app:layout_constraintVertical_bias="0.645" />
+
+    <Button
+        android:id="@+id/colorbutton"
+        android:layout_width="108dp"
+        android:layout_height="31dp"
+        android:background="@drawable/roundbutton"
+        android:text="Button Color"
+        app:layout_constraintBottom_toTopOf="@+id/hexadecimalForButtonColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintStart_toEndOf="@+id/endButton"
+        app:layout_constraintTop_toBottomOf="@+id/colorTab"
+        app:layout_constraintVertical_bias="0.647" />
+
+    <EditText
+        android:id="@+id/hexadecimalForButtonColor"
+        android:layout_width="98dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="28dp"
+        android:ems="10"
+        android:hint="Hexadecimal"
+        android:inputType="textPersonName"
+        android:textSize="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/applyColorChange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.968" />
+
+    <Button
+        android:id="@+id/applyColorChange"
+        android:layout_width="108dp"
+        android:layout_height="35dp"
+        android:layout_marginBottom="260dp"
+        android:background="@drawable/roundbutton"
+        android:text="Apply"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/colorTab"
+        android:layout_width="350dp"
+        android:layout_height="225dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.524"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.037"
+        app:srcCompat="@drawable/palette_color" />
+
+    <TextView
+        android:id="@+id/currentHexadecimal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hexadécimal"
+        app:layout_constraintBottom_toTopOf="@+id/colorTab"
+        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

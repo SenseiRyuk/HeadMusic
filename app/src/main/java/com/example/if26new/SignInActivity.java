@@ -1,6 +1,8 @@
 package com.example.if26new;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +35,12 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         mainLayout=findViewById(R.id.mainSignLayout);
-        //mainLayout.setBackgroundColor(Color.DKGRAY);
+
+        db=SaveMyMusicDatabase.getInstance(this);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        mainLayout.setBackground(gd);
 
         final ControlerLayouts controler = ControlerLayouts.getInstance();
 
@@ -54,7 +61,7 @@ public class SignInActivity extends AppCompatActivity {
                     int isValid=testMailAddressAndPassword(mailAddress.getText().toString(),password.getText().toString(),username.getText().toString());
                     switch (isValid) {
                         case 2:
-                            userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString(),R.drawable.default_avatar);
+                            userModel=new UserModel(username.getText().toString(),password.getText().toString(),mailAddress.getText().toString(),R.drawable.default_avatar, Color.parseColor("#482834"),Color.parseColor("#1C3766"),Color.parseColor("#4A86E8"));
                             db.userDao().createUser(userModel);
                             PlaylistModel playlistUser=new PlaylistModel(db.userDao().getUserFromUsername(username.getText().toString()).getId(),"Favorite",R.drawable.like);
                             db.mPlaylistDao().insertPlaylist(playlistUser);

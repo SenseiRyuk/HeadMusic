@@ -2,6 +2,7 @@ package com.example.if26new;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.graphics.Color;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -73,6 +74,9 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("username", "root");
                 contentValues.put("password", "root");
                 contentValues.put("avatar",R.drawable.default_avatar);
+                contentValues.put("startColorGradient",0xFF482834);
+                contentValues.put("endColorGradient",0xFF1C3766);
+                contentValues.put("buttonColor",0XFF4A86E8);
                 db.insert("UserModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 

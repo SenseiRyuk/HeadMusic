@@ -6,10 +6,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.SinglePlaylistModel;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -33,11 +38,14 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
         private Pattern slip=Pattern.compile(" - ");
         private Pattern slip2=Pattern.compile(" By ");
         private ImageView photo;
+        private ImageButton like;
 
         public MyViewHolder(View v) {
             super(v);
             db=SaveMyMusicDatabase.getInstance(v.getContext());
             textView = v.findViewById(R.id.fragment_main_item_title);
+            like=v.findViewById(R.id.likeSearch);
+            like.setImageResource(R.drawable.likenoclick);
             textView.setOnClickListener(this);
             photo=v.findViewById(R.id.imageViewForResearch);
         }
@@ -88,7 +96,7 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
         SearchViewAdapteur.MyViewHolder vh = new SearchViewAdapteur.MyViewHolder(view);
         return vh;
     }
-    public void onBindViewHolder(MyViewHolder viewHolder, int position) {
+    public void onBindViewHolder(final MyViewHolder viewHolder, int position) {
         viewHolder.textView.setText(allSong.get(position));
         db=SaveMyMusicDatabase.getInstance(context);
         String[] sp=slip.split(allSong.get(position));
@@ -104,6 +112,24 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
         }
         viewHolder.photo.setAdjustViewBounds(true);
         viewHolder.photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+        /*PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
+        SinglePlaylistModel[] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
+        for (int j=0;j<allSingles.length;j++){
+            if ((allSingles[j].getSongName().equals(sp[0]))&&(allSingles[j].getArtistName().equals(artistNameFromSingle[1]))){
+                viewHolder.like.setImageResource(R.drawable.likeonclick);
+            }
+        }*/
+        viewHolder.like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (viewHolder.like.getDrawable().getConstantState().equals(v.getContext().getDrawable(R.drawable.likenoclick).getConstantState())){
+                    viewHolder.like.setImageResource(R.drawable.likeonclick);
+                }else{
+                    viewHolder.like.setImageResource(R.drawable.likenoclick);
+                }
+            }
+        });
     }
     // RETURN THE TOTAL COUNT OF ITEMS IN THE LIST
     public int getItemCount() {

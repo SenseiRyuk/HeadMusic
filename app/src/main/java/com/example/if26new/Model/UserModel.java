@@ -11,15 +11,20 @@ public class UserModel {
     private String username;
     private String password;
     private int avatar;
+    private int startColorGradient;
+    private int endColorGradient;
+    private int buttonColor;
 
     public UserModel(){}
-    public UserModel(String username,String pswrd, String mailAdress,int avatar){
+    public UserModel(String username,String pswrd, String mailAdress,int avatar,int startColorGradient,int endColorGradient,int buttonColor){
         this.mailAdress=mailAdress;
         this.username=username;
         this.password=pswrd;
         this.avatar=avatar;
+        this.startColorGradient=startColorGradient;
+        this.endColorGradient=endColorGradient;
+        this.buttonColor=buttonColor;
     }
-
 
     public String getMailAdress() {
         return mailAdress;
@@ -51,6 +56,26 @@ public class UserModel {
     public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
+    public int getStartColorGradient() {
+        return startColorGradient;
+    }
+    public void setStartColorGradient(int startColorGradient) {
+        this.startColorGradient = startColorGradient;
+    }
+    public int getEndColorGradient() {
+        return endColorGradient;
+    }
+    public void setEndColorGradient(int endColorGradient) {
+        this.endColorGradient = endColorGradient;
+    }
+    public int getButtonColor() {
+        return buttonColor;
+    }
+    public void setButtonColor(int buttonColor) {
+        this.buttonColor = buttonColor;
+    }
+
+
 
 
 }

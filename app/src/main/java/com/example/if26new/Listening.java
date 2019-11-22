@@ -3,6 +3,8 @@ package com.example.if26new;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,11 +23,14 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.SingleModel;
 import com.example.if26new.Model.SinglePlaylistModel;
+import com.example.if26new.Model.UserModel;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -72,6 +77,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     private String PlaylistName;
     private boolean nextMusicBolean;
     private boolean previousMusicBolean;
+    private ConstraintLayout background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +89,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
 
         //Retrieve the bundles
         retrieveBundle();
+
 
         //Set the previous method for the button
         previousMusic.setOnClickListener(new View.OnClickListener() {
@@ -147,8 +154,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     public void ShowPopup(){
         playlistDialog.setContentView(R.layout.playlist_pop_up);
         playlistDialog.show();
-        linearLayout = playlistDialog.findViewById(R.id.linearForSingle);
-
+        linearLayout = playlistDialog.findViewById(R.id.backgroundpopUp);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        linearLayout.setBackground(gd);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsImageButton.setMargins(40,0,0,0);
         ViewGroup.MarginLayoutParams paramsPlaylistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
@@ -235,6 +245,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
             if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likenoclick).getConstantState())){
                 like.setImageResource(R.drawable.likeonclick);
+                DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistLike.getId(),songName.toString(),artistName.toString());
                 db.mSinglePlaylistDao().insertSingle(singleToAdd);
                 toast = Toast.makeText(getApplicationContext(), "Music add in playlist : Favorite ", Toast.LENGTH_SHORT);
@@ -249,6 +260,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     }
                 }
                 like.setImageResource(R.drawable.likenoclick);
+                DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
             }
         }
     }
@@ -528,6 +540,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     }
     public void initView(){
         db=SaveMyMusicDatabase.getInstance(this);
+        background=findViewById(R.id.layoutListening);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
         playlistDialog=new Dialog(this);
         like=findViewById(R.id.likeButton);
         previousMusic=findViewById(R.id.previousMusic);
@@ -548,6 +565,17 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         previousMusic=findViewById(R.id.previousMusic);
         nextMusic=findViewById(R.id.nextMusic);
         like.setOnClickListener(this);
+        DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(switchVideoAudio.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(returnButton.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(replaySong.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(previousMusic.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(nextMusic.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(addPlaylist.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(lyrics.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        seekBar.getProgressDrawable().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.MULTIPLY);
+        seekBar.getThumb().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.MULTIPLY);
     }
     // Find ID corresponding to the name of the resource (in the directory raw).
     private String millisecondsToString(int milliseconds)  {
@@ -801,9 +829,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             public void onClick(View view) {
                 if (replaySong.getDrawable().getConstantState().equals(getDrawable(R.drawable.loop).getConstantState())){
                     replaySong.setImageResource(R.drawable.looponclick);
+                    DrawableCompat.setTint(replaySong.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     mediaPlayerAudio.setLooping(true);
                 }else if (replaySong.getDrawable().getConstantState().equals(getDrawable(R.drawable.looponclick).getConstantState())){
                     replaySong.setImageResource(R.drawable.loop);
+                    DrawableCompat.setTint(replaySong.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     mediaPlayerAudio.setLooping(false);
                 }
             }
@@ -815,6 +845,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             public void onClick(View view) {
                 if (switchVideoAudio.getDrawable().getConstantState().equals(getDrawable(R.drawable.video).getConstantState())){
                     switchVideoAudio.setImageResource(R.drawable.audio);
+                    DrawableCompat.setTint(switchVideoAudio.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     clipVideo.setVisibility(View.VISIBLE);
                     photoAlbum.setVisibility(View.INVISIBLE);
                     lyricsText.setVisibility(View.INVISIBLE);
@@ -828,6 +859,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                     }
                 }else if (switchVideoAudio.getDrawable().getConstantState().equals(getDrawable(R.drawable.audio).getConstantState())){
                     switchVideoAudio.setImageResource(R.drawable.video);
+                    DrawableCompat.setTint(switchVideoAudio.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     if (clipVideo.isPlaying()){
                         clipVideo.pause();
                     }
@@ -849,6 +881,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             public void onClick(View view) {
                 if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.playlistening).getConstantState())){
                     playPause.setImageResource(R.drawable.pauselistening);
+                    DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     //Case we are in audio or video clip
                     if (switchVideoAudio.getDrawable().getConstantState().equals(getDrawable(R.drawable.video).getConstantState())){
                         doStart();
@@ -864,6 +897,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                         clipVideo.pause();
                     }
                     playPause.setImageResource(R.drawable.playlistening);
+                    DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 }
             }
         });
@@ -891,6 +925,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         doStart();
         if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.playlistening).getConstantState())) {
             playPause.setImageResource(R.drawable.pauselistening);
+            DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         }
     }
     // Thread to Update position for SeekBar.

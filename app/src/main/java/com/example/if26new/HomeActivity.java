@@ -2,6 +2,7 @@ package com.example.if26new;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,12 +16,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.ArtistModel;
 import com.example.if26new.Model.SingleModel;
+import com.example.if26new.Model.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -41,18 +45,47 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private String playListName;
     private String fragmentForSingleInNew;
     private boolean doubleBackToExitPressedOnce = false;
-
+    private ImageButton settings;
+    private ConstraintLayout background;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db=SaveMyMusicDatabase.getInstance(this);
         setContentView(R.layout.activity_home);
+        DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         musicTitle=findViewById(R.id.musicTitle);
         mediaControllerAudio=MediaControllerAudio.getInstance();
-        db=SaveMyMusicDatabase.getInstance(this);
+
+        //Set the the background and button colors
+        background=findViewById(R.id.backgroundHomeActivity);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
+
         musicPicture=findViewById(R.id.imageViewHome);
+
         playPause=findViewById(R.id.playPauseHome);
+        DrawableCompat.setTint(getDrawable(R.drawable.play),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.pause),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+
         artistTitle=findViewById(R.id.artistTitleHome);
+        settings=findViewById(R.id.settingBtn);
+        DrawableCompat.setTint(settings.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle=new Bundle();
+                bundle.putString("FRAGMENT_NAME",wichFragment);
+                Intent settings = new Intent(HomeActivity.this, SettingActivity.class);
+                settings.putExtras(bundle);
+                startActivity(settings);
+            }
+        });
         context=getIntent().getExtras().getString("CONTEXT","null");
         wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
         playListName=getIntent().getExtras().getString("PLAYLIST_NAME","null");
@@ -127,6 +160,8 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         artistTitle.setOnClickListener(this);
         musicTitle.setOnClickListener(this);
         bottomNavigationView=findViewById(R.id.bottonView);
+
+        bottomNavigationView.setBackgroundColor(db.userDao().getUserFromId(db.getActualUser()).getEndColorGradient());
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setItemIconTintList(null);
 

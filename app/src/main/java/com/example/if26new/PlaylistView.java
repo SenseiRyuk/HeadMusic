@@ -1,9 +1,11 @@
 package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.SinglePlaylistModel;
+import com.example.if26new.Model.UserModel;
 
 public class PlaylistView extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,12 +32,20 @@ public class PlaylistView extends AppCompatActivity implements View.OnClickListe
     private SaveMyMusicDatabase db;
     private ImageButton returnButton;
     private String fragmentName;
+    private ConstraintLayout background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_playlist_view);
         //Set ImagePlaylist
+        background=findViewById(R.id.LayoutPlaylist);
+        db=SaveMyMusicDatabase.getInstance(this);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
+
         setImagePlaylistFromTheDataBase(getIntent().getExtras().getInt("PLAYLIST_IMAGE_ID"));
         returnButton=findViewById(R.id.returnButtonPlaylist);
         returnButton.setOnClickListener(new View.OnClickListener() {

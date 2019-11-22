@@ -26,4 +26,8 @@ public interface UserDao {
 
     @Query("UPDATE UserModel SET avatar=:avatar  WHERE id=:id")
     int UpdateUser(int avatar, int id);
+
+    @Query("UPDATE UserModel SET startColorGradient=:startColorGradient, endColorGradient=:endColorGradient, buttonColor=:buttonColor  WHERE id=:id")
+    int UpdateUserColor(int startColorGradient,int endColorGradient,int buttonColor, int id);
+
 }

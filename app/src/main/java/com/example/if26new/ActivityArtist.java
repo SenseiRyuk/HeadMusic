@@ -1,6 +1,7 @@
 package com.example.if26new;
 
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,11 +10,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.if26new.Model.LikeArtistModel;
+import com.example.if26new.Model.UserModel;
 import com.google.android.material.tabs.TabLayout;
 
 public class ActivityArtist extends AppCompatActivity{
@@ -28,11 +31,19 @@ public class ActivityArtist extends AppCompatActivity{
     private ImageButton returnButton;
     private String fragmentName;
     private int isArtist=1;
+    private ConstraintLayout background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_artist);
+
+        db=SaveMyMusicDatabase.getInstance(this);
+        background=findViewById(R.id.layoutArtist);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
 
         followButton=findViewById(R.id.followTxtID);
         mTableLayout = findViewById(R.id.tableLayoutArtistID);
@@ -47,7 +58,6 @@ public class ActivityArtist extends AppCompatActivity{
 
         setViewPager(mViewPager);
         mTableLayout.setupWithViewPager(mViewPager);
-        db=SaveMyMusicDatabase.getInstance(this);
         if (db.mLikeArtistDao().getLikeFromArtistAndUserExist(db.getActualUser(),db.mArtistDao().getArtistFromName(getIntent().getExtras().getString("ARTIST_NAME")).getId())){
             followButton.setText("Unfollow");
         }else{

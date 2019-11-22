@@ -2,6 +2,7 @@ package com.example.if26new;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -40,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
         firstLayout = findViewById(R.id.fristLayout);
         firstLayout.setVisibility(ConstraintLayout.VISIBLE);
+        firstLayout=findViewById(R.id.layoutLogin);
+
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {0xFF482834,0xFF1C3766});
+        gd.setCornerRadius(0f);
+        firstLayout.setBackground(gd);
 
        /* settings = findViewById(R.id.settings);
         settings.setOnClickListener(new View.OnClickListener() {

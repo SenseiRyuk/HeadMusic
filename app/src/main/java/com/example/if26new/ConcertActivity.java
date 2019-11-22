@@ -1,11 +1,13 @@
 package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.if26new.Model.UserModel;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -45,11 +48,11 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
     public static final String MAP_VIEW_BUNDLE_KEY="MapViewBundleKey";
     private ImageButton returnButton;
     private String fragmentName;
+    private ConstraintLayout background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        db=SaveMyMusicDatabase.getInstance(this);
         artistName=getIntent().getStringExtra("ARTIST_NAME");
         date=getIntent().getStringExtra("DATE");
         location=getIntent().getStringExtra("LOCATION");
@@ -67,6 +70,13 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
                 returnMethod();
             }
         });
+
+        db=SaveMyMusicDatabase.getInstance(this);
+        background=findViewById(R.id.layoutConcert);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        background.setBackground(gd);
 
         mMapView = findViewById(R.id.mapView);
         mTextViewTitle = findViewById(R.id.txtTitleConcertID);
