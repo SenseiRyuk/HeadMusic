@@ -10,9 +10,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.if26new.Model.LikeAlbumModel;
+import com.example.if26new.Model.LikeArtistModel;
 import com.example.if26new.Model.PlaylistModel;
 import com.example.if26new.Model.SinglePlaylistModel;
 
@@ -46,6 +50,8 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
             textView = v.findViewById(R.id.fragment_main_item_title);
             like=v.findViewById(R.id.likeSearch);
             like.setImageResource(R.drawable.likenoclick);
+            DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+
             textView.setOnClickListener(this);
             photo=v.findViewById(R.id.imageViewForResearch);
         }
@@ -112,21 +118,73 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
         }
         viewHolder.photo.setAdjustViewBounds(true);
         viewHolder.photo.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-        /*PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
-        SinglePlaylistModel[] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
-        for (int j=0;j<allSingles.length;j++){
-            if ((allSingles[j].getSongName().equals(sp[0]))&&(allSingles[j].getArtistName().equals(artistNameFromSingle[1]))){
+        String[] sp1=slip.split(viewHolder.textView.getText().toString());
+        if (sp[1].equals("Album")){
+            if (db.mAlbumDao().getAlbumFromName(sp1[0]).isLike()){
                 viewHolder.like.setImageResource(R.drawable.likeonclick);
+                DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+            }else{
+                viewHolder.like.setImageResource(R.drawable.likenoclick);
+                DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
             }
-        }*/
+        } else if(sp[1].equals("Artist")){
+            if (db.mArtistDao().getArtistFromName(sp1[0]).isLike()){
+                viewHolder.like.setImageResource(R.drawable.likeonclick);
+                DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+            }else{
+                viewHolder.like.setImageResource(R.drawable.likenoclick);
+                DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+            }
+        }else {
+            String[] artistNameFromSingle2 = slip2.split(sp1[1]);
+            PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
+            SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
+            for (int j=0;j<allSingles.length;j++){
+                if ((allSingles[j].getSongName().equals(sp[0]))&&(allSingles[j].getArtistName().equals(artistNameFromSingle2[1]))){
+                    viewHolder.like.setImageResource(R.drawable.likeonclick);
+                    DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                }
+            }
+        }
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                System.out.println("Valuer dans le extView "+viewHolder.textView.getText().toString());
+                String[] sp=slip.split(viewHolder.textView.getText().toString());
                 if (viewHolder.like.getDrawable().getConstantState().equals(v.getContext().getDrawable(R.drawable.likenoclick).getConstantState())){
                     viewHolder.like.setImageResource(R.drawable.likeonclick);
+                    DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                    if (sp[1].equals("Album")){
+                        db.mAlbumDao().updateLike(true,db.mAlbumDao().getAlbumFromName(sp[0]).getId());
+                        db.mLikeAlbumDao().insertLike(new LikeAlbumModel(db.getActualUser(), db.mAlbumDao().getAlbumFromName(sp[0]).getId()));
+                    }else if(sp[1].equals("Artist")) {
+                        db.mArtistDao().updateLike(true,db.mArtistDao().getArtistFromName(sp[0]).getId());
+                        db.mLikeArtistDao().insertLike(new LikeArtistModel(db.getActualUser(),db.mArtistDao().getArtistFromName(sp[0]).getId()));
+                    }else{
+                        String[] artistNameFromSingle = slip2.split(sp[1]);
+                        PlaylistModel playlistLike = db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(), "Favorite");
+                        SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistLike.getId(),sp[0],artistNameFromSingle[1]);
+                        db.mSinglePlaylistDao().insertSingle(singleToAdd);
+                    }
                 }else{
                     viewHolder.like.setImageResource(R.drawable.likenoclick);
+                    DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                    if (sp[1].equals("Album")){
+                        db.mAlbumDao().updateLike(false,db.mAlbumDao().getAlbumFromName(sp[0]).getId());
+                        db.mLikeAlbumDao().deleteLike(db.mLikeAlbumDao().getLikeFromAlbumAndUser(db.getActualUser(),db.mAlbumDao().getAlbumFromName(sp[0]).getId()).getId());
+                    }else if(sp[1].equals("Artist")){
+                        db.mArtistDao().updateLike(false,db.mArtistDao().getArtistFromName(sp[0]).getId());
+                        db.mLikeArtistDao().deleteLike(db.mLikeArtistDao().getLikeFromArtistAndUser(db.getActualUser(),db.mArtistDao().getArtistFromName(sp[0]).getId()).getId());
+                    }else {
+                        String[] artistNameFromSingle = slip2.split(sp[1]);
+                        PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
+                        SinglePlaylistModel [] allSingles=db.mSinglePlaylistDao().getSinglesFromPlaylist(playlistLike.getId());
+                        for (int j=0;j<allSingles.length;j++){
+                            if ((allSingles[j].getSongName().equals(sp[0]))&&(allSingles[j].getArtistName().equals(artistNameFromSingle[1]))){
+                                db.mSinglePlaylistDao().deleteSingle(allSingles[j].getId());
+                            }
+                        }
+                    }
                 }
             }
         });

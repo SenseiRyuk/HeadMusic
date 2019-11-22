@@ -245,6 +245,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             PlaylistModel playlistLike=db.mPlaylistDao().getPlaylistFromUserAndName(db.getActualUser(),"Favorite");
             if (like.getDrawable().getConstantState().equals(getDrawable(R.drawable.likenoclick).getConstantState())){
                 like.setImageResource(R.drawable.likeonclick);
+
                 DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 SinglePlaylistModel singleToAdd = new SinglePlaylistModel(playlistLike.getId(),songName.toString(),artistName.toString());
                 db.mSinglePlaylistDao().insertSingle(singleToAdd);

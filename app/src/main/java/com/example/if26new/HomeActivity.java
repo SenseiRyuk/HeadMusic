@@ -70,9 +70,6 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         musicPicture=findViewById(R.id.imageViewHome);
 
         playPause=findViewById(R.id.playPauseHome);
-        DrawableCompat.setTint(getDrawable(R.drawable.play),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.pause),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-
         artistTitle=findViewById(R.id.artistTitleHome);
         settings=findViewById(R.id.settingBtn);
         DrawableCompat.setTint(settings.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
@@ -150,9 +147,11 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             public void onClick(View v) {
                 if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.pauselistening).getConstantState())) {
                     playPause.setImageResource(R.drawable.playlistening);
+                    DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     mediaControllerAudio.getMediaPlayerAudio().pause();
                 }else if (playPause.getDrawable().getConstantState().equals(getDrawable(R.drawable.playlistening).getConstantState())){
                     playPause.setImageResource(R.drawable.pauselistening);
+                    DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     mediaControllerAudio.getMediaPlayerAudio().start();
                 }
             }
@@ -169,18 +168,22 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             case "MainFragment":
                 loadFragment(new MainFragment());
                 bottomNavigationView.setSelectedItemId(R.id.homeButtonBottomBar);
+                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 break;
             case "NewsFragment":
                 loadFragment(new NewsFragment());
                 bottomNavigationView.setSelectedItemId(R.id.newButtonBottomBar);
+                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 break;
             case "SearchViewFragment":
                 loadFragment(new SearchViewFragment());
                 bottomNavigationView.setSelectedItemId(R.id.searchViewBottomBar);
+                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 break;
             case "UserFragment":
                 loadFragment(new UserFragment());
                 bottomNavigationView.setSelectedItemId(R.id.profileButtonBottomBar);
+                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 break;
         }
     }
@@ -208,7 +211,6 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             case R.id.homeButtonBottomBar:
                 fragment = new MainFragment();
                 break;
-
             case R.id.newButtonBottomBar:
                 fragment = new NewsFragment();
                 break;
@@ -229,7 +231,6 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         return false;
     }
     public void onClick(View v){
-
         Bundle bundle=new Bundle();
         bundle.putString("SONG_NAME",musicTitle.getText().toString());
         bundle.putString("ARTIST_NAME",artistTitle.getText().toString());
