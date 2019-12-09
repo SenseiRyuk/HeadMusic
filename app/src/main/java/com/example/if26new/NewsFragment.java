@@ -58,7 +58,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
         mImageButtonsConcerts=new Button[db.mConcertDao().getConcertFromNew(true).length];
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(20, 50, 20, 50);
+        lp.setMargins(10, 40, 10, 40);
 
         for (int i=0;i<db.mSingleDao().getSingleFromNew(true).length;i++) {
             //PARTIE SINGLES
@@ -97,7 +97,7 @@ public class NewsFragment extends Fragment implements View.OnClickListener{
             mLinearLayoutNew2.addView(mLinearLayoutsConcerts);
             mLinearLayoutsConcerts.setOrientation(LinearLayout.VERTICAL);
             LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            lp1.setMargins(25, 50, 25, 50);
+            lp1.setMargins(10, 40, 10, 40);
             mImageButtonsConcerts[i] = new Button(getActivity());
             mLinearLayoutsConcerts.addView(mImageButtonsConcerts[i]);
 

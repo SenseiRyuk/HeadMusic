@@ -19,9 +19,10 @@
                 android:id="@+id/textViewNewSinglesID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:scrollbars="horizontal"
                 android:text="NEw Singles"
                 android:textAllCaps="true"
@@ -31,8 +32,8 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearNewSinglesID"
@@ -45,9 +46,10 @@
                 android:id="@+id/TextViewNewConcertsID2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:text="New Concerts"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -56,8 +58,8 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearNewConcertsID"
@@ -70,9 +72,10 @@
                 android:id="@+id/TextViewNewAlbumsID2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:text="New Albums"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -81,8 +84,8 @@
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearNewAlbumsID"

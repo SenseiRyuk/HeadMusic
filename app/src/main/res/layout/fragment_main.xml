@@ -22,9 +22,10 @@
                 android:id="@+id/myRecentPlaylistID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="left"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:scrollbars="horizontal"
                 android:text="My playlists"
                 android:textAllCaps="true"
@@ -35,8 +36,8 @@
                 android:id="@+id/hScrollmyRecentPlaylistID"
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutplaylistID"
@@ -49,9 +50,10 @@
                 android:id="@+id/nearestConcertsID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
                 android:text="Nearest concerts"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -61,8 +63,8 @@
                 android:id="@+id/hScrollNearestConcertsID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutConcertsID"
@@ -75,10 +77,11 @@
                 android:id="@+id/newAlbumsID"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="left"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
                 android:text="Recommended albums"
+                android:layout_marginLeft="10dp"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
                 android:textSize="20sp" />
@@ -87,8 +90,8 @@
                 android:id="@+id/hScrollNewAlbumsID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_marginLeft="20dp">
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp">
 
                 <LinearLayout
                     android:id="@+id/linearLayoutAlbumsID"
@@ -104,6 +107,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="2dp"
+                android:layout_marginLeft="0dp"
                 android:text="TOP World"
                 android:textAllCaps="true"
                 android:textColor="#FFFFFF"
@@ -119,15 +123,16 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/firstTopArtistsID"
+                    android:id="@+id/secondTopArtist"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="0dp"
+                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
                 <ImageButton
-                    android:id="@+id/secondTopArtist"
+                    android:id="@+id/firstTopArtistsID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -137,6 +142,7 @@
                     android:id="@+id/thirdTopArtistID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
                     android:layout_weight="1"
                     tools:src="@tools:sample/backgrounds/scenic" />
 
@@ -189,19 +195,19 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/firstRankID"
+                    android:id="@+id/secondRankID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:src="@android:drawable/ic_btn_speak_now" />
+                    android:src="@android:drawable/btn_star" />
 
                 <ImageButton
-                    android:id="@+id/secondRankID"
+                    android:id="@+id/firstRankID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:layout_weight="1"
-                    android:src="@android:drawable/btn_star" />
+                    android:src="@android:drawable/ic_btn_speak_now" />
 
                 <ImageButton
                     android:id="@+id/thirdRankID"

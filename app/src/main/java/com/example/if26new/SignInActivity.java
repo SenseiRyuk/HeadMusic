@@ -37,8 +37,7 @@ public class SignInActivity extends AppCompatActivity {
         mainLayout=findViewById(R.id.mainSignLayout);
 
         db=SaveMyMusicDatabase.getInstance(this);
-        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
-        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {0xFF482834,0xFF1C3766});
         gd.setCornerRadius(0f);
         mainLayout.setBackground(gd);
 
@@ -101,10 +100,10 @@ public class SignInActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-            mailAddress.setText("");
-            password.setText("");
-            username.setText("");
-            confirmPassword.setText("");
+                mailAddress.setText("");
+                password.setText("");
+                username.setText("");
+                confirmPassword.setText("");
             }
         });
         returnMainMenu=findViewById(R.id.returnLogMenu);

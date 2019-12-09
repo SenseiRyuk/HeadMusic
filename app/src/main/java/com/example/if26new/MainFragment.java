@@ -81,10 +81,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        lp.setMargins(20, 50, 20, 50);
+        lp.setMargins(10, 40, 10, 40);
         android.view.ViewGroup.LayoutParams params2 = mImageButton1Artist.getLayoutParams();
         params2.height=500;
-
 
 
         mImageButton1Artist.setBackground(null);
@@ -308,11 +307,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             }
         }
 
-
     }
 }
-
-
-
-
 

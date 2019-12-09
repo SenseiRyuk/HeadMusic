@@ -38,7 +38,6 @@ public class SettingActivity extends AppCompatActivity{
     private GradientDrawable gd;
     private Button apply;
     private int sizeColor;
-    private Fragment fragmentTest;
     private SaveMyMusicDatabase db;
     private ImageView imageView;
     private TextView currentHexa;
@@ -50,6 +49,8 @@ public class SettingActivity extends AppCompatActivity{
     private Button stopBtn;
     private Button colorbtn;
     private String hex;
+    private Button logOut;
+    private Button defaultColor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,24 @@ public class SettingActivity extends AppCompatActivity{
         hexaEndText=findViewById(R.id.hexadecimalForStopColor);
         hexaStartText=findViewById(R.id.hexadecimalForStartColor);
         hexaButton=findViewById(R.id.hexadecimalForButtonColor);
-
+        logOut=findViewById(R.id.logOutBtn);
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent connexionActivity =new Intent(SettingActivity.this, MainActivity.class);
+                startActivity(connexionActivity);
+            }
+        });
+        defaultColor=findViewById(R.id.defaultColor);
+        defaultColor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {0xFF482834,0xFF1C3766});
+                gd.setCornerRadius(0f);
+                layout.setBackground(gd);
+                db.userDao().UpdateUserColor(0xFF482834,0xFF1C3766,db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),db.getActualUser());
+            }
+        });
         startBtn=findViewById(R.id.startButton);
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +119,9 @@ public class SettingActivity extends AppCompatActivity{
 
                     hex="#"+Integer.toHexString(pixel);
                     currentHexa.setText(hex);
-                    currentHexa.setTextColor(Color.parseColor(hex));
+                    if (!hex.equals("#0")){
+                        currentHexa.setTextColor(Color.parseColor(hex));
+                    }
                 }
                 return false;
             }
@@ -115,25 +135,25 @@ public class SettingActivity extends AppCompatActivity{
         gd.setCornerRadius(0f);
         layout.setBackground(gd);
 
-
         wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
 
         apply=findViewById(R.id.applyColorChange);
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean test=false;
-                if (hexaStartText.equals("")){
+                boolean gradient=false;
+                boolean colorButton=false;
+                if (hexaStartText.getText().toString().equals("")){
                     hexaStartText.setError("Please choose a color");
-                    test=true;
-                }if(hexaEndText.equals("")){
+                    gradient=true;
+                }if(hexaEndText.getText().toString().equals("")){
                     hexaEndText.setError("Please choose a color");
-                    test=true;
-                }if(hexaButton.equals("")){
+                    gradient=true;
+                }if(hexaButton.getText().toString().equals("")){
                     hexaButton.setError("Please choose a color");
-                    test=true;
+                    colorButton=true;
                 }
-                if(test==false){
+                if((gradient==false)&&(colorButton==false)){
                     int inter1=Color.parseColor(hexaStartText.getText().toString());
                     int inter2=Color.parseColor(hexaEndText.getText().toString());
                     int inter3=Color.parseColor(hexaButton.getText().toString());
@@ -143,9 +163,26 @@ public class SettingActivity extends AppCompatActivity{
                     startBtn.setBackgroundColor(inter3);
                     stopBtn.setBackgroundColor(inter3);
                     colorbtn.setBackgroundColor(inter3);
+                    v.setBackgroundResource(R.drawable.roundbutton);
+                    colorbtn.setBackground(v.getBackground());
+                    colorbtn.setBackgroundColor(inter3);
                     //Change all button
                     DrawableCompat.setTint(returnButton.getDrawable(),inter3);
                     db.userDao().UpdateUserColor(inter1,inter2,inter3,db.getActualUser());
+                }else if ((gradient==false)&&(colorButton==true)){
+                    int inter1=Color.parseColor(hexaStartText.getText().toString());
+                    int inter2=Color.parseColor(hexaEndText.getText().toString());
+                    gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {inter1,inter2});
+                    gd.setCornerRadius(0f);
+                    layout.setBackground(gd);
+                    db.userDao().UpdateUserColor(inter1,inter2,db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),db.getActualUser());
+                }else if ((gradient==true)&&(colorButton==false)){
+                    int inter3=Color.parseColor(hexaButton.getText().toString());
+                    startBtn.setBackgroundColor(inter3);
+                    stopBtn.setBackgroundColor(inter3);
+                    colorbtn.setBackgroundColor(inter3);
+                    DrawableCompat.setTint(returnButton.getDrawable(),inter3);
+                    db.userDao().UpdateUserColor(db.userDao().getUserFromId(db.getActualUser()).getStartColorGradient(),db.userDao().getUserFromId(db.getActualUser()).getEndColorGradient(),inter3,db.getActualUser());
                 }
             }
         });
