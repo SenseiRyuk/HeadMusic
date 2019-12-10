@@ -49,9 +49,13 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private String playListName;
     private String fragmentForSingleInNew;
     private boolean doubleBackToExitPressedOnce = false;
+    private ImageButton home;
+    private ImageButton news;
+    private ImageButton search;
+    private ImageButton profil;
+
     private ImageButton settings;
     private ConstraintLayout background;
-    private View home;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,16 +63,10 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         db=SaveMyMusicDatabase.getInstance(this);
         setContentView(R.layout.activity_home);
 
-        /*Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.profile).mutate();
-        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
-        DrawableCompat.setTint(wrappedDrawable, db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/
-
-        //Drawable d = getResources().getDrawable(R.drawable.home);
-        //DrawableCompat.setTint(d,db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        //DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        /*DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        */
+        DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
 
         musicTitle=findViewById(R.id.musicTitle);
         mediaControllerAudio=MediaControllerAudio.getInstance();
@@ -151,11 +149,11 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         if (mediaControllerAudio.getMediaPlayerAudio()!=null){
             if (mediaControllerAudio.getMediaPlayerAudio().isPlaying()){
                 playPause.setImageResource(R.drawable.pauselistening);
+                DrawableCompat.setTint(playPause.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
             }else{
                 playPause.setImageResource(R.drawable.playlistening);
             }
         }
-
         playPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

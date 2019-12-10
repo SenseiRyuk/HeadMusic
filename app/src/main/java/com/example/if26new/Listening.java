@@ -84,6 +84,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     private float beginingY;
     private float endX;
     private float endY;
+    private boolean isSwitchImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -652,30 +653,32 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                 return false;
             }
         });
-        if((beginingX-endX>250) && (Math.abs(beginingY-endY)<100)){
-            //nextMusic();
-        }else if ((beginingX-endX <-250) && (Math.abs(beginingY-endY)<100)){
-            //previousMusic();
-        }
-        System.out.println("Je SORRRRT ");
         if (AlbumID!=0){
             photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
             photoAlbum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle=new Bundle();
-                    bundle.putString("ALBUM_NAME",db.mAlbumDao().getAlbumFromId(AlbumID).getTitleAlbum());
-                    bundle.putInt("ALBUM_IMAGE_ID",db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
-                    bundle.putInt("ALBUM_ID",AlbumID);
-                    bundle.putString("ARTIST_NAME",artistName);
-                    if (fragmentForSingleInNew!="null"){
-                        bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
-                    }else{
-                        bundle.putString("FRAGMENT_NAME",fragmentName);
+                    if(beginingX-endX>150){
+                        goNextMusic();
+                        nextMusicBolean=true;
+                    }else if (beginingX-endX <-150){
+                        goPreviousMusic();
+                        previousMusicBolean=true;
+                    }else {
+                        Bundle bundle = new Bundle();
+                        bundle.putString("ALBUM_NAME", db.mAlbumDao().getAlbumFromId(AlbumID).getTitleAlbum());
+                        bundle.putInt("ALBUM_IMAGE_ID", db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
+                        bundle.putInt("ALBUM_ID", AlbumID);
+                        bundle.putString("ARTIST_NAME", artistName);
+                        if (fragmentForSingleInNew != "null") {
+                            bundle.putString("FRAGMENT_NAME", fragmentForSingleInNew);
+                        } else {
+                            bundle.putString("FRAGMENT_NAME", fragmentName);
+                        }
+                        Intent Album = new Intent(Listening.this, Album_view.class);
+                        Album.putExtras(bundle);
+                        startActivity(Album);
                     }
-                    Intent Album = new Intent(Listening.this, Album_view.class);
-                    Album.putExtras(bundle);
-                    startActivity(Album);
                 }
             });
         }else if (AlbumID==0){
@@ -683,17 +686,25 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             photoAlbum.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle=new Bundle();
-                    bundle.putString("ARTIST_NAME",artistName);
-                    bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
-                    bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
-                    if (fragmentForSingleInNew!="null"){
-                        bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
-                    }else{
-                        bundle.putString("FRAGMENT_NAME",fragmentName);
-                    }                    Intent Artist = new Intent(Listening.this, ActivityArtist.class);
-                    Artist.putExtras(bundle);
-                    startActivity(Artist);
+                    if(beginingX-endX>150){
+                        goNextMusic();
+                        nextMusicBolean=true;
+                    }else if (beginingX-endX <-150){
+                        goPreviousMusic();
+                        previousMusicBolean=true;
+                    }else {
+                        Bundle bundle=new Bundle();
+                        bundle.putString("ARTIST_NAME",artistName);
+                        bundle.putInt("ARTIST_IMAGE_ID",db.mArtistDao().getArtistFromName(artistName).getImage());
+                        bundle.putInt("ARTIST_BIO",db.mArtistDao().getArtistFromName(artistName).getBio());
+                        if (fragmentForSingleInNew!="null"){
+                            bundle.putString("FRAGMENT_NAME",fragmentForSingleInNew);
+                        }else{
+                            bundle.putString("FRAGMENT_NAME",fragmentName);
+                        }                    Intent Artist = new Intent(Listening.this, ActivityArtist.class);
+                        Artist.putExtras(bundle);
+                        startActivity(Artist);
+                    }
                 }
             });
         }
@@ -784,6 +795,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         for (int j=0;j<allSingles.length;j++){
             if ((allSingles[j].getSongName().equals(songName))&&(allSingles[j].getArtistName().equals(artistName))){
                 like.setImageResource(R.drawable.likeonclick);
+                DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
             }
         }
     }
@@ -859,7 +871,6 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
             public void onClick(View view) {
                 if (replaySong.getDrawable().getConstantState().equals(getDrawable(R.drawable.loop).getConstantState())){
                     replaySong.setImageResource(R.drawable.looponclick);
-                    DrawableCompat.setTint(replaySong.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                     mediaPlayerAudio.setLooping(true);
                 }else if (replaySong.getDrawable().getConstantState().equals(getDrawable(R.drawable.looponclick).getConstantState())){
                     replaySong.setImageResource(R.drawable.loop);
