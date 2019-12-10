@@ -2,11 +2,17 @@ package com.example.if26new;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
+import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,6 +57,7 @@ public class SettingActivity extends AppCompatActivity{
     private String hex;
     private Button logOut;
     private Button defaultColor;
+    private String btnName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +69,7 @@ public class SettingActivity extends AppCompatActivity{
         hexaEndText=findViewById(R.id.hexadecimalForStopColor);
         hexaStartText=findViewById(R.id.hexadecimalForStartColor);
         hexaButton=findViewById(R.id.hexadecimalForButtonColor);
+
         logOut=findViewById(R.id.logOutBtn);
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,24 +92,30 @@ public class SettingActivity extends AppCompatActivity{
         startBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hexaStartText.setText(currentHexa.getText().toString());
-                hexaStartText.setTextColor(currentHexa.getTextColors());
+                if(!currentHexa.getText().toString().equals("#0")){
+                    hexaStartText.setText(currentHexa.getText().toString());
+                    hexaStartText.setTextColor(currentHexa.getTextColors());
+                }
             }
         });
         stopBtn=findViewById(R.id.endButton);
         stopBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hexaEndText.setText(currentHexa.getText().toString());
-                hexaEndText.setTextColor(currentHexa.getTextColors());
+                if(!currentHexa.getText().toString().equals("#0")){
+                    hexaEndText.setText(currentHexa.getText().toString());
+                    hexaEndText.setTextColor(currentHexa.getTextColors());
+                }
             }
         });
         colorbtn=findViewById(R.id.colorbutton);
         colorbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hexaButton.setText(currentHexa.getText().toString());
-                hexaButton.setTextColor(currentHexa.getTextColors());
+                if(!currentHexa.getText().toString().equals("#0")){
+                    hexaButton.setText(currentHexa.getText().toString());
+                    hexaButton.setTextColor(currentHexa.getTextColors());
+                }
             }
         });
         imageView.setDrawingCacheEnabled(true);
@@ -138,6 +152,10 @@ public class SettingActivity extends AppCompatActivity{
         wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
 
         apply=findViewById(R.id.applyColorChange);
+
+        setBtnColor();
+
+
         apply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,12 +178,14 @@ public class SettingActivity extends AppCompatActivity{
                     gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {inter1,inter2});
                     gd.setCornerRadius(0f);
                     layout.setBackground(gd);
-                    startBtn.setBackgroundColor(inter3);
-                    stopBtn.setBackgroundColor(inter3);
-                    colorbtn.setBackgroundColor(inter3);
-                    v.setBackgroundResource(R.drawable.roundbutton);
-                    colorbtn.setBackground(v.getBackground());
-                    colorbtn.setBackgroundColor(inter3);
+
+                    startBtn.setBackground(roundbuttonSetting(inter3,startBtn.getText().toString()));
+                    stopBtn.setBackground(roundbuttonSetting(inter3,stopBtn.getText().toString()));
+                    colorbtn.setBackground(roundbuttonSetting(inter3,colorbtn.getText().toString()));
+                    apply.setBackground(roundbuttonSetting(inter3,apply.getText().toString()));
+                    logOut.setBackground(roundbuttonSetting(inter3,logOut.getText().toString()));
+                    defaultColor.setBackground(roundbuttonSetting(inter3,defaultColor.getText().toString()));
+                    
                     //Change all button
                     DrawableCompat.setTint(returnButton.getDrawable(),inter3);
                     db.userDao().UpdateUserColor(inter1,inter2,inter3,db.getActualUser());
@@ -178,9 +198,14 @@ public class SettingActivity extends AppCompatActivity{
                     db.userDao().UpdateUserColor(inter1,inter2,db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),db.getActualUser());
                 }else if ((gradient==true)&&(colorButton==false)){
                     int inter3=Color.parseColor(hexaButton.getText().toString());
-                    startBtn.setBackgroundColor(inter3);
-                    stopBtn.setBackgroundColor(inter3);
-                    colorbtn.setBackgroundColor(inter3);
+
+                    startBtn.setBackground(roundbuttonSetting(inter3,startBtn.getText().toString()));
+                    stopBtn.setBackground(roundbuttonSetting(inter3,stopBtn.getText().toString()));
+                    colorbtn.setBackground(roundbuttonSetting(inter3,colorbtn.getText().toString()));
+                    apply.setBackground(roundbuttonSetting(inter3,apply.getText().toString()));
+                    logOut.setBackground(roundbuttonSetting(inter3,logOut.getText().toString()));
+                    defaultColor.setBackground(roundbuttonSetting(inter3,defaultColor.getText().toString()));
+
                     DrawableCompat.setTint(returnButton.getDrawable(),inter3);
                     db.userDao().UpdateUserColor(db.userDao().getUserFromId(db.getActualUser()).getStartColorGradient(),db.userDao().getUserFromId(db.getActualUser()).getEndColorGradient(),inter3,db.getActualUser());
                 }
@@ -191,6 +216,33 @@ public class SettingActivity extends AppCompatActivity{
                 returnMethod();
             }
         });
+    }
+
+    public LayerDrawable roundbuttonSetting(int colorBackground,String Text){
+    // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
     }
     @Override
     public void onBackPressed() {
@@ -203,5 +255,14 @@ public class SettingActivity extends AppCompatActivity{
         Intent home = new Intent(SettingActivity.this, HomeActivity.class);
         home.putExtras(bundle);
         startActivity(home);
+    }
+    public void setBtnColor(){
+        startBtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),startBtn.getText().toString()));
+        stopBtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),stopBtn.getText().toString()));
+        colorbtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),colorbtn.getText().toString()));
+        apply.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),apply.getText().toString()));
+        logOut.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),logOut.getText().toString()));
+        defaultColor.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),defaultColor.getText().toString()));
+        DrawableCompat.setTint(returnButton.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
     }
 }

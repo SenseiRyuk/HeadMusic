@@ -5,7 +5,14 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -19,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -57,6 +66,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     private int contextChoose=0;
     private UserModel user;
     private TextView textToChangeProfilePic;
+    private ConstraintLayout backgroundPopUp;
+    private ConstraintLayout backgroundImagePopUp;
 
     public UserFragment() {
         // Required empty public constructor
@@ -99,6 +110,7 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         newplaylistDialog=new Dialog(getActivity());
         chooseImageSong=new Dialog(getActivity());
         createNewPlaylist=view.findViewById(R.id.createNewPlaylist);
+        setcolorBtn();
         createNewPlaylist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,6 +128,11 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     }
     public void showPopupImage(){
         chooseImageSong.setContentView(R.layout.choose_image_playlist_pop_up);
+        backgroundImagePopUp=chooseImageSong.findViewById(R.id.constraintPopUpImage);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        backgroundImagePopUp.setBackground(gd);
 
         linearLayout=chooseImageSong.findViewById(R.id.linearForPopUp);
         ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
@@ -124,7 +141,6 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         for (int i = 0; i < 18; i++) {
             dynamique = new LinearLayout(getActivity());
             dynamique.setOrientation(LinearLayout.VERTICAL);
-
             buttonWithImage[i]=new ImageButton(getActivity());
             dynamique.addView(buttonWithImage[i],paramsImageButton);
             android.view.ViewGroup.LayoutParams params = buttonWithImage[i].getLayoutParams();
@@ -215,8 +231,14 @@ public class UserFragment extends Fragment implements View.OnClickListener {
         chooseImageSong.show();
     }
     public void showPopup(){
-
         newplaylistDialog.setContentView(R.layout.add_playlist_pop_up);
+
+        backgroundPopUp=newplaylistDialog.findViewById(R.id.constrainAddPlaylist);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        backgroundPopUp.setBackground(gd);
+
         validate=newplaylistDialog.findViewById(R.id.validateNewPlaylist);
         validate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -248,6 +270,8 @@ public class UserFragment extends Fragment implements View.OnClickListener {
                 unShowPopup();
             }
         });
+        validate.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),validate.getText().toString()));
+        cancel.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),cancel.getText().toString()));
 
         fieldPlaylist=newplaylistDialog.findViewById(R.id.fielForNewPlaylist);
         newplaylistDialog.show();
@@ -292,5 +316,34 @@ public class UserFragment extends Fragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         pageAdaptaterForUser.notifyDataSetChanged();
+    }
+    public void setcolorBtn(){
+        createNewPlaylist.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),createNewPlaylist.getText().toString()));
+    }
+    public LayerDrawable roundbuttonSetting(int colorBackground, String Text){
+        // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
     }
 }

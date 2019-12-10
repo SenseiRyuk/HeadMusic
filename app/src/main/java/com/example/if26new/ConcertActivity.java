@@ -3,11 +3,18 @@ package com.example.if26new;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -112,6 +119,7 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         mTextViewDate.setText(date);
         mTextViewTitle.setText(titleConcert);
 
+        setColorBtn();
         initGoogleMap(savedInstanceState);
     }
 
@@ -218,5 +226,35 @@ public class ConcertActivity extends AppCompatActivity implements OnMapReadyCall
         Intent playListActivity = new Intent(ConcertActivity.this, HomeActivity.class);
         playListActivity.putExtras(bundle);
         startActivity(playListActivity);
+    }
+    public LayerDrawable roundbuttonSetting(int colorBackground, String Text){
+        // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
+    }
+    public void setColorBtn(){
+        DrawableCompat.setTint(returnButton.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        focusBtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),focusBtn.getText().toString()));
     }
 }

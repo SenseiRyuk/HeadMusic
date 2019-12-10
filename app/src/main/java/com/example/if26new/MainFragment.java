@@ -1,22 +1,35 @@
 package com.example.if26new;
 
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.UserModel;
 
 
 /**
@@ -47,13 +60,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private TextView mTextViewTop2;
     private TextView mTextViewTop3;
     private SaveMyMusicDatabase db;
-
+    private ConstraintLayout backgroundPopUp;
+    private Button validate;
+    private Button cancel;
+    private String text;
+    private EditText fieldPlaylist;
+    private boolean isAlreadyCreate;
+    private ConstraintLayout backgroundImagePopUp;
+    private LinearLayout linearLayout;
+    private ImageButton[] buttonWithImage;
+    private LinearLayout dynamique;
+    private PlaylistModel playlistToInsert;
+    private Dialog newplaylistDialog;
+    private Dialog chooseImageSong;
 
     public MainFragment() {
         // Required empty public constructor
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -78,7 +101,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mTextViewTop2 = result.findViewById(R.id.txtViewTop2);
         mTextViewTop3 = result.findViewById(R.id.txtViewTop3);
 
-
+        newplaylistDialog=new Dialog(getActivity());
+        chooseImageSong=new Dialog(getActivity());
+        buttonWithImage=new ImageButton[18];
 
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(10, 40, 10, 40);
@@ -112,47 +137,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         mImageButton3Rank.setBackground(null);
         mImageButton3Rank.setImageResource(R.drawable.ic_third);
 
-        int sizePlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length;
-        PlaylistModel playlsit[]=db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
-        mImageButtonsPlaylists= new ImageButton[sizePlaylist];
-        mTextViewsPlaylists = new TextView[sizePlaylist];
-        if(sizePlaylist==0){
-            TextView textViewPlaylistEmpty = new TextView(getActivity());
-            textViewPlaylistEmpty.setText("Vous ne possédez pas de playlist");
-            textViewPlaylistEmpty.setTextColor(Color.WHITE);
-            textViewPlaylistEmpty.setTextSize(12);
-            textViewPlaylistEmpty.setGravity(Gravity.CENTER_HORIZONTAL);
-            mLinearLayout1.addView(textViewPlaylistEmpty);
-        }else {
-            for (int i = 0; i < sizePlaylist; i++) {
-                //PARTIE PLAYLIST
-                mLinearLayoutsPlaylists = new LinearLayout(getActivity());
-                mLinearLayout1.addView(mLinearLayoutsPlaylists);
-                mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
-                mImageButtonsPlaylists[i] = new ImageButton(getActivity());
-                mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
-                mImageButtonsPlaylists[i].setBackground(null);
-                mImageButtonsPlaylists[i].setBackgroundColor(Color.BLACK);
-                mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
-                mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
-                mImageButtonsPlaylists[i].setAdjustViewBounds(true);
-                mImageButtonsPlaylists[i].setOnClickListener(this);
-                android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
-                params.height = 450;
-                params.width = 450;
-                mImageButtonsPlaylists[i].setLayoutParams(params);
-                mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-                mTextViewsPlaylists[i] = new TextView(getActivity());
-                mTextViewsPlaylists[i].setText(playlsit[i].getTitles());
-                mTextViewsPlaylists[i].setTextColor(Color.WHITE);
-                mTextViewsPlaylists[i].setOnClickListener(this);
+        initPlaylist();
 
-                mLinearLayoutsPlaylists.addView(mTextViewsPlaylists[i]);
-                mLinearLayoutsPlaylists.setLayoutParams(lp);
-                mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
-            }
-        }
         mTextViewsConcertsTitles=new TextView[db.mConcertDao().getAllConcert().length];
         for(int i=0;i<db.mConcertDao().getAllConcert().length;i++) {
             //PARTIE CONCERTS
@@ -287,26 +274,276 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 startActivity(albumActivity);
             }
         }
-        for (int i=0;i<db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length;i++){
+        for (int i=0;i<db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length+1;i++){
             if (v.equals(mImageButtonsPlaylists[i])){
-                Bundle bundle=new Bundle();
-                bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
-                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
-                bundle.putString("FRAGMENT_NAME","MainFragment");
-                Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
-                playListActivity.putExtras(bundle);
-                startActivity(playListActivity);
+                if(mImageButtonsPlaylists[i].getTag().equals(R.drawable.add_to_playlist_icon)){
+                    showPopup();
+                }else{
+                    Bundle bundle=new Bundle();
+                    bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
+                    bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
+                    bundle.putString("FRAGMENT_NAME","MainFragment");
+                    Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
+                    playListActivity.putExtras(bundle);
+                    startActivity(playListActivity);
+                }
             }else if (v.equals(mTextViewsPlaylists[i])){
-                Bundle bundle=new Bundle();
-                bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
-                bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
-                bundle.putString("FRAGMENT_NAME","MainFragment");
-                Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
-                playListActivity.putExtras(bundle);
-                startActivity(playListActivity);
+                if(mTextViewsPlaylists[i].getText().toString().equals("Create a new Playlist")){
+                    showPopup();
+                }else{
+                    Bundle bundle=new Bundle();
+                    bundle.putString("PLAYLIST_NAME",mTextViewsPlaylists[i].getText().toString());
+                    bundle.putInt("PLAYLIST_IMAGE_ID",(Integer) mImageButtonsPlaylists[i].getTag());
+                    bundle.putString("FRAGMENT_NAME","MainFragment");
+                    Intent playListActivity = new Intent(getActivity(), PlaylistView.class);
+                    playListActivity.putExtras(bundle);
+                    startActivity(playListActivity);
+                }
+            }
+        }
+        for (int i=0;i<18;i++){
+            if (v.equals(buttonWithImage[i])) {
+                chooseImageSong.dismiss();
+                registerPlaylist((Integer) buttonWithImage[i].getTag());
             }
         }
 
+    }
+    public void registerPlaylist(int tag){
+        Toast toast = Toast.makeText(getActivity().getApplicationContext(), "Playlist created", Toast.LENGTH_SHORT);
+        toast.show();
+        playlistToInsert = new PlaylistModel(db.getActualUser(), text, tag);
+        db.mPlaylistDao().insertPlaylist(playlistToInsert);
+        initPlaylist();
+    }
+    public void showPopup(){
+        newplaylistDialog.setContentView(R.layout.add_playlist_pop_up);
+
+        backgroundPopUp=newplaylistDialog.findViewById(R.id.constrainAddPlaylist);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        backgroundPopUp.setBackground(gd);
+
+        validate=newplaylistDialog.findViewById(R.id.validateNewPlaylist);
+        validate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                text = fieldPlaylist.getText().toString();
+                isAlreadyCreate=false;
+                PlaylistModel[] allPlaylist=db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
+                for (int i=0;i<allPlaylist.length;i++){
+                    if (text.equals(allPlaylist[i].getTitles())){
+                        isAlreadyCreate=true;
+                    }
+                }
+                if (text.matches("")) {
+                    fieldPlaylist.setError("Please enter a playlist name");
+                }else if (isAlreadyCreate==true){
+                    fieldPlaylist.setError("This Playlist already exist, please pick an other name");
+                }else{
+                    unShowPopup();
+                    showPopupImage();
+                }
+            }
+        });
+        cancel=newplaylistDialog.findViewById(R.id.cancelNewPlaylist);
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unShowPopup();
+            }
+        });
+        validate.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),validate.getText().toString()));
+        cancel.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),cancel.getText().toString()));
+        fieldPlaylist=newplaylistDialog.findViewById(R.id.fielForNewPlaylist);
+        newplaylistDialog.show();
+    }
+    public void unShowPopup(){
+        newplaylistDialog.dismiss();
+    }
+    public void showPopupImage(){
+        chooseImageSong.setContentView(R.layout.choose_image_playlist_pop_up);
+        backgroundImagePopUp=chooseImageSong.findViewById(R.id.constraintPopUpImage);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        backgroundImagePopUp.setBackground(gd);
+
+        linearLayout=chooseImageSong.findViewById(R.id.linearForPopUp);
+        ViewGroup.MarginLayoutParams paramsImageButton = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
+        paramsImageButton.setMargins(0,25,0,25);
+        for (int i = 0; i < 18; i++) {
+            dynamique = new LinearLayout(getActivity());
+            dynamique.setOrientation(LinearLayout.VERTICAL);
+            buttonWithImage[i]=new ImageButton(getActivity());
+            dynamique.addView(buttonWithImage[i],paramsImageButton);
+            android.view.ViewGroup.LayoutParams params = buttonWithImage[i].getLayoutParams();
+            params.height=700;
+            params.width=700;
+            buttonWithImage[i].setLayoutParams(params);
+            buttonWithImage[i].setBackground(null);
+            switch (i){
+                case 0:
+                    buttonWithImage[i].setImageResource(R.drawable.rap);
+                    buttonWithImage[i].setTag(R.drawable.rap);
+                    break;
+                case 1:
+                    buttonWithImage[i].setImageResource(R.drawable.rap2);
+                    buttonWithImage[i].setTag(R.drawable.rap2);
+                    break;
+                case 2:
+                    buttonWithImage[i].setImageResource(R.drawable.rap3);
+                    buttonWithImage[i].setTag(R.drawable.rap3);
+                    break;
+                case 3:
+                    buttonWithImage[i].setImageResource(R.drawable.rap4);
+                    buttonWithImage[i].setTag(R.drawable.rap4);
+                    break;
+                case 4:
+                    buttonWithImage[i].setImageResource(R.drawable.rock);
+                    buttonWithImage[i].setTag(R.drawable.rock);
+                    break;
+                case 5:
+                    buttonWithImage[i].setImageResource(R.drawable.rock2);
+                    buttonWithImage[i].setTag(R.drawable.rock2);
+                    break;
+                case 6:
+                    buttonWithImage[i].setImageResource(R.drawable.rock3);
+                    buttonWithImage[i].setTag(R.drawable.rock3);
+                    break;
+                case 7:
+                    buttonWithImage[i].setImageResource(R.drawable.rock4);
+                    buttonWithImage[i].setTag(R.drawable.rock4);
+                    break;
+                case 8:
+                    buttonWithImage[i].setImageResource(R.drawable.rock5);
+                    buttonWithImage[i].setTag(R.drawable.rock5);
+                    break;
+                case 9:
+                    buttonWithImage[i].setImageResource(R.drawable.reggae);
+                    buttonWithImage[i].setTag(R.drawable.reggae);
+                    break;
+                case 10:
+                    buttonWithImage[i].setImageResource(R.drawable.reggae2);
+                    buttonWithImage[i].setTag(R.drawable.reggae2);
+                    break;
+                case 11:
+                    buttonWithImage[i].setImageResource(R.drawable.jazz);
+                    buttonWithImage[i].setTag(R.drawable.jazz);
+                    break;
+                case 12:
+                    buttonWithImage[i].setImageResource(R.drawable.jazz2);
+                    buttonWithImage[i].setTag(R.drawable.jazz2);
+                    break;
+                case 13:
+                    buttonWithImage[i].setImageResource(R.drawable.jazz3);
+                    buttonWithImage[i].setTag(R.drawable.jazz3);
+                    break;
+                case 14:
+                    buttonWithImage[i].setImageResource(R.drawable.electro);
+                    buttonWithImage[i].setTag(R.drawable.electro);
+                    break;
+                case 15:
+                    buttonWithImage[i].setImageResource(R.drawable.electro2);
+                    buttonWithImage[i].setTag(R.drawable.electro2);
+                    break;
+                case 16:
+                    buttonWithImage[i].setImageResource(R.drawable.electro3);
+                    buttonWithImage[i].setTag(R.drawable.electro3);
+                    break;
+                case 17:
+                    buttonWithImage[i].setImageResource(R.drawable.pop);
+                    buttonWithImage[i].setTag(R.drawable.pop);
+                    break;
+            }
+            buttonWithImage[i].setAdjustViewBounds(true);
+            buttonWithImage[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+            buttonWithImage[i].setOnClickListener(this);
+            //dynamique.addView(imageButtonPlaylist,paramsImageButton);
+            linearLayout.addView(dynamique);
+        }
+        chooseImageSong.show();
+    }
+    public LayerDrawable roundbuttonSetting(int colorBackground, String Text){
+        // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
+    }
+
+    public void initPlaylist(){
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        lp.setMargins(10, 40, 10, 40);
+        int sizePlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser()).length;
+        PlaylistModel playlsit[]=db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
+        mImageButtonsPlaylists= new ImageButton[sizePlaylist+1];
+        mTextViewsPlaylists = new TextView[sizePlaylist+1];
+        mLinearLayout1.removeAllViews();
+        if(sizePlaylist==0){
+            TextView textViewPlaylistEmpty = new TextView(getActivity());
+            textViewPlaylistEmpty.setText("Vous ne possédez pas de playlist");
+            textViewPlaylistEmpty.setTextColor(Color.WHITE);
+            textViewPlaylistEmpty.setTextSize(12);
+            textViewPlaylistEmpty.setGravity(Gravity.CENTER_HORIZONTAL);
+            mLinearLayout1.addView(textViewPlaylistEmpty);
+        }else {
+            for (int i = 0; i < sizePlaylist+1; i++) {
+                //PARTIE PLAYLIST
+                mLinearLayoutsPlaylists = new LinearLayout(getActivity());
+                mLinearLayout1.addView(mLinearLayoutsPlaylists);
+                mLinearLayoutsPlaylists.setOrientation(LinearLayout.VERTICAL);
+                mImageButtonsPlaylists[i] = new ImageButton(getActivity());
+                mLinearLayoutsPlaylists.addView(mImageButtonsPlaylists[i]);
+                mImageButtonsPlaylists[i].setBackground(null);
+                mImageButtonsPlaylists[i].setBackgroundColor(Color.BLACK);
+                if (i==sizePlaylist){
+                    mImageButtonsPlaylists[i].setImageResource(R.drawable.add_to_playlist_icon);
+                    mImageButtonsPlaylists[i].setTag(R.drawable.add_to_playlist_icon);
+                }else{
+                    mImageButtonsPlaylists[i].setImageResource(playlsit[i].getImage());
+                    mImageButtonsPlaylists[i].setTag(playlsit[i].getImage());
+                }
+                mImageButtonsPlaylists[i].setAdjustViewBounds(true);
+                mImageButtonsPlaylists[i].setOnClickListener(this);
+                android.view.ViewGroup.LayoutParams params = mImageButtonsPlaylists[i].getLayoutParams();
+                params.height = 450;
+                params.width = 450;
+                mImageButtonsPlaylists[i].setLayoutParams(params);
+                mImageButtonsPlaylists[i].setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                mTextViewsPlaylists[i] = new TextView(getActivity());
+                if(i==sizePlaylist){
+                    mTextViewsPlaylists[i].setText("Create a new Playlist");
+                }else{
+                    mTextViewsPlaylists[i].setText(playlsit[i].getTitles());
+                }
+                mTextViewsPlaylists[i].setTextColor(Color.WHITE);
+                mTextViewsPlaylists[i].setOnClickListener(this);
+
+                mLinearLayoutsPlaylists.addView(mTextViewsPlaylists[i]);
+                mLinearLayoutsPlaylists.setLayoutParams(lp);
+                mTextViewsPlaylists[i].setGravity(Gravity.CENTER_HORIZONTAL);
+            }
+        }
     }
 }
 

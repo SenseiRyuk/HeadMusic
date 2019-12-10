@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -78,6 +79,11 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
     private boolean nextMusicBolean;
     private boolean previousMusicBolean;
     private ConstraintLayout background;
+    private boolean firstTouche;
+    private float beginingX;
+    private float beginingY;
+    private float endX;
+    private float endY;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,16 +170,19 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         ViewGroup.MarginLayoutParams paramsPlaylistName = new ViewGroup.MarginLayoutParams(linearLayout.getLayoutParams());
         paramsPlaylistName.setMargins(10,60,0,0);
 
-        db=SaveMyMusicDatabase.getInstance(this);
         PlaylistModel[] allPlaylist = db.mPlaylistDao().getPlaylistFromUser(db.getActualUser());
+        System.out.println("TAILLE DE LA PLAYLIST "+allPlaylist.length);
         sizePlaylist=allPlaylist.length;
         playlistTitle=new TextView[sizePlaylist];
         imageButtonPlaylist=new ImageButton[sizePlaylist];
+        LinearLayout layoutSingle=playlistDialog.findViewById(R.id.linearForSingle);
 
         for (int i=0; i<sizePlaylist; i++){
+            System.out.println("BOUCLE FOOOOR");
             dynamique = new LinearLayout(this);
             dynamique.setOrientation(LinearLayout.HORIZONTAL);
             if (!allPlaylist[i].getTitles().equals("Favorite")){
+                System.out.println("JE RENTREEEEEE "+allPlaylist[i].getTitles());
                 imageButtonPlaylist[i]=new ImageButton(this);
                 dynamique.addView(imageButtonPlaylist[i],paramsImageButton);
                 imageButtonPlaylist[i].setBackground(null);
@@ -198,7 +207,7 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
                 playlistTitle[i].setOnClickListener(this);
 
                 dynamique.addView(playlistTitle[i],paramsPlaylistName);
-                linearLayout.addView(dynamique);
+                layoutSingle.addView(dynamique);
             }else{
                 playlistTitle[i]=new TextView(this);
                 playlistTitle[i].setText("null");
@@ -629,6 +638,26 @@ public class Listening extends AppCompatActivity implements View.OnClickListener
         PlaylistName=getIntent().getExtras().getString("PLAYLIST_NAME");
     }
     public void setPhotoInListeningView(){
+        firstTouche=false;
+        photoAlbum.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(firstTouche==false){
+                    beginingX=event.getX();
+                    beginingY=event.getY();
+                    firstTouche=true;
+                }
+                endX=event.getX();
+                endY=event.getY();
+                return false;
+            }
+        });
+        if((beginingX-endX>250) && (Math.abs(beginingY-endY)<100)){
+            //nextMusic();
+        }else if ((beginingX-endX <-250) && (Math.abs(beginingY-endY)<100)){
+            //previousMusic();
+        }
+        System.out.println("Je SORRRRT ");
         if (AlbumID!=0){
             photoAlbum.setImageResource(db.mAlbumDao().getAlbumFromId(AlbumID).getImage());
             photoAlbum.setOnClickListener(new View.OnClickListener() {

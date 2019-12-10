@@ -2,10 +2,17 @@ package com.example.if26new;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +72,7 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
         nameArtist=getIntent().getStringExtra("ARTIST_NAME");
         fragmentName=getIntent().getExtras().getString("FRAGMENT_NAME");
         isCallFromArtistView=getIntent().getExtras().getInt("IS_FROM_ARTIST_VIEW",0);
+        setcolorBtn();
         if (db.mLikeAlbumDao().getLikeFromAlbumAndUserExist(db.getActualUser(),db.mAlbumDao().getAlbumFromId(idAlbum).getId())){
             followbtn.setText("Dislike");
         }else{
@@ -178,5 +186,35 @@ public class Album_view extends AppCompatActivity implements View.OnClickListene
             playListActivity.putExtras(bundle);
             startActivity(playListActivity);
         }
+    }
+    public void setcolorBtn(){
+        DrawableCompat.setTint(returnButton.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        followbtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),followbtn.getText().toString()));
+    }
+    public LayerDrawable roundbuttonSetting(int colorBackground, String Text){
+        // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
     }
 }

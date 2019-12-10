@@ -2,6 +2,8 @@ package com.example.if26new;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -16,7 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -47,16 +51,25 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private boolean doubleBackToExitPressedOnce = false;
     private ImageButton settings;
     private ConstraintLayout background;
+    private View home;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db=SaveMyMusicDatabase.getInstance(this);
         setContentView(R.layout.activity_home);
-        DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+
+        /*Drawable unwrappedDrawable = AppCompatResources.getDrawable(this, R.drawable.profile).mutate();
+        Drawable wrappedDrawable = DrawableCompat.wrap(unwrappedDrawable);
+        DrawableCompat.setTint(wrappedDrawable, db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/
+
+        //Drawable d = getResources().getDrawable(R.drawable.home);
+        //DrawableCompat.setTint(d,db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        //DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        /*DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+        */
+
         musicTitle=findViewById(R.id.musicTitle);
         mediaControllerAudio=MediaControllerAudio.getInstance();
 
@@ -71,6 +84,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
 
         playPause=findViewById(R.id.playPauseHome);
         artistTitle=findViewById(R.id.artistTitleHome);
+
         settings=findViewById(R.id.settingBtn);
         DrawableCompat.setTint(settings.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         settings.setOnClickListener(new View.OnClickListener() {
@@ -168,23 +182,27 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
             case "MainFragment":
                 loadFragment(new MainFragment());
                 bottomNavigationView.setSelectedItemId(R.id.homeButtonBottomBar);
-                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                break;
+                /*DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/                break;
             case "NewsFragment":
                 loadFragment(new NewsFragment());
                 bottomNavigationView.setSelectedItemId(R.id.newButtonBottomBar);
-                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                break;
+                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor()); */               break;
             case "SearchViewFragment":
                 loadFragment(new SearchViewFragment());
                 bottomNavigationView.setSelectedItemId(R.id.searchViewBottomBar);
-                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                break;
+                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/                break;
             case "UserFragment":
                 loadFragment(new UserFragment());
                 bottomNavigationView.setSelectedItemId(R.id.profileButtonBottomBar);
-                DrawableCompat.setTint( bottomNavigationView.getItemBackground(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                break;
+                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/
         }
     }
 

@@ -51,7 +51,6 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
             like=v.findViewById(R.id.likeSearch);
             like.setImageResource(R.drawable.likenoclick);
             DrawableCompat.setTint(like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-
             textView.setOnClickListener(this);
             photo=v.findViewById(R.id.imageViewForResearch);
         }
@@ -143,13 +142,15 @@ public class SearchViewAdapteur  extends RecyclerView.Adapter<SearchViewAdapteur
                 if ((allSingles[j].getSongName().equals(sp[0]))&&(allSingles[j].getArtistName().equals(artistNameFromSingle2[1]))){
                     viewHolder.like.setImageResource(R.drawable.likeonclick);
                     DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
+                }else{
+                    viewHolder.like.setImageResource(R.drawable.likenoclick);
+                    DrawableCompat.setTint(viewHolder.like.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
                 }
             }
         }
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("Valuer dans le extView "+viewHolder.textView.getText().toString());
                 String[] sp=slip.split(viewHolder.textView.getText().toString());
                 if (viewHolder.like.getDrawable().getConstantState().equals(v.getContext().getDrawable(R.drawable.likenoclick).getConstantState())){
                     viewHolder.like.setImageResource(R.drawable.likeonclick);

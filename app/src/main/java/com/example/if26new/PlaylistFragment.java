@@ -4,7 +4,14 @@ package com.example.if26new;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.RoundRectShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -22,11 +29,13 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.if26new.Model.PlaylistModel;
+import com.example.if26new.Model.UserModel;
 
 
 /**
@@ -48,6 +57,7 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
     private Button yes;
     private Button no;
     private TextView playlistTitleErase;
+    private ConstraintLayout eraseBackground;
 
     public static PlaylistFragment newInstance() {
         return (new PlaylistFragment());
@@ -153,10 +163,18 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
     }
     public void showErasePopUp(){
         erasePlaylist.setContentView(R.layout.erase_playlist_pop_up);
+
+        eraseBackground=erasePlaylist.findViewById(R.id.constraintErasePlaylist);
+        UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
+        GradientDrawable gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {currentUser.getStartColorGradient(),currentUser.getEndColorGradient()});
+        gd.setCornerRadius(0f);
+        eraseBackground.setBackground(gd);
+
         erasetxt=erasePlaylist.findViewById(R.id.text_erase_playlist);
         yes=erasePlaylist.findViewById(R.id.yes_erase_btn);
+        yes.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),yes.getText().toString()));
         no=erasePlaylist.findViewById(R.id.no_erase_btn);
-
+        no.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),no.getText().toString()));
         erasetxt.setTextColor(Color.WHITE);
         erasetxt.setTextSize(20);
         erasetxt.setGravity(Gravity.CENTER);
@@ -185,8 +203,32 @@ public class PlaylistFragment extends Fragment implements View.OnClickListener, 
             }
         });
         erasePlaylist.show();
-
-
     }
 
+    public LayerDrawable roundbuttonSetting(int colorBackground, String Text){
+        // Initialize two float arrays
+        float[] outerRadii = new float[]{75,75,75,75,75,75,75,75};
+        float[] innerRadii = new float[]{75,75,75,75,75,75,75,75};
+        // Set the shape background
+        ShapeDrawable backgroundShape = new ShapeDrawable(new RoundRectShape(
+                outerRadii,
+                null,
+                innerRadii
+        ));
+        backgroundShape.getPaint().setColor(colorBackground); // background color
+
+        // Initialize an array of drawables
+        Drawable[] drawables = new Drawable[]{
+                backgroundShape
+        };
+        Paint paint = new Paint();
+
+        Canvas canvas = new Canvas();
+        canvas.drawText(Text, 0, drawables[0].getMinimumHeight()/2, paint);
+
+        drawables[0].draw(canvas);
+        // Initialize a layer drawable object
+        LayerDrawable layerDrawable = new LayerDrawable(drawables);
+        return layerDrawable;
+    }
 }
