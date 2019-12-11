@@ -76,8 +76,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#1C376E"
-        app:itemTextColor="@color/White"
         app:itemIconTint="@color/White"
+        app:itemTextColor="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/bottom_navigation_menu" />
@@ -85,11 +85,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainter"
         android:layout_width="match_parent"
-        android:layout_height="590dp"
-        android:layout_marginBottom="1dp"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/musicBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
+        app:layout_constraintVertical_bias="0.431">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -97,14 +99,11 @@
         android:id="@+id/settingBtn"
         android:layout_width="45dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="5dp"
         android:background="@null"
         android:src="@drawable/setting"
-        app:layout_constraintBottom_toTopOf="@+id/fragmentContainter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.98"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

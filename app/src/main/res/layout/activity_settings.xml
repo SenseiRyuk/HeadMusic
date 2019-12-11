@@ -10,15 +10,15 @@
 
     <ImageButton
         android:id="@+id/returnMainMenu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.041"
+        app:layout_constraintHorizontal_bias="0.005"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.022"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/returnmenu" />
 
     <TextView
@@ -56,10 +56,10 @@
         android:text="End Button"
         app:layout_constraintBottom_toTopOf="@+id/hexadecimalForStopColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.122"
-        app:layout_constraintStart_toEndOf="@+id/startButton"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/colorTab"
-        app:layout_constraintVertical_bias="0.642" />
+        app:layout_constraintVertical_bias="0.65" />
 
     <EditText
         android:id="@+id/hexadecimalForStartColor"
@@ -84,10 +84,11 @@
         android:text="Start Color"
         app:layout_constraintBottom_toTopOf="@+id/hexadecimalForStartColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.092"
+        app:layout_constraintEnd_toStartOf="@+id/endButton"
+        app:layout_constraintHorizontal_bias="0.627"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/colorTab"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.646" />
 
     <Button
         android:id="@+id/colorbutton"
@@ -97,10 +98,10 @@
         android:text="Button Color"
         app:layout_constraintBottom_toTopOf="@+id/hexadecimalForButtonColor"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.451"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toEndOf="@+id/endButton"
         app:layout_constraintTop_toBottomOf="@+id/colorTab"
-        app:layout_constraintVertical_bias="0.647" />
+        app:layout_constraintVertical_bias="0.648" />
 
     <EditText
         android:id="@+id/hexadecimalForButtonColor"
@@ -120,14 +121,15 @@
     <Button
         android:id="@+id/applyColorChange"
         android:layout_width="108dp"
-        android:layout_height="35dp"
-        android:layout_marginBottom="260dp"
+        android:layout_height="31dp"
         android:background="@drawable/roundbutton"
         android:text="Apply"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.864"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/colorTab"
+        app:layout_constraintVertical_bias="0.329" />
 
     <ImageView
         android:id="@+id/colorTab"
@@ -155,30 +157,31 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/logOutBtn"
-        android:layout_width="108dp"
-        android:layout_height="31dp"
-        android:text="Log Out"
-        android:background="@drawable/roundbutton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.179"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/applyColorChange"
-        app:layout_constraintVertical_bias="0.235" />
-
-    <Button
         android:id="@+id/defaultColor"
         android:layout_width="108dp"
         android:layout_height="31dp"
-        android:text="Default Color"
         android:background="@drawable/roundbutton"
+        android:text="Default Color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.729"
-        app:layout_constraintStart_toEndOf="@+id/logOutBtn"
-        app:layout_constraintTop_toBottomOf="@+id/applyColorChange"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintEnd_toStartOf="@+id/applyColorChange"
+        app:layout_constraintHorizontal_bias="0.268"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hexadecimalForStopColor"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <ImageButton
+        android:id="@+id/logOutBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.987"
+        app:layout_constraintStart_toEndOf="@+id/returnMainMenu"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/logout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

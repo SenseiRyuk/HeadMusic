@@ -43,7 +43,6 @@ public class SettingActivity extends AppCompatActivity{
     private String wichFragment;
     private GradientDrawable gd;
     private Button apply;
-    private int sizeColor;
     private SaveMyMusicDatabase db;
     private ImageView imageView;
     private TextView currentHexa;
@@ -55,7 +54,7 @@ public class SettingActivity extends AppCompatActivity{
     private Button stopBtn;
     private Button colorbtn;
     private String hex;
-    private Button logOut;
+    private ImageButton logOut;
     private Button defaultColor;
     private String btnName;
     @Override
@@ -183,9 +182,8 @@ public class SettingActivity extends AppCompatActivity{
                     stopBtn.setBackground(roundbuttonSetting(inter3,stopBtn.getText().toString()));
                     colorbtn.setBackground(roundbuttonSetting(inter3,colorbtn.getText().toString()));
                     apply.setBackground(roundbuttonSetting(inter3,apply.getText().toString()));
-                    logOut.setBackground(roundbuttonSetting(inter3,logOut.getText().toString()));
+                    DrawableCompat.setTint(logOut.getDrawable(),inter3);
                     defaultColor.setBackground(roundbuttonSetting(inter3,defaultColor.getText().toString()));
-                    
                     //Change all button
                     DrawableCompat.setTint(returnButton.getDrawable(),inter3);
                     db.userDao().UpdateUserColor(inter1,inter2,inter3,db.getActualUser());
@@ -203,7 +201,7 @@ public class SettingActivity extends AppCompatActivity{
                     stopBtn.setBackground(roundbuttonSetting(inter3,stopBtn.getText().toString()));
                     colorbtn.setBackground(roundbuttonSetting(inter3,colorbtn.getText().toString()));
                     apply.setBackground(roundbuttonSetting(inter3,apply.getText().toString()));
-                    logOut.setBackground(roundbuttonSetting(inter3,logOut.getText().toString()));
+                    DrawableCompat.setTint(logOut.getDrawable(),inter3);
                     defaultColor.setBackground(roundbuttonSetting(inter3,defaultColor.getText().toString()));
 
                     DrawableCompat.setTint(returnButton.getDrawable(),inter3);
@@ -261,7 +259,7 @@ public class SettingActivity extends AppCompatActivity{
         stopBtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),stopBtn.getText().toString()));
         colorbtn.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),colorbtn.getText().toString()));
         apply.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),apply.getText().toString()));
-        logOut.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),logOut.getText().toString()));
+        DrawableCompat.setTint(logOut.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
         defaultColor.setBackground(roundbuttonSetting(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),defaultColor.getText().toString()));
         DrawableCompat.setTint(returnButton.getDrawable(),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
     }

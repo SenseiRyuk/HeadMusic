@@ -6,7 +6,7 @@
         android:enabled="true"
         android:icon="@drawable/homeselector"
         android:title="HOME"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/newButtonBottomBar"
         android:enabled="true"

@@ -2,7 +2,10 @@ package com.example.if26new;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.media.MediaPlayer;
@@ -18,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RestrictTo;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -29,6 +33,7 @@ import com.example.if26new.Model.AlbumModel;
 import com.example.if26new.Model.ArtistModel;
 import com.example.if26new.Model.SingleModel;
 import com.example.if26new.Model.UserModel;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.IOException;
@@ -49,28 +54,15 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     private String playListName;
     private String fragmentForSingleInNew;
     private boolean doubleBackToExitPressedOnce = false;
-    private ImageButton home;
-    private ImageButton news;
-    private ImageButton search;
-    private ImageButton profil;
-
     private ImageButton settings;
     private ConstraintLayout background;
-
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db=SaveMyMusicDatabase.getInstance(this);
         setContentView(R.layout.activity_home);
-
-        DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-        DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-
         musicTitle=findViewById(R.id.musicTitle);
         mediaControllerAudio=MediaControllerAudio.getInstance();
-
         //Set the the background and button colors
         background=findViewById(R.id.backgroundHomeActivity);
         UserModel currentUser=db.userDao().getUserFromId(db.getActualUser());
@@ -95,6 +87,7 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
                 startActivity(settings);
             }
         });
+
         context=getIntent().getExtras().getString("CONTEXT","null");
         wichFragment=getIntent().getExtras().getString("FRAGMENT_NAME");
         playListName=getIntent().getExtras().getString("PLAYLIST_NAME","null");
@@ -171,39 +164,44 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
         artistTitle.setOnClickListener(this);
         musicTitle.setOnClickListener(this);
         bottomNavigationView=findViewById(R.id.bottonView);
-
         bottomNavigationView.setBackgroundColor(db.userDao().getUserFromId(db.getActualUser()).getEndColorGradient());
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setItemIconTintList(null);
-
         switch (wichFragment){
             case "MainFragment":
                 loadFragment(new MainFragment());
                 bottomNavigationView.setSelectedItemId(R.id.homeButtonBottomBar);
-                /*DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/                break;
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                break;
             case "NewsFragment":
                 loadFragment(new NewsFragment());
                 bottomNavigationView.setSelectedItemId(R.id.newButtonBottomBar);
-                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor()); */               break;
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                break;
             case "SearchViewFragment":
                 loadFragment(new SearchViewFragment());
                 bottomNavigationView.setSelectedItemId(R.id.searchViewBottomBar);
-                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.profile),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/                break;
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                break;
             case "UserFragment":
                 loadFragment(new UserFragment());
                 bottomNavigationView.setSelectedItemId(R.id.profileButtonBottomBar);
-                /*DrawableCompat.setTint(getDrawable(R.drawable.home),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.newsong),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());
-                DrawableCompat.setTint(getDrawable(R.drawable.searchview),db.userDao().getUserFromId(db.getActualUser()).getButtonColor());*/
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                break;
         }
+        bottomNavigationView.setItemIconTintList(null);
     }
-
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             Intent connexionActivity =new Intent(HomeActivity.this, MainActivity.class);
@@ -222,19 +220,34 @@ public class HomeActivity extends FragmentActivity implements BottomNavigationVi
     }
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         Fragment fragment = null;
-
         switch (item.getItemId()) {
             case R.id.homeButtonBottomBar:
                 fragment = new MainFragment();
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
                 break;
             case R.id.newButtonBottomBar:
                 fragment = new NewsFragment();
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
                 break;
             case R.id.searchViewBottomBar:
                 fragment = new SearchViewFragment();
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
                 break;
             case R.id.profileButtonBottomBar:
                 fragment = new UserFragment();
+                bottomNavigationView.getMenu().getItem(0).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(1).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(2).getIcon().setColorFilter(db.userDao().getUserFromId(db.getActualUser()).getButtonColor(), PorterDuff.Mode.SRC_ATOP);
+                bottomNavigationView.getMenu().getItem(3).getIcon().setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_ATOP);
                 break;
         }
         return loadFragment(fragment);
