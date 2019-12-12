@@ -14,9 +14,10 @@ public class UserModel {
     private int startColorGradient;
     private int endColorGradient;
     private int buttonColor;
+    private boolean isFingerPrint;
 
     public UserModel(){}
-    public UserModel(String username,String pswrd, String mailAdress,int avatar,int startColorGradient,int endColorGradient,int buttonColor){
+    public UserModel(String username,String pswrd, String mailAdress,int avatar,int startColorGradient,int endColorGradient,int buttonColor,boolean isFingerPrint){
         this.mailAdress=mailAdress;
         this.username=username;
         this.password=pswrd;
@@ -24,6 +25,7 @@ public class UserModel {
         this.startColorGradient=startColorGradient;
         this.endColorGradient=endColorGradient;
         this.buttonColor=buttonColor;
+        this.isFingerPrint=isFingerPrint;
     }
 
     public String getMailAdress() {
@@ -32,47 +34,61 @@ public class UserModel {
     public void setMailAdress(String mailAdress) {
         this.mailAdress = mailAdress;
     }
+
     public String getPassword(){
         return this.password;
     }
     public String getUsername() {
         return username;
     }
+
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
     }
+
     public void setUsername(String username) {
         this.username = username;
     }
     public void setPassword(String password) {
         this.password = password;
     }
+
     public int getAvatar() {
         return avatar;
     }
     public void setAvatar(int avatar) {
         this.avatar = avatar;
     }
+
     public int getStartColorGradient() {
         return startColorGradient;
     }
     public void setStartColorGradient(int startColorGradient) {
         this.startColorGradient = startColorGradient;
     }
+
     public int getEndColorGradient() {
         return endColorGradient;
     }
     public void setEndColorGradient(int endColorGradient) {
         this.endColorGradient = endColorGradient;
     }
+
     public int getButtonColor() {
         return buttonColor;
     }
     public void setButtonColor(int buttonColor) {
         this.buttonColor = buttonColor;
+    }
+
+    public boolean isFingerPrint() {
+        return isFingerPrint;
+    }
+    public void setFingerPrint(boolean fingerPrint) {
+        isFingerPrint = fingerPrint;
     }
 
 

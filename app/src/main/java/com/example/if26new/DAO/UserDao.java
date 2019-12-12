@@ -1,6 +1,5 @@
 package com.example.if26new.DAO;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -29,5 +28,8 @@ public interface UserDao {
 
     @Query("UPDATE UserModel SET startColorGradient=:startColorGradient, endColorGradient=:endColorGradient, buttonColor=:buttonColor  WHERE id=:id")
     int UpdateUserColor(int startColorGradient,int endColorGradient,int buttonColor, int id);
+
+    @Query("DELETE FROM UserModel WHERE id =:id")
+    void deleteUser(int id);
 
 }

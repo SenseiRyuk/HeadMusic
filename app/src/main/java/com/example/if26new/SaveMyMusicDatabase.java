@@ -77,6 +77,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("startColorGradient",0xFF482834);
                 contentValues.put("endColorGradient",0xFF1C3766);
                 contentValues.put("buttonColor",0XFF4A86E8);
+                contentValues.put("isFingerPrint",false);
                 db.insert("UserModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 

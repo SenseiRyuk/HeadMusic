@@ -140,10 +140,10 @@
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.684"
+        app:layout_constraintHorizontal_bias="0.715"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.653"
         app:srcCompat="@drawable/confirm" />
 
     <ImageButton
@@ -156,10 +156,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/confirm"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.915"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.654"
         app:srcCompat="@drawable/delete"></ImageButton>
 
     <ImageButton
@@ -174,4 +174,16 @@
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         app:layout_constraintVertical_bias="0.038"
         app:srcCompat="@drawable/returnmenu"></ImageButton>
+
+    <Switch
+        android:id="@+id/enableFingerPrintRecognition"
+        android:layout_width="190dp"
+        android:layout_height="40dp"
+        android:text="Unlock this account with your finger print ?"
+        app:layout_constraintBottom_toTopOf="@+id/delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fieldForConfirmPassword"
+        app:layout_constraintVertical_bias="0.402" />
 </androidx.constraintlayout.widget.ConstraintLayout>
