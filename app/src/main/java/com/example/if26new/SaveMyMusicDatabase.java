@@ -338,7 +338,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("albumId",1);
                 contentValues.put("artistId",1);
                 contentValues.put("titleSingle","Sunflower");
-                contentValues.put("isNew",true);
+                contentValues.put("isNew",false);
                 contentValues.put("music",R.raw.postmalone_sunflower);
                 contentValues.put("video",R.raw.postmalone_sunflower_video);
                 contentValues.put("lyrics",R.raw.sunflower_postmalone_lyrics);
@@ -371,7 +371,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("albumId",2);
                 contentValues.put("artistId",1);
                 contentValues.put("titleSingle","Rockstar");
-                contentValues.put("isNew",false);
+                contentValues.put("isNew",true);
                 contentValues.put("music",R.raw.postmalone_rockstar);
                 contentValues.put("video",R.raw.postmalone_rockstar_video);
                 contentValues.put("lyrics",R.raw.rockstar_postmalone_lyrics);
@@ -382,7 +382,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("albumId",3);
                 contentValues.put("artistId",2);
                 contentValues.put("titleSingle","Thank U, Next");
-                contentValues.put("isNew",true);
+                contentValues.put("isNew",false);
                 contentValues.put("music",R.raw.arianagrande_thank);
                 contentValues.put("video",R.raw.arianagrande_thank_video);
                 contentValues.put("lyrics",R.raw.thanku_ariana_lyrics);
@@ -393,7 +393,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("albumId",3);
                 contentValues.put("artistId",2);
                 contentValues.put("titleSingle","7 rings");
-                contentValues.put("isNew",true);
+                contentValues.put("isNew",false);
                 contentValues.put("music",R.raw.arianagrande_sevenrings);
                 contentValues.put("video",R.raw.arianagrande_sevenrings_video);
                 contentValues.put("lyrics",R.raw.sevenrings_ariana_lyrics);
