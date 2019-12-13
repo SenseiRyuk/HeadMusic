@@ -322,7 +322,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 db.insert("ArtistModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
-               /*contentValues.put("id",11);
+               /* contentValues.put("id",11);
                 contentValues.put("userId",0);
                 contentValues.put("name","VSO");
                 contentValues.put("topArtist",0);
@@ -422,7 +422,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
-                contentValues.put("id",9);
+                /*contentValues.put("id",9);
                 contentValues.put("albumId",0);
                 contentValues.put("artistId",3);
                 contentValues.put("titleSingle","Mama he");
@@ -464,7 +464,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 contentValues.put("video",R.raw.vegedream_bonne_video);
                 contentValues.put("lyrics",R.raw.elleestbonnesamere_vegedream_lyrics);
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
-                contentValues.clear();
+                contentValues.clear();*/
 
                 contentValues.put("id",13);
                 contentValues.put("albumId",0);
@@ -719,7 +719,7 @@ public abstract class SaveMyMusicDatabase extends RoomDatabase {
                 db.insert("SingleModel", OnConflictStrategy.IGNORE, contentValues);
                 contentValues.clear();
 
-               /* contentValues.put("id",36);
+                /*contentValues.put("id",36);
                 contentValues.put("albumId",0);
                 contentValues.put("artistId",11);
                 contentValues.put("titleSingle","Bordeaux-Lilas");
