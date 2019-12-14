@@ -84,7 +84,15 @@ public class SettingActivity extends AppCompatActivity{
                 gd = new GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, new int[] {0xFF482834,0xFF1C3766});
                 gd.setCornerRadius(0f);
                 layout.setBackground(gd);
-                db.userDao().UpdateUserColor(0xFF482834,0xFF1C3766,db.userDao().getUserFromId(db.getActualUser()).getButtonColor(),db.getActualUser());
+
+                startBtn.setBackground(roundbuttonSetting(0xFF4A86E8,startBtn.getText().toString()));
+                stopBtn.setBackground(roundbuttonSetting(0xFF4A86E8,stopBtn.getText().toString()));
+                colorbtn.setBackground(roundbuttonSetting(0xFF4A86E8,colorbtn.getText().toString()));
+                apply.setBackground(roundbuttonSetting(0xFF4A86E8,apply.getText().toString()));
+                DrawableCompat.setTint(logOut.getDrawable(),0xFF4A86E8);
+                defaultColor.setBackground(roundbuttonSetting(0xFF4A86E8,defaultColor.getText().toString()));
+                DrawableCompat.setTint(returnButton.getDrawable(),0xFF4A86E8);
+                db.userDao().UpdateUserColor(0xFF482834,0xFF1C3766,0xFF4A86E8,db.getActualUser());
             }
         });
         startBtn=findViewById(R.id.startButton);

@@ -96,7 +96,6 @@ public class SignInActivity extends AppCompatActivity {
 
 
     public int testMailAddressAndPassword(String mailAddress, String password, String username){
-        UserModel[] allUsers=db.userDao().loadAllUsers();
         int isMail = 0;
         int isPassword = 0;
         if (username.isEmpty()){
