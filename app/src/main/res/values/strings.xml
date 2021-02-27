@@ -1,7 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Heady</string>
     <string name="Hello">Hello World</string>
-
+    <string name="startColor">#222222</string>
+    <string name="endColor">#000000</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

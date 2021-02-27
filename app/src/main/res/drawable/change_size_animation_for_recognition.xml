@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/animation_color_for_recognition" android:oneshot="false">
+    <item android:drawable="@drawable/logocolor1" android:duration="200" />
+    <item android:drawable="@drawable/logocolor2" android:duration="200" />
+    <item android:drawable="@drawable/logocolor3" android:duration="200" />
+    <item android:drawable="@drawable/logocolor4" android:duration="200" />
+    <item android:drawable="@drawable/logocolor5" android:duration="200" />
+    <item android:drawable="@drawable/logocolor6" android:duration="200" />
+</animation-list>

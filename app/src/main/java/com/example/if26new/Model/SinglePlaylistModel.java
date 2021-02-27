@@ -1,8 +1,11 @@
 package com.example.if26new.Model;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+
+import java.util.ArrayList;
 
 @Entity(foreignKeys = @ForeignKey(entity=PlaylistModel.class, parentColumns = "id", childColumns = "playlistId", onDelete = ForeignKey.CASCADE))
 public class SinglePlaylistModel {
@@ -11,7 +14,12 @@ public class SinglePlaylistModel {
     private int playlistId;
     private String songName;
     private String artistName;
-    private int lyrics;
+    private String songID;
+    private String TrackDuration;
+    private String albumImage;
+
+    @ColumnInfo(name = "nameAllMusicInAlbumDeezer", index = true) //just add index = true
+    private boolean isForDeezer=false;
 
     public SinglePlaylistModel(){}
     public SinglePlaylistModel(int playlistId,String songName, String artistName){
@@ -48,13 +56,40 @@ public class SinglePlaylistModel {
         this.id = id;
     }
 
-    public int getLyrics() {
-        return lyrics;
+
+    public boolean isForDeezer() {
+        return isForDeezer;
     }
 
-    public void setLyrics(int lyrics) {
-        this.lyrics = lyrics;
+    public void setForDeezer(boolean forDeezer) {
+        isForDeezer = forDeezer;
     }
 
+    public String getTrackDuration() {
+        return TrackDuration;
+    }
+
+    public void setTrackDuration(String trackDuration) {
+        TrackDuration = trackDuration;
+    }
+
+
+
+    public String getSongID() {
+        return songID;
+    }
+
+    public void setSongID(String songID) {
+        this.songID = songID;
+    }
+
+
+    public String getAlbumImage() {
+        return albumImage;
+    }
+
+    public void setAlbumImage(String albumImage) {
+        this.albumImage = albumImage;
+    }
 
 }

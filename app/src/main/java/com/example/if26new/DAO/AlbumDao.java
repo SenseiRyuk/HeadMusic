@@ -9,14 +9,15 @@ import androidx.room.Update;
 
 
 import com.example.if26new.Model.AlbumModel;
+import com.example.if26new.Model.ArtistModel;
 
 import java.util.List;
 
 @Dao
 public interface AlbumDao {
 
-    @Query("SELECT * FROM AlbumModel WHERE userId = :userId")
-    AlbumModel[] getAlbumFromUser(int userId);
+    /*@Query("SELECT * FROM AlbumModel WHERE userId = :userId")
+    AlbumModel[] getAlbumFromUser(int userId);*/
 
     @Query("SELECT * FROM AlbumModel WHERE artistId = :artistId")
     AlbumModel[] getAlbumFromArtist(int artistId);
@@ -33,18 +34,15 @@ public interface AlbumDao {
     @Query("SELECT * FROM AlbumModel WHERE id =:id")
     AlbumModel getAlbumFromId(int id);
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    long insertAlbum(AlbumModel album);
-
-    @Update
-    int updateAlbum(AlbumModel album);
-
     @Query("UPDATE AlbumModel SET isLike = :islike WHERE id =:id")
     void updateLike(boolean islike, int id);
 
     @Query("DELETE FROM AlbumModel WHERE id = :albumId")
     int deleteAlbum(int albumId);
 
-    @Query("SELECT * FROM AlbumModel WHERE isLike = :islike")
-    AlbumModel[] getLikedAlbum(boolean islike);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    long insertAlbum(AlbumModel albumModel);
+
+//    @Query("SELECT * FROM AlbumModel WHERE isLike = :islike")
+//    AlbumModel[] getLikedAlbum(boolean islike);
 }

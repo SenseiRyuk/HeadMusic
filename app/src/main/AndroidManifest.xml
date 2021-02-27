@@ -16,14 +16,19 @@
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
-    <uses-feature android:name="android.hardware.fingerprint"
-        android:required="true"/>
+    <uses-feature
+        android:name="android.hardware.fingerprint"
+        android:required="true" />
 
     <permission
         android:name="com.example.permission.MAPS_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="com.example.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -32,16 +37,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <activity android:name=".Radio.RadioActivity"></activity>
+        <activity android:name=".Podcast.PodcastActivity" />
+        <activity android:name=".Search.Themes.ThemeActivityForSearchView" />
         <activity android:name=".Model.ArtistModel" />
         <activity android:name=".Model.ConcertModel" />
         <activity android:name=".Model.SingleModel" />
         <activity android:name=".Model.AlbumModel" />
-        <activity android:name=".ConcertActivity" />
-        <activity android:name=".ActivityArtist" />
-        <activity android:name=".Album_view" />
-        <activity android:name=".PlaylistView" />
+        <activity android:name=".Concert.ConcertActivity" />
+        <activity android:name=".Artists.Local.ActivityArtist" />
+        <activity android:name=".Albums.Album_view" />
+        <activity android:name=".Playlist.PlaylistView" />
+        <activity android:name=".Playlist.Deezer_Playlist" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SignIn_LogIn.MainActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,18 +62,30 @@
             android:name=".HomeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Listening"
+            android:name=".Artists.Deezer.ActivityArtistForDeezerSearch"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SettingActivity"
+            android:name=".Albums.Album_view_For_Deezer"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".Listening.ListeningForDeezer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Listening.Listening"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Setting.SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignIn_LogIn.SignInActivity"
             android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyDAykEAt9NiRQjNnk-kFPQfI4jZYQxg0vM" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3940256099942544~3347511713" />
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@
     <color name="ButtonBlue">#4A86E8</color>
     <color name="White">#FFFFFF</color>
     <color name="Redlight">#482834</color>
-    <color name="StartColor">#482834</color>
-    <color name="EndColor">#1C3766</color>
+  <!--  <color name="StartColor">#482834</color>
+    <color name="EndColor">#1C3766</color> -->
+    <color name="StartColor">#222222</color>
+    <color name="EndColor">#000000</color>
 </resources>

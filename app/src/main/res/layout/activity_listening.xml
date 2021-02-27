@@ -5,84 +5,163 @@
     android:id="@+id/layoutListening"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.if26new.Listening"
+    tools:context="com.example.if26new.Listening.Listening"
     android:background="@drawable/gradientbackground">
 
     <!--app:srcCompat="@drawable/hazy"
         android:scaleType="fitXY"
         android:adjustViewBounds="true" -->
 
-    <TextView
-        android:id="@+id/lyricsText"
-        android:layout_width="315dp"
-        android:layout_height="315dp"
-        android:text="Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. "
-        android:textColor="#FFFFFF"
+    <Switch
+        android:id="@+id/switch_Video_Audio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="156dp"
+        android:text="Video "
+        android:textColor="#ffffff"
         android:textSize="20dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="@+id/imageAlbum"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/retunrListening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/returnmenu" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/ArtistIDinListening"
+        app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retunrListening"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/retunrListening">
 
-    <VideoView
-        android:id="@+id/videoView"
-        android:layout_width="342dp"
-        android:layout_height="239dp"
-        android:layout_marginBottom="56dp"
-        android:clickable="true"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/ArtistIDinListening"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent" />
+        <ImageView
+            android:id="@+id/imageAlbum"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteY="12dp" />
+
+        <TextView
+            android:id="@+id/lyricsText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. Scrollable TextView in android application, how to make android textview scroollable without using scrollview. "
+            android:textColor="#FFFFFF"
+            android:textSize="20dp"
+            android:visibility="invisible" />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="true"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.832" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <TextView
         android:id="@+id/ArtistIDinListening"
-        android:layout_width="378dp"
-        android:layout_height="41dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="264dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:singleLine="true"
-        android:text="Post Malone - Better Now"
         android:textColor="#FFFFFF"
-        android:textSize="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="28sp"
+        app:layout_constraintBottom_toTopOf="@+id/AlbumIDinListening"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/AlbumIDinListening"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/seekBarMusic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <SeekBar
+        android:id="@+id/seekBarMusic"
+        android:layout_width="match_parent"
+        android:layout_height="32dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="25dp"
+        android:progressBackgroundTint="#FFFFFF"
+        android:progressTint="#FFFFFF"
+        android:thumbTint="#4A86E8"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <ImageView
-        android:id="@+id/imageAlbum"
-        android:layout_width="315dp"
-        android:layout_height="315dp"
-        android:layout_marginTop="42dp"
-        android:layout_marginBottom="7dp"
-        app:layout_constraintBottom_toTopOf="@+id/ArtistIDinListening"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
+    <TextView
+        android:id="@+id/currentDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retunrListening"
-        app:layout_constraintVertical_bias="0.989" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBarMusic" />
+
+    <TextView
+        android:id="@+id/totalDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:singleLine="true"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seekBarMusic" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:layout_marginTop="12dp"
         android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarMusic">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
             android:id="@+id/replayButton"
             android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_height="match_parent"
             android:background="@null"
             app:srcCompat="@drawable/loop"
             tools:layout_editor_absoluteX="1dp"
@@ -91,7 +170,7 @@
         <ImageButton
             android:id="@+id/previousMusic"
             android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             app:srcCompat="@drawable/previouslistening"
@@ -101,8 +180,9 @@
         <ImageButton
             android:id="@+id/playButton"
             android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_height="match_parent"
             android:background="@null"
+            android:layout_weight="1"
             app:srcCompat="@drawable/playlistening"
             tools:layout_editor_absoluteX="172dp"
             tools:layout_editor_absoluteY="557dp" />
@@ -110,7 +190,7 @@
         <ImageButton
             android:id="@+id/nextMusic"
             android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@null"
             app:srcCompat="@drawable/nextlistening"
@@ -118,114 +198,55 @@
             tools:layout_editor_absoluteY="557dp" />
 
         <ImageButton
-            android:id="@+id/switchVideoAudio"
+            android:id="@+id/imageButton"
             android:layout_width="68dp"
-            android:layout_height="68dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
             android:background="@null"
-            app:srcCompat="@drawable/video"
-            tools:layout_editor_absoluteX="344dp"
-            tools:layout_editor_absoluteY="557dp" />
+            app:srcCompat="@drawable/shuffle" />
+
     </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/seekBarMusic"
-        android:layout_width="381dp"
-        android:layout_height="32dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="19dp"
-        android:progressBackgroundTint="#FFFFFF"
-        android:progressTint="#FFFFFF"
-        android:thumbTint="#4A86E8"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/AlbumIDinListening" />
-
-    <ImageButton
-        android:id="@+id/addPlaylistButton"
-        android:layout_width="68dp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
         android:layout_height="68dp"
-        android:background="@null"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/addplaylist" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <ImageButton
-        android:id="@+id/likeButton"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/likenoclick" />
+        <ImageButton
+            android:id="@+id/likeButton"
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            app:srcCompat="@drawable/likenoclick" />
 
-    <TextView
-        android:id="@+id/AlbumIDinListening"
-        android:layout_width="378dp"
-        android:layout_height="41dp"
-        android:gravity="center"
-        android:singleLine="true"
-        android:text="Beerbongs and Bentleys"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ArtistIDinListening"
-        app:layout_constraintVertical_bias="0.0" />
+        <Space
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/totalDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:singleLine="true"
-        android:text=""
-        android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarMusic" />
+        <Space
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-    <TextView
-        android:id="@+id/currentDuration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:singleLine="true"
-        android:text=""
-        android:textColor="#FFFFFF"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBarMusic" />
+        <Space
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
 
-    <ImageButton
-        android:id="@+id/lyricsButton"
-        android:layout_width="68dp"
-        android:layout_height="68dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/addPlaylistButton"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toEndOf="@+id/likeButton"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/lyrics" />
+        <ImageButton
+            android:id="@+id/addPlaylistButton"
+            android:layout_width="68dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            app:srcCompat="@drawable/addplaylist" />
 
-    <ImageButton
-        android:id="@+id/retunrListening"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:background="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/returnmenu" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

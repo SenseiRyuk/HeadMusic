@@ -4,36 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.if26new.UserFragment">
+    tools:context="com.example.if26new.Library.UserFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/fragmentContainterForUser"
-        android:layout_width="412dp"
-        android:layout_height="731dp">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPagerUser"
-            android:layout_width="0dp"
-            android:layout_height="461dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/viewPagerUser"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:tabIndicatorColor="@color/ButtonBlue"
             app:tabSelectedTextColor="#FFFFFF">
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="My Playlists"
+                android:text="Playlists"
                 android:textColor="#FFFFFF" />
 
             <com.google.android.material.tabs.TabItem
@@ -47,43 +41,89 @@
                 android:layout_height="wrap_content"
                 android:text="Albums"
                 android:textColor="#FFFFFF" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tracks"
+                android:textColor="#FFFFFF" />
         </com.google.android.material.tabs.TabLayout>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:src="@drawable/hazy1"
-            app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.275" />
+            app:layout_constraintTop_toBottomOf="@+id/tabLayout">
 
-        <Button
-            android:id="@+id/createNewPlaylist"
-            android:layout_width="125dp"
-            android:layout_height="25dp"
-            android:layout_marginTop="3dp"
-            android:background="@drawable/roundbutton"
-            android:text="New Playlist"
-            app:layout_constraintBottom_toTopOf="@+id/tabLayout"
+            <TextView
+                android:id="@+id/textViewUserFragment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="TextView"
+                android:textColor="#ffffff"
+                android:textSize="23dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageViewForLineFirstUserFragment"
+                android:layout_width="2dp"
+                android:layout_height="3dp"
+                android:layout_marginStart="10dp"
+                android:background="#000000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewUserFragment" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/RV_Recommanded_User"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewForLineFirstUserFragment" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPagerUser"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            app:layout_constraintTop_toBottomOf="@+id/imageViewForLineSecondUserFragment">
+
+        </androidx.viewpager.widget.ViewPager>
 
         <TextView
-            android:id="@+id/onPressTextView"
-            android:layout_width="132dp"
-            android:layout_height="40dp"
-            android:text="Click to change your profile picture"
-            android:gravity="center"
-            android:background="#04000000"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/TV_Type_Of_View_Pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="6dp"
+            android:text="Artists followed "
+            android:textColor="#ffffff"
+            android:textSize="23dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+        <ImageView
+            android:id="@+id/imageViewForLineSecondUserFragment"
+            android:layout_width="3dp"
+            android:layout_height="3dp"
+            android:layout_marginStart="10dp"
+            android:background="#000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TV_Type_Of_View_Pager" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

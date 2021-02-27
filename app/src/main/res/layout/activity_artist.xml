@@ -5,22 +5,80 @@
     android:id="@+id/layoutArtist"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground">
+    android:background="#000000">
 
+    <ImageView
+        android:id="@+id/imageArtistID"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:foreground="@drawable/gradientforphoto"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/followTxtID"
+        android:layout_width="wrap_content"
+        android:layout_height="31dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/roundbuttontransparent"
+        android:text="Follow"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/returnButtonArtistView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="20dp"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/returnmenu" />
+
+    <TextView
+        android:id="@+id/nameArtistID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nom de l'artiste"
+        android:textColor="#FFFFFF"
+        android:textSize="34dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.823" />
+
+    <TextView
+        android:id="@+id/numberOfFan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1 253 452 Fans"
+        android:textColor="#FFFFFF"
+        android:textSize="26dp"
+        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameArtistID"
+        app:layout_constraintVertical_bias="0.363" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tableLayoutArtistID"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/viewPagerArtistID"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/imageArtistID"
         app:tabIndicatorColor="@color/ButtonBlue">
 
         <com.google.android.material.tabs.TabItem
+            android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Albums" />
@@ -36,61 +94,15 @@
             android:text="Bio" />
     </com.google.android.material.tabs.TabLayout>
 
-    <ImageView
-        android:id="@+id/imageArtistID"
-        android:layout_width="wrap_content"
-        android:layout_height="175dp"
-        android:layout_marginBottom="92dp"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/postmalone" />
-
-    <TextView
-        android:id="@+id/nameArtistID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nom de l'artiste"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageArtistID" />
-
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPagerArtistID"
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="0dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/followTxtID"
-        android:layout_width="114dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginBottom="21dp"
-        android:background="@drawable/roundbutton"
-        android:text="Follow"
-        app:layout_constraintBottom_toTopOf="@+id/tableLayoutArtistID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameArtistID"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageButton
-        android:id="@+id/returnButtonArtistView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
-        android:background="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/returnmenu" />
+        app:layout_constraintTop_toBottomOf="@+id/tableLayoutArtistID" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

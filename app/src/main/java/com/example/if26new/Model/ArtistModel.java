@@ -21,6 +21,10 @@ public class ArtistModel {
     private int bio;
     private int image;
     private boolean isLike;
+    private String deezerID;
+    private boolean isDeezer=false;
+    private String imageDeezer;
+    private String numberOfFans="50";
 
 public ArtistModel(){}
     public ArtistModel(int id, int userId, String name, int topArtist, int bio, int image, boolean isLike) {
@@ -31,6 +35,7 @@ public ArtistModel(){}
         this.bio = bio;
         this.image = image;
         this.isLike=isLike;
+        this.isDeezer=false;
     }
 
     public int getId() {
@@ -81,4 +86,40 @@ public ArtistModel(){}
     public void setLike(boolean like) {
         isLike = like;
     }
+
+
+    public String getDeezerID() {
+        return deezerID;
+    }
+
+    public void setDeezerID(String deezerID) {
+        this.deezerID = deezerID;
+    }
+
+    public boolean getDeezer() {
+        return isDeezer;
+    }
+
+    public void setDeezer(Boolean deezer) {
+        isDeezer = deezer;
+    }
+
+    public String getImageDeezer() {
+        return imageDeezer;
+    }
+
+    public void setImageDeezer(String imageDeezer) {
+        this.imageDeezer = imageDeezer;
+    }
+
+
+    public String getNumberOfFans() {
+        return numberOfFans;
+    }
+
+    public void setNumberOfFans(String numberOfFans) {
+        this.numberOfFans = numberOfFans;
+    }
+
+
 }

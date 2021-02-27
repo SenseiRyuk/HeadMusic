@@ -5,105 +5,88 @@
     android:id="@+id/backgroundHomeActivity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradientbackground"
     tools:context="com.example.if26new.HomeActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/musicBar"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottonView"
+    <LinearLayout
+        android:id="@+id/LL_Main_Activity"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/LL_Navigation_View"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="#000000"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:id="@+id/imageViewHome"
-                android:layout_width="25dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@null"
-                android:layout_gravity="center"
-                android:src="@drawable/profile" />
-
-            <LinearLayout
-                android:layout_width="325dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/musicTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:text="Song Name"
-                    android:singleLine="true"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/artistTitleHome"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:singleLine="true"
-                    android:text="Artist Name"
-                    android:textColor="#FFFFFF" />
-
-            </LinearLayout>
+            android:layout_height="40dp"
+            android:background="#000000">
 
             <ImageButton
-                android:id="@+id/playPauseHome"
-                android:layout_width="25dp"
+                android:id="@+id/IB_Recognition"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_marginStart="16dp"
                 android:background="@null"
-                android:layout_gravity="center"
-                android:src="@drawable/play" />
+                android:src="@drawable/audio_wave"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </LinearLayout>
+            <ImageButton
+                android:id="@+id/settingBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:background="@null"
+                android:src="@drawable/setting"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Heady"
+                android:textColor="#ffffff"
+                android:textSize="20dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.567" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottonView"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#1C376E"
-        app:itemIconTint="@color/White"
-        app:itemTextColor="@color/White"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragmentContainter"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/fragmentContainter"
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/LL_Navigation_View"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/musicBar"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
-        app:layout_constraintVertical_bias="0.431">
+        app:layout_constraintStart_toStartOf="parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottonView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#1C376E"
+            app:itemIconTint="@color/White"
+            app:itemTextColor="@color/White"
+            app:menu="@menu/bottom_navigation_menu" />
+    </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/settingBtn"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
-        android:background="@null"
-        android:src="@drawable/setting"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.98"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

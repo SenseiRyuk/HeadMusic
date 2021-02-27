@@ -8,21 +8,16 @@
         android:title="HOME"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/newButtonBottomBar"
-        android:enabled="true"
-        android:icon="@drawable/newselector"
-        android:title="NEWS"
-        app:showAsAction="ifRoom" />
-    <item
         android:id="@+id/searchViewBottomBar"
         android:enabled="true"
         android:icon="@drawable/searchselector"
         android:title="SEARCH"
         app:showAsAction="ifRoom" />
+
     <item
         android:id="@+id/profileButtonBottomBar"
         android:enabled="true"
         android:icon="@drawable/profileselector"
-        android:title="PROFILE"
+        android:title="LIBRARY"
         app:showAsAction="ifRoom" />
 </menu>

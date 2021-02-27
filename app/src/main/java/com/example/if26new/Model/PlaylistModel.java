@@ -12,18 +12,26 @@ public class PlaylistModel {
     private int userId;
     private String titles;
     private int image;
+    private String imageDeezer;
 
     public PlaylistModel(){}
     public PlaylistModel(int userId,String title, int imageButton){
         this.userId=userId;
         this.titles=title;
         this.image=imageButton;
+        imageDeezer=null;
+    }
+
+    public String getImageDeezer() {
+        return imageDeezer;
+    }
+    public void setImageDeezer(String imageDeezer) {
+        this.imageDeezer = imageDeezer;
     }
 
     public int getId() {
         return id;
     }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -31,7 +39,6 @@ public class PlaylistModel {
     public int getUserId() {
         return userId;
     }
-
     public void setUserId(int userId) {
         this.userId = userId;
     }
@@ -39,7 +46,6 @@ public class PlaylistModel {
     public String getTitles() {
         return titles;
     }
-
     public void setTitles(String titles) {
         this.titles = titles;
     }
@@ -47,7 +53,6 @@ public class PlaylistModel {
     public int getImage() {
         return image;
     }
-
     public void setImage(int imageButton) {
         image = imageButton;
     }

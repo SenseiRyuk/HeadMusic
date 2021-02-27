@@ -40,7 +40,7 @@
                     android:adjustViewBounds="true"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/arianagrande" />
+                    app:srcCompat="@drawable/song_not_found_image" />
 
                 <TextView
                     android:id="@+id/fragment_main_item_title"
